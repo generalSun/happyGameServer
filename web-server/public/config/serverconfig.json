@@ -1,26 +1,26 @@
 {
 	"dev":{
 		"Server":{
-			"host":"127.0.0.1",
+			"host":"192.168.118.128",
 			"port":3014
 		},
-		"UpdateUrl":"127.0.0.1:3001/update",
-		"HeadUrl":"127.0.0.1:3001/head/"
+		"UpdateUrl":"192.168.118.128:3001/update",
+		"HeadUrl":"192.168.118.128:3001/head/"
 	},
 	"test":{
 		"Server":{
-			"host":"127.0.0.1",
+			"host":"192.168.118.128",
 			"port":3014
 		},
-		"UpdateUrl":"127.0.0.1:3001/update",
-		"HeadUrl":"127.0.0.1:3001/head/"
+		"UpdateUrl":"192.168.118.128:3001/update",
+		"HeadUrl":"192.168.118.128:3001/head/"
 	},
 	"formal":{
 		"Server":{
-			"host":"127.0.0.1",
+			"host":"192.168.118.128",
 			"port":3014
 		},
-		"UpdateUrl":"127.0.0.1:3001/update",
-		"HeadUrl":"127.0.0.1:3001/head/"
+		"UpdateUrl":"192.168.118.128:3001/update",
+		"HeadUrl":"192.168.118.128:3001/head/"
 	}
 }
