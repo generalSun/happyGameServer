@@ -1,9 +1,9 @@
 {
     "development":{
         "connector":[
-            {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true},
-            {"id":"connector-server-2", "host":"127.0.0.1", "port":4051, "clientPort": 3051, "frontend": true},
-            {"id":"connector-server-3", "host":"127.0.0.1", "port":4052, "clientPort": 3052, "frontend": true}
+            {"id":"connector-server-1", "host":"192.168.118.128", "port":4050, "clientPort": 3050, "frontend": true},
+            {"id":"connector-server-2", "host":"192.168.118.128", "port":4051, "clientPort": 3051, "frontend": true},
+            {"id":"connector-server-3", "host":"192.168.118.128", "port":4052, "clientPort": 3052, "frontend": true}
         ],
         "mj":[
             {"id":"mj-server-110-1", "host":"127.0.0.1", "port":7250},
@@ -17,14 +17,14 @@
             {"id":"auth-server-1", "host":"127.0.0.1", "port":5050}
         ],
         "gate":[
-           {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true}
+           {"id": "gate-server-1", "host": "192.168.118.128", "clientPort": 3014, "frontend": true}
         ]
     },
     "production":{
         "connector":[
-            {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true},
-            {"id":"connector-server-2", "host":"127.0.0.1", "port":4051, "clientPort": 3051, "frontend": true},
-            {"id":"connector-server-3", "host":"127.0.0.1", "port":4052, "clientPort": 3052, "frontend": true}
+            {"id":"connector-server-1", "host":"192.168.118.128", "port":4050, "clientPort": 3050, "frontend": true},
+            {"id":"connector-server-2", "host":"192.168.118.128", "port":4051, "clientPort": 3051, "frontend": true},
+            {"id":"connector-server-3", "host":"192.168.118.128", "port":4052, "clientPort": 3052, "frontend": true}
         ],
         "chat":[
             {"id":"chat-server-1", "host":"127.0.0.1", "port":6050},
@@ -43,7 +43,7 @@
             {"id":"auth-server-1", "host":"127.0.0.1", "port":5050}
         ],
         "gate":[
-           {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true}
+           {"id": "gate-server-1", "host": "192.168.118.128", "clientPort": 3014, "frontend": true}
         ]
     }
 }
