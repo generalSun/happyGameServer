@@ -1,0 +1,26 @@
+{
+	"dev":{
+		"Server":{
+			"host":"127.0.0.1",
+			"port":3014
+		},
+		"UpdateUrl":"127.0.0.1:3001/update",
+		"HeadUrl":"127.0.0.1:3001/head/"
+	},
+	"test":{
+		"Server":{
+			"host":"127.0.0.1",
+			"port":3014
+		},
+		"UpdateUrl":"127.0.0.1:3001/update",
+		"HeadUrl":"127.0.0.1:3001/head/"
+	},
+	"formal":{
+		"Server":{
+			"host":"127.0.0.1",
+			"port":3014
+		},
+		"UpdateUrl":"127.0.0.1:3001/update",
+		"HeadUrl":"127.0.0.1:3001/head/"
+	}
+}
