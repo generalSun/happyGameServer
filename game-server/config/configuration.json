@@ -8,7 +8,7 @@
     }
   },
   "mysql": {
-    "host": "192.168.118.128",
+    "host": "192.168.0.102",
     "database": "pomeloGame",
     "password": "wewcsnm1234",
     "user": "root"
