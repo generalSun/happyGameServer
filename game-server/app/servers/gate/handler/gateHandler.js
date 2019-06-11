@@ -31,7 +31,7 @@ Handler.prototype.queryEntry = function (msg, session, next) {
 	var res = dispatcher.dispatch(new Date().getTime().toString(), connectors);
 	next(null, {
 		code: 200,
-		host: "192.168.1.211",
+		host: res.clientHost,
 		port: res.clientPort
 	});
 };
