@@ -4,8 +4,17 @@
   "private": false,
   "dependencies": {
     "crc": "0.2.0",
+    "@alicloud/sms-sdk": "^1.1.6",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "ioredis": "^4.6.2",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.11",
     "mysql": "^2.16.0",
-    "pomelo": "2.2.x",
-    "redis": "^2.8.0"
+    "mysql2": "^1.6.5",
+    "pomelo": "2.2.5",
+    "sequelize": "^4.43.0"
   }
 }

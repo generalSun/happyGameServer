@@ -1,15 +1,13 @@
-var dispatcher = require('../../../util/dispatcher');
-
-module.exports = function(app) {
+const dispatcher = require('../../../util/dispatcher');
+const logger = require('pomelo-logger').getLogger('common');
+const pomelo = require('pomelo');
+module.exports = function (app) {
 	return new Handler(app);
 };
-
-var Handler = function(app) {
+var Handler = function (app) {
+	let self = this;
 	this.app = app;
 };
-
-var handler = Handler.prototype;
-
 /**
  * Gate handler that dispatch user to connectors.
  *
@@ -18,27 +16,22 @@ var handler = Handler.prototype;
  * @param {Function} next next stemp callback
  *
  */
-handler.queryEntry = function(msg, session, next) {
-	var udid = msg.udid;
-	if(!udid) {
-		next(null, {
-			code: 500
-		});
-		return;
+Handler.prototype.queryEntry = function (msg, session, next) {
+	if (!this.app.startOver) {
+		return next(null, { code: -500, msg: '服务器启动中稍后连接' });
 	}
-	// get all connectors
 	var connectors = this.app.getServersByType('connector');
-	if(!connectors || connectors.length === 0) {
-		next(null, {
-			code: 500
+	if (!connectors || connectors.length === 0) {
+		logger.error('获取服务器列表失败', { connectors, msg });
+		return next(null, {
+			code: -500,
+			msg: '连接服务器失败'
 		});
-		return;
 	}
-	// select connector
-	var res = dispatcher.dispatch(udid, connectors);
+	var res = dispatcher.dispatch(new Date().getTime().toString(), connectors);
 	next(null, {
 		code: 200,
-		host: res.host,
+		host: "192.168.1.211",
 		port: res.clientPort
 	});
 };

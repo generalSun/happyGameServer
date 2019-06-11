@@ -1,0 +1,16 @@
+{
+  "redis": {
+    "url": "127.0.0.1",
+    "password": "",
+    "db": {
+      "userStatus": 1,
+      "configRedis": 2
+    }
+  },
+  "mysql": {
+    "host": "127.0.0.1",
+    "database": "pomelotest",
+    "password": "",
+    "user": "root"
+  }
+}
