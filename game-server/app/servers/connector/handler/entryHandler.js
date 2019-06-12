@@ -3,9 +3,9 @@ const pomelo = require('pomelo');
 let baseUser = require('../../../appserver/base/baseUser');
 const logger = require('pomelo-logger').getLogger('connect');
 const common = require('../../../util/common');
-const SocketCmd = require('./../../../appserver/cmd/socketCmd')
-var utils = require('./../../../util/utils');
-var Code = require('./../../../../../shared/code');
+const SocketCmd = require('../../../appserver/cmd/socketCmd')
+var utils = require('../../../util/utils');
+var Code = require('../../../../../shared/code');
 module.exports = function (app) {
 	return new Handler(app);
 };
@@ -75,3 +75,32 @@ var checkSMS = function(msg, session, next) {
 	var self = this;
 	self.app.rpc.auth.authRemote.checkSMS(msg, session, next);
 };
+
+var reloadGame = function(msg, session, next) {
+	var self = this;
+};
+
+var requestUserInfo = function(msg, session, next) {
+	var self = this;
+};
+
+var enterGroupLevel = function(msg, session, next) {
+	var self = this;
+};
+
+var getCreateFriendRoomConfig = function(msg, session, next) {
+	var self = this;
+};
+
+var createFriendRoom = function(msg, session, next) {
+	var self = this;
+};
+
+var enterFriendRoom = function(msg, session, next) {
+	var self = this;
+};
+
+var commonRoomMsg = function(msg, session, next) {
+	var self = this;
+};
+
