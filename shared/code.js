@@ -1,0 +1,23 @@
+module.exports = {
+	OK: 200, 
+	NO_HANDLER: 201,
+	FAIL: 500,
+
+	ROOM: {
+		GOLD_NOT_ENOUGH: 301,
+		GOLD_MORE_ENOUGH: 302,
+
+		GAME_PLAYING: 310,
+	},
+
+	ENTRY: {
+		FA_TOKEN_INVALID: 	1001, 
+		FA_TOKEN_EXPIRE: 	1002, 
+		FA_USER_NOT_EXIST: 	1003
+	}, 
+
+	GATE: {
+		FA_NO_SERVER_AVAILABLE: 2001
+	}, 
+
+};

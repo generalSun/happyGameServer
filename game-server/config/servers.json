@@ -11,8 +11,8 @@
         "room": [
             {"id":"room-1", "host":"127.0.0.1", "port":5704 }
         ],
-        "http": [
-            { "id":"http-1", "host":"127.0.0.1", "port":5705, "httpPort":5602}
+        "auth": [
+            { "id":"auth-1", "host":"127.0.0.1", "port":5705}
         ],
         "gate":[
            {"id": "gate-server-1", "host": "192.168.118.128", "clientPort": 3014, "frontend": true}
@@ -30,8 +30,8 @@
         "room": [
             {"id":"room-1", "host":"127.0.0.1", "port":5704 }
         ],
-        "http": [
-            { "id":"http-1", "host":"127.0.0.1", "port":5705, "httpPort":5602}
+        "auth": [
+            { "id":"auth-1", "host":"127.0.0.1", "port":5705}
         ],
         "gate":[
            {"id": "gate-server-1", "host": "192.168.118.128", "clientPort": 3014, "frontend": true}

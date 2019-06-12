@@ -30,7 +30,7 @@ app.configure('production|development', 'connector', function () {
   });
 });
 
-app.configure('production|development', 'connector|hall|room|http', function () {
+app.configure('production|development', 'connector|hall|room|auth', function () {
   app.db = require('./app/appserver/dao/dbfun');
   app.db.initConnect();
   app.redis = require('./app/appserver/dao/redisconnect');
@@ -43,15 +43,12 @@ app.configure('production|development', 'connector|hall|room|http', function () 
 app.configure('production|development', 'hall', function () {
   app.service = require('./app/appserver/hall/hallServices');
 });
+
 app.configure('production|development', 'room', function () {
   app.service = require('./app/appserver/room/roomServices');
   app.service.initRoom();
 });
 
-app.configure('production|staging|development', 'http', function () {
-  var Http = require('./app/appserver/http/http');
-  app.http = new Http(app.curServer.httpPort);
-});
 // start app
 app.start();
 
