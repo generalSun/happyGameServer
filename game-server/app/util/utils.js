@@ -1,151 +1,248 @@
-var utils = module.exports;
+"use strict";
+const TAG = "util/utils.js"
+const fs = require("fs");
+const util = require('util');
+const constant = require('../shared/constant');
+const base64 = require('./jbase64');
+const crypto = require('crypto');
+
+var utils  = module.exports;
 
 /**
- * 根据serverID获取场次
+ *@param   str 字符串
  */
-utils.getGroupLevelByServerID = function (serverID) {
-    if (typeof(serverID) == "string") {
-        var arr = serverID.split("-");
-        if (arr.length >= 3) {
-            return parseInt(arr[2]);
+utils.md5 = function(str){
+    let decipher = crypto.createHash('md5');
+    return decipher.update(str).digest('hex');
+}
+
+utils.rsaEncode = function(str){
+	var sign = crypto.createSign("RSA-MD5");
+	sign.update(str);
+	return sign.sign(constant.AB_PRIVATE_KEY, "base64");
+}
+
+utils.rsaDecode = function(rsaStr, clearCode){
+	var verify = crypto.createVerify("RSA-MD5");
+	verify.update(clearCode);
+	return verify.verify(constant.AB_PUBLIC_KEY, rsaStr, "base64");
+}
+
+utils.toArr = function () {
+	var arr = []
+	for (var key in this) {
+		if (typeof this[key] != 'function') {
+			arr.push(this[key])
+		}
+	}
+	return arr;
+}
+
+utils.toObject = function (obj) {
+	var new_obj = {};
+	for (var name in obj) {
+		if (typeof obj[name] != 'function') {
+			new_obj[name] = obj[name]
+		}
+	}
+	return new_obj
+}
+
+utils.objectToJson = function (obj) {
+	var jsonObj = {};
+	for (var name in obj) {
+		var type = typeof obj[name];
+		if (type !== 'function') {
+			if (Object.prototype.toString.call(obj[name]) === "[object Object]"){
+				jsonObj[name] = utils.objectToJson(obj[name]);
+			}else{
+				jsonObj[name] = obj[name];
+			}
+            // console.log("obj[name]",name,obj[name],new_obj[name]);
+		}
+	}
+	return jsonObj;
+}
+
+// callback util
+utils.invokeCallback = function (cb) {
+	if (!!cb && typeof cb == 'function') {
+		cb.apply(null, Array.prototype.slice.call(arguments, 1));
+	}
+};
+
+//指定长度
+utils.rand = function(num) {
+	var str = '';
+	for (var i = 0; i < num; ++i) {
+		str += Math.floor(Math.random() * 10);
+	}
+	return str;
+}
+
+utils.encodeBase64 = function(content){
+	return new Buffer(content).toString('base64');
+}
+
+utils.decodeBase64 = function(content){
+	return new Buffer(content, 'base64').toString();
+}
+
+utils.base64Decode = function(nickname){
+	var base = BASE64.decoder(nickname);
+	var str = '';
+	for(var i = 0 , len =  base.length ; i < len ;++i){
+		str += String.fromCharCode(base[i]);
+	}
+	return str;
+}
+
+utils.base64Encode = function(str){
+	var baseCode = BASE64.encoder(str);
+	return baseCode;
+}
+
+utils.AddTingType = function( tingtypeArr, cards, tingType ){
+	if( !cards || !tingtypeArr ){
+		return
+	}
+
+	if( (tingtypeArr instanceof  Array) && (cards instanceof Array) ){
+		for( let i = 0; i < cards.length; i ++ ){
+			let isExist = false;
+			for( let j = 0; j < tingtypeArr.length; j ++ ){
+				if( (tingtypeArr[j].card == cards[i].privatePoint) && (tingtypeArr[j].type == tingType)	){
+					isExist = true;
+				}
+			}
+
+		if( !isExist ){
+			tingtypeArr.push({card:cards[i].privatePoint, type:tingType});
+		}
+	}
+	}
+}
+
+// clone a object
+utils.clone = function (obj) {
+	// Handle the 3 simple types, and null or undefined
+	if (null == obj || "object" != typeof obj) 
+		return obj;	
+	// Handle Object
+	if (obj instanceof Array){
+		var copy = [];
+		for (var i = 0, len = obj.length; i < len; ++i) {
+		  copy[i] = utils.clone(obj[i]);
+		}
+		return copy;
+	}else if (obj instanceof Object) {
+	  var copy = {};
+	  for (var attr in obj) {
+	    if (obj.hasOwnProperty(attr)) 
+			copy[attr] = utils.clone(obj[attr]);
+	  }
+	  return copy;
+	}
+	throw new Error("Unable to copy obj! Its type isn't supported.");
+};
+
+
+utils.objectSize = function(obj) {
+    var count = 0;
+    for (var i in obj) {
+        if (obj.hasOwnProperty(i) && typeof obj[i] !== 'function') {
+            count++;
         }
     }
+    return count;
+};
+// Compare the two arrays and return the difference.
+utils.arrayDiff = function(array1, array2){
+	var o = {};
+	for (var i=0, len = array2.length; i < len; ++i){
+		o[array2[i]] = true;
+	}
+	var result = [];
+	for (i = 0, len = array1.length; i < len; ++i){
+		var v = array1[i];
+		if (o[v]) continue;
+		result.push(v);
+	}
+	return result;
+}
+
+utils.hasChineseChar = function(str){
+	if (/.*[\u4e00-\u9fa5]+.*$/.test(str)){
+		return true;
+	} else {
+		return false;
+	}
 };
 
-var print_r;
-print_r = function (obj, indent) {
-  if (typeof(obj) === "function") {
-    return "Function";
-  }
-    if (typeof(obj) !== "object") {
-        return obj;
-    }
-    var result_str = "\n";
-    indent = indent || 0;
-    for (var key in obj) {
-        var val = obj[key];
-        if (typeof(key) === "string") {
-            key = "\"" + key + "\"";
-        }
-        var szSuffix = "";
-        if (typeof(val) == "object") {
-            szSuffix = "{";
-        }
-        var szPrefix = new Array(indent + 1).join("    ");
-        var formatting = szPrefix + "[" + key + "]" + " = " + szSuffix;
-        if (typeof(val) == "object") {
-            result_str = result_str + formatting + "\n" + print_r(val, indent + 1) + szPrefix + "},\n"
-        } else {
-            var szValue = print_r(val)
-            result_str = result_str + formatting + szValue + ",\n"
-        }
-    }
-    return result_str;
+utils.isObject = function(arg){
+	return typeof arg === "object" && arg !== null;
 };
 
-/**
- * 检查mid是否合法
- */
-utils.midCheck = function (mid) {
-    if (mid && mid > 0) {
-        return true;
-    }
-
-    return false;
-};
-
-/**
- * print object
- */
-utils.printObj = function (obj) {
-    console.log(print_r(obj));
-};
-
-/**
- * Check and invoke callback function
- */
-utils.invokeCallback = function(cb) {
-    if(!!cb && typeof cb === 'function') {
-        cb.apply(null, Array.prototype.slice.call(arguments, 1));
-    }
-};
-
-/**
- * clone an object
- */
-utils.clone = function(origin) {
-    var result = Array.isArray(origin) ? [] : {};
-    for (var key in origin) {
-        if (origin.hasOwnProperty(key)) {
-            if (typeof origin[key] === 'object') {
-                result[key] = utils.clone(origin[key]);
-            } else {
-                result[key] = origin[key];
+utils.genRoomUniqueId = function(isExistRoom, next){
+    var cur = 0;
+    var _genUniqueId = function(){
+        var id = utils.rand(6);
+        isExistRoom(id, function(err, is){
+            if (err){
+                return next(err);
             }
-        }
+            if (is == 1){
+                cur++;
+                if (cur < 10){
+                    _genUniqueId();
+                }else{
+                    return next("超出生成id次数");
+                }
+            }else{
+                return next(null, id);
+            }
+        });
     }
-    return result;
+    _genUniqueId();
 };
 
-utils.size = function(obj) {
-    if(!obj) {
-        return 0;
+utils.genUserUniqueId = function(isHaveUserNo, next){
+    var cur = 0;
+    var _genUniqueId = function(){
+        var id = utils.rand(6);
+        isHaveUserNo(id, function(err, is){
+            if (err){
+                return next(err);
+            }
+            if (is == 1){
+                cur++;
+                if (cur < 10){
+                    _genUniqueId();
+                }else{
+                    return next("超出生成id次数");
+                }
+            }else{
+                return next(null, id);
+            }
+        });
     }
-
-    var size = 0;
-    for(var f in obj) {
-        if(obj.hasOwnProperty(f)) {
-            size++;
-        }
-    }
-
-    return size;
-};
-
-// print the file name and the line number ~ begin
-function getStack(){
-    var orig = Error.prepareStackTrace;
-    Error.prepareStackTrace = function(_, stack) {
-        return stack;
-    };
-    var err = new Error();
-    Error.captureStackTrace(err, arguments.callee);
-    var stack = err.stack;
-    Error.prepareStackTrace = orig;
-    return stack;
+    _genUniqueId();
 }
 
-function getFileName(stack) {
-    return stack[1].getFileName();
+utils.generateUniqueId = function(idLen, isExist, next){
+    var _genUniqueId = function(){
+		var id = utils.rand(idLen);
+        isExist(id, function(err, is){
+            if (err){
+				console.log("生成唯一Id redis报错, 5秒后重新生成  error:", err);
+                return setTimeout(_genUniqueId, 5000);
+            }
+            if (is == 1){
+                _genUniqueId();
+            }else{
+                return next(id);
+            }
+        });
+    }
+    _genUniqueId();
 }
-
-function getLineNumber(stack){
-    return stack[1].getLineNumber();
-}
-
-utils.debugTrace = function() {
-    var len = arguments.length;
-    if(len <= 0) {
-        return;
-    }
-    var stack = getStack();
-    var aimStr = '\'' + getFileName(stack) + '\' @' + getLineNumber(stack) + ' :\n';
-    for(var i = 0; i < len; ++i) {
-        aimStr += arguments[i] + ' ';
-    }
-    console.log('\n' + aimStr);
-};
-
-utils.randomNum = function (minNum, maxNum){
-    if (minNum == undefined || minNum == null) {
-        minNum = 0;
-    }
-
-    if (maxNum == undefined || maxNum == null) {
-        maxNum = 10;
-    }
-
-    var delta = maxNum + 1 - minNum;
-
-    return Math.floor(Math.random() * delta) + minNum;
-};

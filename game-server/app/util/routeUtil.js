@@ -1,73 +1,42 @@
-const exp = module.exports;
-const dispatcher = require('./dispatcher');
-const pomelo = require("pomelo");
-const common = require('./common');
-const logger = require('pomelo-logger').getLogger('common');
-let roomIdMap = {};
-exp.init = function () {
-  return pomelo.app.db.room.findAll({
-    where: { visual: 1 },
-    attributes: ['id', 'serverId']
-  })
-    .then((result) => {
-      for (let i = 0; i < result.length; i++){
-        roomIdMap[result[i].id] = result[i].serverId;
-      }
-      return Promise.resolve(roomIdMap);
-    })
+"use strict";
+const TAG = "routeUtil.js";
+var exp = module.exports;
+
+exp.homeRoute = function (session, msg, app, cb) {
+	var homeServers = app.getServersByType("home");
+	if (!homeServers || homeServers.length === 0) {
+		return cb(new Error('can not find room Servers.'));
+	}
+	var index = parseInt(homeServers.length * Math.random());
+	var res = homeServers[index];
+	cb(null, res.id);
+};
+
+exp.gameRoute = function(session, msg, app, cb){
+	var gameServers = app.getServersByType(msg.serverType);
+	if (!gameServers || gameServers.length === 0) {
+		return cb(new Error('can not find room Servers, bind userId: ' + session.uid));
+	}
+	var roomId = session['roomId'] || session.get('roomId');
+	if (!roomId) {
+		var args = msg.args;
+		console.log(TAG, "gameRoute msg: ", msg.args);
+		if (args && args.length > 0 && args[0].body && args[0].body.roomId){
+			roomId = args[0].body.roomId;
+		}else{
+			return cb(new Error('can not get roomId, bind userId: ' + session.uid));
+		}
+	}
+	var res = dispatchWithId(roomId, gameServers);
+	cb(null, res.id);
 }
-exp.commonRoute = function (serverType, session, msg, app, cb) {
-  var servers = app.getServersByType(serverType);
-  var uid = session.uid;
-  var res = dispatcher.dispatch(uid.toString(), servers);
-  cb(null, res.id);
-};
 
-exp.auth = function (session, msg, app, cb) {
-  if (!session.uid) {
-    return cb(new Error(`can not find ${session.uid}`));
-  }
-  exp.commonRoute('auth', session, msg, app, cb);
-};
-
-exp.hall = function (session, msg, app, cb) {
-  if (!session.uid) {
-    return cb(new Error(`can not find ${session.uid}`));
-  }
-  exp.commonRoute('hall', session, msg, app, cb);
-};
-
-exp.room = function (session, msg, app, cb) {
-  //console.log('aaaaaaaaaaaaaaaaaaaa',msg)
-  let roomId = msg.args[0].body.roomId;
-  if (!session.uid) {
-    return cb(new Error(`can not find ${session.uid}`));
-  }
-  if (roomId && roomIdMap[roomId]) {
-    return cb(null, roomIdMap[roomId]);
-  }
-  pomelo.app.userStatus.hget(session.uid, "gameServerId")
-    .then((result) => {
-      if (!result) {
-        //return cb(null, result);
-        return exp.init()
-        .then((result)=>{
-          if (roomId && roomIdMap[roomId]){
-            return Promise.resolve(roomIdMap[roomId]);
-          }
-          else{
-            return Promise.reject(`exp.room error ${JSON.stringify(msg)} ${JSON.stringify(roomIdMap)}`);
-          }
-        })
-      }
-      //return Promise.reject("userStatus gameServerId null");
-      return Promise.resolve(result);
-    })
-    .then((result)=>{
-      return cb(null, result);
-    })
-    .catch((error) => {
-      logger.error('exp.room error', error);
-      return cb(new Error(`exp.room error`));
-  })
-};
+var dispatchWithId = function(id, servers){
+	var len = servers.length;
+	if(len == 1){
+		return servers[0];
+	}
+	var num = parseInt(id);
+	var remainder = num % len;
+	return servers[remainder];
+}

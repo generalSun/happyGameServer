@@ -93,12 +93,28 @@
         }
       ,"backups": 5,
       "category":"pomelo-rpc"
+    },
+    {
+      "type": "file",
+      "filename": "${opts:base}/logs/my.log",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      }
+    ,"backups": 5,
+      "category":"my-log"
     }
   ],
 
   "levels": {
-    "rpc-log" : "ERROR",
-    "forward-log": "ERROR"
+    "pomelo": "DEBUG",
+    "rpc-log" : "INFO",
+    "rpc-debug": "ERROR",
+    "forward-log": "ERROR",
+    "my-log": "ERROR",
+    "admin-log": "ERROR",
+    "crash-log": "ERROR",
+    "console": "all"
   },
 
   "replaceConsole": true,
