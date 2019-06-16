@@ -20,10 +20,10 @@ print_r = function (obj, indent) {
     if (typeof(obj) !== "object") {
         return obj;
     }
-    var result_str = "";
+    var result_str = "\n";
     indent = indent || 0;
     for (var key in obj) {
-      var val = obj[key];
+        var val = obj[key];
         if (typeof(key) === "string") {
             key = "\"" + key + "\"";
         }

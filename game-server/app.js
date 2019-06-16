@@ -4,7 +4,7 @@ const routeUtil = require('./app/util/routeUtil');
  * Init app for client.
  */
 var app = pomelo.createApp();
-app.set('name', 'pomelotest');
+app.set('name', 'pomeloServer');
 
 app.configure('production|staging|development', 'gate', function () {
   app.set('connectorConfig', {

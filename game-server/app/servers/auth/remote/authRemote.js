@@ -285,12 +285,12 @@ pro.checkSMS = function(msg, session, next){
 	SMSmsg.checkSMS(msg.mobile,msg.code)
 		.then((result) => {
 			if(!msg.needcreate){
-				return res.send(result);
+				return next(null,result);
 			}
 			return pomelo.app.db.user.findOne({where:{mobile:msg.phoneNum}})
 			.then((result)=>{
 				if(result){
-					return res.send({code:200,msg:{mobile:msg.phoneNum,pwd:result.password}});
+					return next(null,{code:200,msg:{mobile:msg.phoneNum,pwd:result.password}});
 				}
 				return pomelo.app.db.user.create({
 					nick: `用户${msg.phoneNum.substr(7)}`,
@@ -299,16 +299,16 @@ pro.checkSMS = function(msg, session, next){
 					mobile:msg.phoneNum
 				})
 				.then((result)=>{
-					return res.send({code:200,msg:{mobile:msg.phoneNum,pwd:result.password}});
+					return next(null,{code:200,msg:{mobile:msg.phoneNum,pwd:result.password}});
 				})
 			})
 		})
 		.catch((error) => {
 			logger.error('checkSMS', { error, msg });
 			if (error.code) {
-				return res.send(error);
+				return next(null,error);
 			}
-			return res.send({ code: -500, msg: '验证码验证失败' });
+			return next(null,{ code: -500, msg: '验证码验证失败' });
 		})
 }
 
