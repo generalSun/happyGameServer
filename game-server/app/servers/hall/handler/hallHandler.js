@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const pomelo = require('pomelo');
 let baseUser = require('../../../appserver/base/baseUser');
-const logger = require('pomelo-logger').getLogger('common');
+const logger = require('pomelo-logger').getLogger('pomelo');
 
 class HallHandler{
 	constructor() {}

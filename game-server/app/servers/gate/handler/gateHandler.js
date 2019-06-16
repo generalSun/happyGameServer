@@ -1,5 +1,5 @@
 const dispatcher = require('../../../util/dispatcher');
-const logger = require('pomelo-logger').getLogger('common');
+const logger = require('pomelo-logger').getLogger('con-log');
 const pomelo = require('pomelo');
 module.exports = function (app) {
 	return new Handler(app);

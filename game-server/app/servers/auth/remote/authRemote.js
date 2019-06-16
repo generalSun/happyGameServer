@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const pomelo = require('pomelo');
 let baseUser = require('../../../appserver/base/baseUser');
-const logger = require('pomelo-logger').getLogger('connect');
+const logger = require('pomelo-logger').getLogger('rpc-log');
 const common = require('../../../util/common');
 const SMSmsg = require('./../../../util/SMSmsg');
 

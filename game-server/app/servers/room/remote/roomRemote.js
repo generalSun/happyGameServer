@@ -1,4 +1,4 @@
-const logger = require('pomelo-logger').getLogger('connect');
+const logger = require('pomelo-logger').getLogger('pomelo');
 const common = require('../../../util/common');
 const pomelo = require('pomelo');
 class RoomRemote {
