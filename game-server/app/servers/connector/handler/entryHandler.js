@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const pomelo = require('pomelo');
 let baseUser = require('../../../appserver/base/baseUser');
-const logger = require('pomelo-logger').getLogger('con-log');
+const logger = require('pomelo-logger').getLogger('connector', __filename);
 const common = require('../../../util/common');
 const SocketCmd = require('../../../appserver/cmd/socketCmd')
 var utils = require('../../../util/utils');
@@ -66,12 +66,14 @@ var login = function(msg, session, next) {
 
 //获取验证码
 var getSMS = function(msg, session, next) {
+	logger.info("获取验证码");
 	var self = this;
 	self.app.rpc.auth.authRemote.getSMS(msg, session, next);
 };
 
 //验证验证码
 var checkSMS = function(msg, session, next) {
+	logger.info("验证验证码");
 	var self = this;
 	self.app.rpc.auth.authRemote.checkSMS(msg, session, next);
 };
