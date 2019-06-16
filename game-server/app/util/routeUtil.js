@@ -23,6 +23,12 @@ exp.commonRoute = function (serverType, session, msg, app, cb) {
   cb(null, res.id);
 };
 
+exp.auth = function (session, msg, app, cb) {
+  if (!session.uid) {
+    return cb(new Error(`can not find ${session.uid}`));
+  }
+  exp.commonRoute('auth', session, msg, app, cb);
+};
 
 exp.hall = function (session, msg, app, cb) {
   if (!session.uid) {

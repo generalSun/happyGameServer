@@ -35,9 +35,10 @@ app.configure('production|development', 'connector|hall|room|auth', function () 
   app.db.initConnect();
   app.redis = require('./app/appserver/dao/redisconnect');
   app.redis.initAll(app);
-  routeUtil.init();
-  app.route('hall', routeUtil.hall);
-  app.route('room', routeUtil.room);
+  // routeUtil.init();
+  // app.route('auth', routeUtil.auth);
+  // app.route('hall', routeUtil.hall);
+  // app.route('room', routeUtil.room);
 });
 
 app.configure('production|development', 'hall', function () {
