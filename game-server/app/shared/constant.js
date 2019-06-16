@@ -72,7 +72,7 @@ const constant = module.exports = {
         }
     ],
 
-    PROMOTER_URL: "http://192.168.118.128:13000/center/",
+    PROMOTER_URL: "http://192.168.10.34:13000/center/",
 
     COMMERCE_ID: "010180836248",
     AB_COMMERCE_ID: "523212",

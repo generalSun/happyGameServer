@@ -1,0 +1,8 @@
+[2019-06-16 15:17:33.266] [INFO] pomelo-admin - [32m[MqttServer] [39m[MqttServer] listen on 4005
+[2019-06-16 15:17:33.942] [INFO] pomelo-admin - [32m[ConsoleService] [39mtry to connect master: "master", "127.0.0.1", 4005
+[2019-06-16 15:17:34.777] [INFO] pomelo-admin - [32m[ConsoleService] [39mtry to connect master: "timer", "127.0.0.1", 4005
+[2019-06-16 15:17:59.249] [DEBUG] pomelo-admin - [36m[MasterSocket] [39mdisconnect timer-server-1 timer {"main":"F:\\project\\pomelo\\pomeloServer\\game-server\\app.js","env":"development","id":"timer-server-1","host":"127.0.0.1","port":5810,"cpu":3,"serverType":"timer","pid":5596}
+[2019-06-16 15:22:50.817] [INFO] pomelo-admin - [32m[MqttServer] [39m[MqttServer] listen on 4005
+[2019-06-16 15:22:51.022] [INFO] pomelo-admin - [32m[ConsoleService] [39mtry to connect master: "master", "127.0.0.1", 4005
+[2019-06-16 15:22:51.789] [INFO] pomelo-admin - [32m[ConsoleService] [39mtry to connect master: "timer", "127.0.0.1", 4005
+[2019-06-16 15:23:30.056] [DEBUG] pomelo-admin - [36m[MasterSocket] [39mdisconnect timer-server-1 timer {"main":"F:\\project\\pomelo\\pomeloServer\\game-server\\app.js","env":"development","id":"timer-server-1","host":"127.0.0.1","port":5810,"cpu":3,"serverType":"timer","pid":2772}
