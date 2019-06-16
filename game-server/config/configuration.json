@@ -8,8 +8,8 @@
     }
   },
   "mysql": {
-    "host": "192.168.0.102",
-    "database": "pomeloGame",
+    "host": "192.168.1.117",
+    "database": "pomelogame",
     "password": "wewcsnm1234",
     "user": "root"
   }
