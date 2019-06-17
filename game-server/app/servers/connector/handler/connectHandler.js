@@ -6,6 +6,8 @@ const constant = require("../../../shared/constant");
 const loginer = require("../../../conn_logic/login");
 const logouter = require("../../../conn_logic/logout");
 const redis = require('../../../redis/redisDb');
+var utils = require('../../../util/utils');
+var SocketCmd = require('../../../shared/socketCmd');
 
 module.exports = function (app) {
 	return new Handler(app);
@@ -16,8 +18,37 @@ var Handler = function (app) {
 }
 var handle = Handler.prototype;
 
+//客户端发送的socket消息
+handle.socketMsg = function(msg, session, next) {
+	var self = this;
+	if (! self.socketCmdConfig) {
+		self.initSocketCmdConfig();
+	}
+	console.log("收到客户端发送的消息");
+	utils.printObj(msg);
+
+	var msgSocketCmd = msg.socketCmd;
+	var processerFun = self.socketCmdConfig[msgSocketCmd];
+	if (!! processerFun) {
+		processerFun.call(self, msg, session, next);
+	} else {
+		console.log('没有找到处理函数, cmd = ' + msgSocketCmd);
+		next(null, {
+			code: errcode.NO_HANDLER,
+			msg: "没有找到处理函数"
+		})
+	}
+};
+
+handle.initSocketCmdConfig = function() {
+	var self = this;
+	self.socketCmdConfig = {
+		[SocketCmd.LOGIN]: login,
+	};
+};
+
 // client login, bind user info to session
-handle.login = function (msg, session, next) {
+var login = function (msg, session, next) {
 	var self = this;
 	if (!msg.wxOpenId) {
 		return next(null, {code: errcode.WXOPNEID_NULL});

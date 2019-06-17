@@ -17,6 +17,8 @@ module.exports = {
 	NO_PROMOTER_ACCOUNT: 18,		//没有推广员帐号
 	PUSH_MESSAGE_ERR: 20,			//推送消息错误
 
+	NO_HANDLER: 21,					//没有函数句柄
+
 	COIN_NOT_ENOUGH: 50,       		//金币不足
 	CAN_NOT_FIND_ROOM_TYPE: 51,		//没有找到房间类型
 	INVALID_GAMEPALY: 52,			//无效的玩法类型

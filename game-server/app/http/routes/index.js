@@ -77,5 +77,10 @@ router.post("/freezePlayer", (req, res, next)=>{
     });
 });
 
+router.get('/serverconfig', function (req, res) {
+	var serverConfig = require('../public/config/serverconfig.json');
+	res.send(JSON.stringify(serverConfig));
+});
+
 
 module.exports = router;

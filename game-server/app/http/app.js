@@ -10,6 +10,15 @@ require("body-parser-xml")(bodyParser);
 
 var app = express();
 
+app.configure('development', function(){
+	app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('production', function(){
+	var oneYear = 31557600000;
+	app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
