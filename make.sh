@@ -13,11 +13,11 @@ fi
 if [ $cmd = "all" ];then
 	echo -e "\n make skynet"
     cd $dir/skynet && pwd
-	make 'PLATFORM' 
+	make linux 
 	
 	echo -e "\n make luaclib"
 	cd $dir/lualib-src  && pwd
-	make 'PLATFORM'
+	make linux
 	
 	#echo -e "\n make LuaPbIntf"
 	#cd $dir/lualib-src/LuaPbIntf/build && pwd
