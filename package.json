@@ -1,10 +1,11 @@
 {
   "name": "happygameserver",
   "version": "1.0.0",
-  "description": "",
-  "main": "configs.js",
-  "directories": {
-    "test": "tests"
+  "private": false,
+  "scripts": {
+    "account":"node ./account_server/app.js ../configs.js",
+    "hall":"node ./hall_server/app.js ../configs.js",
+    "game":"node ./game_server/app.js ../configs.js",
   },
   "dependencies": {
     "express": "^4.14.0",
@@ -12,21 +13,5 @@
     "mysql": "^2.11.1",
     "socket.io": "^1.4.6",
     "log4js": "^1.0.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "account":"node ./account_server/app.js ../configs.js",
-    "hall":"node ./hall_server/app.js ../configs.js",
-    "game":"node ./game_server/app.js ../configs.js",
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/generalSun/pomeloServer.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/generalSun/pomeloServer/issues"
-  },
-  "homepage": "https://github.com/generalSun/pomeloServer#readme"
+  }
 }
