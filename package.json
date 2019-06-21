@@ -2,7 +2,7 @@
   "name": "happygameserver",
   "version": "1.0.0",
   "description": "",
-  // "main": "configs_mac.js",
+  "main": "configs.js",
   "directories": {
     "test": "tests"
   },
