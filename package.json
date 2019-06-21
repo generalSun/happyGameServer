@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "account":"node ./account_server/app.js ../configs.js",
-    "hall":"node ./hall_server/app.js ../configs.js",
-    "game":"node ./game_server/app.js ../configs.js",
+    
   },
   "dependencies": {
     "express": "^4.14.0",
