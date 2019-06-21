@@ -1,3 +1,0 @@
-copy ..\premake\vs2015\bin\x32\Debug\luapbintf.dll
-
-pause

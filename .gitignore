@@ -1,7 +1,0 @@
-*.o
-*.a
-/cservice
-*.so
-*.dSYM
-.DS_Store
-*.idea
