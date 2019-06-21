@@ -1,0 +1,17 @@
+syntax = "proto3";
+package login ;
+
+message login 
+{ 
+    string account = 1 ;
+    string password = 2 ;
+	int32 sdkid = 3 ;
+}
+
+message loginresult 
+{
+	
+	string account = 1 ;
+	int32 uid = 2 ;
+	int32 result = 3 ;
+}
