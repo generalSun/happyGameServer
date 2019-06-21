@@ -16,8 +16,8 @@
   "devDependencies": {},
   "scripts": {
     "account":"node ./account_server/app.js ../configs.js",
-    "hall":"node ./hall_server/app.js ../configs.js &",
-    "game":"node ./game_server/app.js ../configs.js &",
+    "hall":"node ./hall_server/app.js ../configs.js",
+    "game":"node ./game_server/app.js ../configs.js",
   },
   "repository": {
     "type": "git",
