@@ -48,7 +48,7 @@ app.get('/get_server_info',function(req,res){
 });
 
 app.get('/create_room',function(req,res){
-	var userId = parseInt(req.query.userid);
+	var userId = parseInt(req.query.userId);
 	var sign = req.query.sign;
 	var gems = req.query.gems;
 	var conf = req.query.conf
@@ -67,24 +67,19 @@ app.get('/create_room',function(req,res){
 	conf = JSON.parse(conf);
 	console.log('http_service : ')
 	console.log(conf)
-	var type = conf.type || 'ddz'
-	var funName = 'createRoom_'+type
-	var fun = roomMgr[funName]
-	if(fun){
-		fun(userId,conf,gems,serverIp,config.CLIENT_PORT,function(errcode,roomId){
-			if(errcode != 0 || roomId == null){
-				http.send(res,errcode,"create failed.");
-				return;	
-			}
-			else{
-				http.send(res,0,"ok",{roomid:roomId});			
-			}
-		});
-	}
+	roomMgr.createRoom(userId,conf,gems,serverIp,config.CLIENT_PORT,function(errcode,roomId){
+		if(errcode != 0 || roomId == null){
+			http.send(res,errcode,"create failed.");
+			return;	
+		}
+		else{
+			http.send(res,0,"ok",{roomid:roomId});			
+		}
+	});
 });
 
 app.get('/enter_room',function(req,res){
-	var userId = parseInt(req.query.userid);
+	var userId = parseInt(req.query.userId);
 	var name = req.query.name;
 	var roomId = req.query.roomid;
 	var sign = req.query.sign;

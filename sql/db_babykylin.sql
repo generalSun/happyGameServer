@@ -141,7 +141,7 @@ INSERT INTO `t_rooms` VALUES ('1490875578938526035', '526035', '{\"type\":\"xzdd
 -- ----------------------------
 DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users` (
-  `userid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `userId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `account` varchar(64) NOT NULL DEFAULT '' COMMENT '账号',
   `name` varchar(32) DEFAULT NULL COMMENT '用户昵称',
   `sex` int(1) DEFAULT NULL,
@@ -152,7 +152,7 @@ CREATE TABLE `t_users` (
   `gems` int(11) DEFAULT '0' COMMENT '用户宝石',
   `roomid` varchar(8) DEFAULT NULL,
   `history` varchar(4096) NOT NULL DEFAULT '',
-  PRIMARY KEY (`userid`),
+  PRIMARY KEY (`userId`),
   UNIQUE KEY `account` (`account`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 

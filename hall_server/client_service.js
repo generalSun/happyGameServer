@@ -51,7 +51,7 @@ app.get('/login',function(req,res){
 
 		var ret = {
 			account:data.account,
-			userid:data.userid,
+			userId:data.userId,
 			name:data.name,
 			lv:data.lv,
 			exp:data.exp,
@@ -61,7 +61,7 @@ app.get('/login',function(req,res){
 			sex:data.sex,
 		};
 
-		db.get_room_id_of_user(data.userid,function(roomId){
+		db.get_room_id_of_user(data.userId,function(roomId){
 			//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
 			if(roomId != null){
 				//检查房间是否存在于数据库中
@@ -71,7 +71,7 @@ app.get('/login',function(req,res){
 					}
 					else{
 						//如果房间不在了，表示信息不同步，清除掉用户记录
-						db.set_room_id_of_user(data.userid,null);
+						db.set_room_id_of_user(data.userId,null);
 					}
 					http.send(res,0,"ok",ret);
 				});
@@ -126,7 +126,7 @@ app.get('/create_private_room',function(req,res){
 		}
 		console.log('get_user_data: ')
 		console.log(data)
-		var userId = data.userid;
+		var userId = data.userId;
 		var name = data.name;
 		//验证玩家状态
 		db.get_room_id_of_user(userId,function(roomId){
@@ -180,13 +180,15 @@ app.get('/enter_private_room',function(req,res){
 			http.send(res,-1,"system error");
 			return;
 		}
-		var userId = data.userid;
+		var userId = data.userId;
 		var name = data.name;
-
+		console.log('enter_private_room:'+name)
 		//验证玩家状态
 		//todo
 		//进入房间
 		room_service.enterRoom(userId,name,roomId,function(errcode,enterInfo){
+			console.log('enter_private_room  enterRoom info:')
+			console.log(enterInfo)
 			if(enterInfo){
 				var ret = {
 					roomid:roomId,
@@ -216,7 +218,7 @@ app.get('/get_history_list',function(req,res){
 			http.send(res,-1,"system error");
 			return;
 		}
-		var userId = data.userid;
+		var userId = data.userId;
 		db.get_user_history(userId,function(history){
 			http.send(res,0,"ok",{history:history});
 		});

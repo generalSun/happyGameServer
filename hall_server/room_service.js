@@ -100,7 +100,7 @@ exports.createRoom = function(account,userId,roomConf,fnCallback){
 		if(data != null){
 			//2、请求创建房间
 			var reqdata = {
-				userid:userId,
+				userId:userId,
 				gems:data.gems,
 				conf:roomConf
 			};
@@ -130,7 +130,7 @@ exports.createRoom = function(account,userId,roomConf,fnCallback){
 
 exports.enterRoom = function(userId,name,roomId,fnCallback){
 	var reqdata = {
-		userid:userId,
+		userId:userId,
 		name:name,
 		roomid:roomId
 	};
@@ -188,6 +188,8 @@ exports.enterRoom = function(userId,name,roomId,fnCallback){
 	}
 
 	db.get_room_addr(roomId,function(ret,ip,port){
+		console.log('get_room_addr :')
+		console.log(ret)
 		if(ret){
 			var id = ip + ":" + port;
 			var serverinfo = serverMap[id];

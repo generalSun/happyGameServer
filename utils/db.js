@@ -132,7 +132,7 @@ exports.is_user_exist = function(account,callback){
         return;
     }
 
-    var sql = 'SELECT userid FROM t_users WHERE account = "' + account + '"';
+    var sql = 'SELECT userId FROM t_users WHERE account = "' + account + '"';
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(false);
@@ -148,7 +148,6 @@ exports.is_user_exist = function(account,callback){
     });  
 }
 
-
 exports.get_user_data = function(account,callback){
     callback = callback == null? nop:callback;
     if(account == null){
@@ -156,7 +155,7 @@ exports.get_user_data = function(account,callback){
         return;
     }
 
-    var sql = 'SELECT userid,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE account = "' + account + '"';
+    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE account = "' + account + '"';
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -172,14 +171,14 @@ exports.get_user_data = function(account,callback){
     });
 };
 
-exports.get_user_data_by_userid = function(userid,callback){
+exports.get_user_data_by_userid = function(userId,callback){
     callback = callback == null? nop:callback;
-    if(userid == null){
+    if(userId == null){
         callback(null);
         return;
     }
 
-    var sql = 'SELECT userid,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE userid = ' + userid;
+    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE userId = ' + userId;
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -196,14 +195,14 @@ exports.get_user_data_by_userid = function(userid,callback){
 };
 
 /**增加玩家房卡 */
-exports.add_user_gems = function(userid,gems,callback){
+exports.add_user_gems = function(userId,gems,callback){
     callback = callback == null? nop:callback;
-    if(userid == null){
+    if(userId == null){
         callback(false);
         return;
     }
     
-    var sql = 'UPDATE t_users SET gems = gems +' + gems + ' WHERE userid = ' + userid;
+    var sql = 'UPDATE t_users SET gems = gems +' + gems + ' WHERE userId = ' + userId;
     console.log(sql);
     query(sql,function(err,rows,fields){
         if(err){
@@ -248,7 +247,7 @@ exports.get_user_history = function(userId,callback){
         return;
     }
 
-    var sql = 'SELECT history FROM t_users WHERE userid = "' + userId + '"';
+    var sql = 'SELECT history FROM t_users WHERE userId = "' + userId + '"';
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -279,7 +278,7 @@ exports.update_user_history = function(userId,history,callback){
     }
 
     history = JSON.stringify(history);
-    var sql = 'UPDATE t_users SET roomid = null, history = \'' + history + '\' WHERE userid = "' + userId + '"';
+    var sql = 'UPDATE t_users SET roomid = null, history = \'' + history + '\' WHERE userId = "' + userId + '"';
     //console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -357,7 +356,7 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     // name = crypto.toBase64(name);
     var userId = generateUserId();
 
-    var sql = 'INSERT INTO t_users(userid,account,name,coins,gems,sex,headimg) VALUES("{0}", "{1}","{2}",{3},{4},{5},{6})';
+    var sql = 'INSERT INTO t_users(userId,account,name,coins,gems,sex,headimg) VALUES("{0}", "{1}","{2}",{3},{4},{5},{6})';
     sql = sql.format(userId,account,name,coins,gems,sex,headimg);
     console.log(sql);
     query(sql, function(err, rows, fields) {
@@ -368,9 +367,9 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     });
 };
 
-exports.update_user_info = function(userid,name,headimg,sex,callback){
+exports.update_user_info = function(userId,name,headimg,sex,callback){
     callback = callback == null? nop:callback;
-    if(userid == null){
+    if(userId == null){
         callback(null);
         return;
     }
@@ -383,7 +382,7 @@ exports.update_user_info = function(userid,name,headimg,sex,callback){
     }
     // name = crypto.toBase64(name);
     var sql = 'UPDATE t_users SET name="{0}",headimg={1},sex={2} WHERE account="{3}"';
-    sql = sql.format(name,headimg,sex,userid);
+    sql = sql.format(name,headimg,sex,userId);
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -393,14 +392,14 @@ exports.update_user_info = function(userid,name,headimg,sex,callback){
     });
 };
 
-exports.get_user_base_info = function(userid,callback){
+exports.get_user_base_info = function(userId,callback){
     callback = callback == null? nop:callback;
-    if(userid == null){
+    if(userId == null){
         callback(null);
         return;
     }
-    var sql = 'SELECT name,sex,headimg FROM t_users WHERE userid={0}';
-    sql = sql.format(userid);
+    var sql = 'SELECT name,sex,headimg FROM t_users WHERE userId={0}';
+    sql = sql.format(userId);
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -425,9 +424,9 @@ exports.is_room_exist = function(roomId,callback){
     });
 };
 
-exports.cost_gems = function(userid,cost,callback){
+exports.cost_gems = function(userId,cost,callback){
     callback = callback == null? nop:callback;
-    var sql = 'UPDATE t_users SET gems = gems -' + cost + ' WHERE userid = ' + userid;
+    var sql = 'UPDATE t_users SET gems = gems -' + cost + ' WHERE userId = ' + userId;
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if(err){
@@ -445,7 +444,7 @@ exports.set_room_id_of_user = function(userId,roomId,callback){
     if(roomId != null){
         roomId = '"' + roomId + '"';
     }
-    var sql = 'UPDATE t_users SET roomid = '+ roomId + ' WHERE userid = "' + userId + '"';
+    var sql = 'UPDATE t_users SET roomid = '+ roomId + ' WHERE userId = "' + userId + '"';
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if(err){
@@ -461,7 +460,7 @@ exports.set_room_id_of_user = function(userId,roomId,callback){
 
 exports.get_room_id_of_user = function(userId,callback){
     callback = callback == null? nop:callback;
-    var sql = 'SELECT roomid FROM t_users WHERE userid = "' + userId + '"';
+    var sql = 'SELECT roomid FROM t_users WHERE userId = "' + userId + '"';
     query(sql, function(err, rows, fields) {
         if(err){
             callback(null);

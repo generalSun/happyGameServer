@@ -207,8 +207,8 @@ app.get('/wechat_auth',function(req,res){
 });
 
 app.get('/base_info',function(req,res){
-	var userid = req.query.userid;
-	db.get_user_base_info(userid,function(data){
+	var userId = req.query.userId;
+	db.get_user_base_info(userId,function(data){
 		var ret = {
 	        errcode:0,
 	        errmsg:"ok",

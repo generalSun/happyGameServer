@@ -27,11 +27,11 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/get_user_info',function(req,res){
-	var userid = req.query.userid;
-	db.get_user_data_by_userid(userid,function (data) {
+	var userId = req.query.userId;
+	db.get_user_data_by_userid(userId,function (data) {
 		if(data){
 			var ret = {
-				userid:userid,
+				userId:userId,
 				name:data.name,
 				gems:data.gems,
 				headimg:data.headimg
@@ -45,9 +45,9 @@ app.get('/get_user_info',function(req,res){
 });
 
 app.get('/add_user_gems',function(req,res){
-	var userid = req.query.userid;
+	var userId = req.query.userId;
 	var gems = req.query.gems;
-	db.add_user_gems(userid,gems,function(suc){
+	db.add_user_gems(userId,gems,function(suc){
 		if(suc){
 			http.send(res,0,"ok");
 		}

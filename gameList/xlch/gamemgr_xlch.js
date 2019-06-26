@@ -1117,7 +1117,7 @@ exports.setReady = function(userId,callback){
             var sd = game.gameSeats[i];
 
             var s = {
-                userid:sd.userId,
+                userId:sd.userId,
                 folds:sd.folds,
                 angangs:sd.angangs,
                 diangangs:sd.diangangs,
@@ -1170,7 +1170,7 @@ function store_history(roomInfo){
     for(var i = 0; i < seats.length; ++i){
         var rs = seats[i];
         var hs = history.seats[i] = {};
-        hs.userid = rs.userId;
+        hs.userId = rs.userId;
         hs.name = crypto.toBase64(rs.name);
         hs.score = rs.score;
     }
@@ -1710,7 +1710,7 @@ exports.peng = function(userId){
     recordGameAction(game,seatData.seatIndex,ACTION_PENG,pai);
 
     //广播通知其它玩家
-    userMgr.broacastInRoom('peng_notify_push',{userid:seatData.userId,pai:pai},seatData.userId,true);
+    userMgr.broacastInRoom('peng_notify_push',{userId:seatData.userId,pai:pai},seatData.userId,true);
 
     //碰的玩家打牌
     moveToNextUser(game,seatData.seatIndex);
@@ -1821,7 +1821,7 @@ function doGang(game,turnSeat,seatData,gangtype,numOfCnt,pai){
 
     checkCanTingPai(game,seatData);
     //通知其他玩家，有人杠了牌
-    userMgr.broacastInRoom('gang_notify_push',{userid:seatData.userId,pai:pai,gangtype:gangtype},seatData.userId,true);
+    userMgr.broacastInRoom('gang_notify_push',{userId:seatData.userId,pai:pai,gangtype:gangtype},seatData.userId,true);
 
     //变成自己的轮子
     moveToNextUser(game,seatIndex);
