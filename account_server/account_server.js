@@ -40,7 +40,7 @@ app.all('*', function(req, res, next) {
 app.get('/register',function(req,res){
 	var account = req.query.account;
 	var password = req.query.password;
-
+	console.log('register  account:'+account)
 	var fnFailed = function(){
 		send(res,{errcode:1,errmsg:"account has been used."});
 	};
@@ -49,8 +49,11 @@ app.get('/register',function(req,res){
 		send(res,{errcode:0,errmsg:"ok"});	
 	};
 
-	db.is_user_exist(account,function(exist){
+	db.is_account_exist(account,function(exist){
 		if(exist){
+			console.log("account has been used.");
+			fnFailed();
+		}else{
 			db.create_account(account,password,function(ret){
 				if (ret) {
 					fnSucceed();
@@ -58,27 +61,21 @@ app.get('/register',function(req,res){
 				else{
 					fnFailed();
 				}
-			});
-		}
-		else{
-			fnFailed();
-			console.log("account has been used.");			
+			});	
 		}
 	});
 });
 
-app.get('/get_version',function(req,res){
+app.get('/get_app_web',function(req,res){
 	var ret = {
-		version:config.VERSION,
+		appweb:config.APP_WEB,
 	}
 	send(res,ret);
 });
 
 app.get('/get_serverinfo',function(req,res){
 	var ret = {
-		version:config.VERSION,
 		hall:hallAddr,
-		appweb:config.APP_WEB,
 	}
 	send(res,ret);
 });
@@ -86,6 +83,7 @@ app.get('/get_serverinfo',function(req,res){
 app.get('/guest',function(req,res){
 	var account = "guest_" + req.query.account;
 	var sign = crypto.md5(account + req.ip + config.ACCOUNT_PRI_KEY);
+	console.log('guest  account:'+account)
 	var ret = {
 		errcode:0,
 		errmsg:"ok",
@@ -99,7 +97,7 @@ app.get('/guest',function(req,res){
 app.get('/auth',function(req,res){
 	var account = req.query.account;
 	var password = req.query.password;
-
+	console.log('auth  account:'+account)
 	db.get_account_info(account,password,function(info){
 		if(info == null){
 			send(res,{errcode:1,errmsg:"invalid account"});
@@ -107,11 +105,12 @@ app.get('/auth',function(req,res){
 		}
 
         var account = "vivi_" + req.query.account;
-        var sign = get_md5(account + req.ip + config.ACCOUNT_PRI_KEY);
+        var sign = crypto.md5(account + req.ip + config.ACCOUNT_PRI_KEY);
         var ret = {
             errcode:0,
             errmsg:"ok",
-            account:account,
+			account:account,
+			halladdr:hallAddr,
             sign:sign
         }
         send(res,ret);

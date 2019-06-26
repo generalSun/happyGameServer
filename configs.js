@@ -1,18 +1,18 @@
-﻿var HALL_IP = "192.168.118.128";
+﻿var HALL_IP = "127.0.0.1";
 var HALL_CLIENT_PORT = 9001;
 var HALL_ROOM_PORT = 9002;
 
 var ACCOUNT_PRI_KEY = "^&*#$%()@";
 var ROOM_PRI_KEY = "~!@#$(*&^%$&";
 
-var LOCAL_IP = '192.168.118.128'//'localhost';
+var LOCAL_IP = 'localhost';
 
 exports.mysql = function(){
 	return {
-		HOST:'192.168.118.1',
+		HOST:'127.0.0.1',
 		USER:'root',
 		PSWD:'wewcsnm1234',
-		DB:'db_happyGame',
+		DB:'happygame',
 		PORT:3306,
 	}
 }

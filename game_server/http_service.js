@@ -63,17 +63,24 @@ app.get('/create_room',function(req,res){
 		http.send(res,1,"sign check failed.");
 		return;
 	}
-
+	
 	conf = JSON.parse(conf);
-	roomMgr.createRoom(userId,conf,gems,serverIp,config.CLIENT_PORT,function(errcode,roomId){
-		if(errcode != 0 || roomId == null){
-			http.send(res,errcode,"create failed.");
-			return;	
-		}
-		else{
-			http.send(res,0,"ok",{roomid:roomId});			
-		}
-	});
+	console.log('http_service : ')
+	console.log(conf)
+	var type = conf.type || 'ddz'
+	var funName = 'createRoom_'+type
+	var fun = roomMgr[funName]
+	if(fun){
+		fun(userId,conf,gems,serverIp,config.CLIENT_PORT,function(errcode,roomId){
+			if(errcode != 0 || roomId == null){
+				http.send(res,errcode,"create failed.");
+				return;	
+			}
+			else{
+				http.send(res,0,"ok",{roomid:roomId});			
+			}
+		});
+	}
 });
 
 app.get('/enter_room',function(req,res){

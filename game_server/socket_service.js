@@ -31,6 +31,8 @@ exports.start = function(conf,mgr){
 	
 	io.sockets.on('connection',function(socket){
 		socket.on('login',function(data){
+			console.log('login : ')
+			console.log(data)
 			data = JSON.parse(data);
 			if(socket.userId != null){
 				//已经登陆过的就忽略
@@ -117,6 +119,8 @@ exports.start = function(conf,mgr){
 					seats:seats
 				}
 			};
+			console.log('通知前端')
+			console.log(ret)
 			socket.emit('login_result',ret);
 
 			//通知其它客户端

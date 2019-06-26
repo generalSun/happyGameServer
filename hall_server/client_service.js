@@ -14,13 +14,11 @@ function check_account(req,res){
 		http.send(res,1,"unknown error");
 		return false;
 	}
-	/*
 	var serverSign = crypto.md5(account + req.ip + config.ACCOUNT_PRI_KEY);
 	if(serverSign != sign){
 		http.send(res,2,"login failed.");
 		return false;
 	}
-	*/
 	return true;
 }
 
@@ -119,17 +117,15 @@ app.get('/create_private_room',function(req,res){
 	if(!check_account(req,res)){
 		return;
 	}
-
 	var account = data.account;
-
-	data.account = null;
-	data.sign = null;
 	var conf = data.conf;
 	db.get_user_data(account,function(data){
 		if(data == null){
 			http.send(res,1,"system error");
 			return;
 		}
+		console.log('get_user_data: ')
+		console.log(data)
 		var userId = data.userid;
 		var name = data.name;
 		//验证玩家状态
@@ -293,6 +289,20 @@ app.get('/get_message',function(req,res){
 		else{
 			http.send(res,1,"get message failed.");
 		}
+	});
+});
+
+app.get('/get_gameList',function(req,res){
+	var data = req.query;
+	if(!check_account(req,res)){
+		return;
+	}
+	db.get_gameList_data(function(data){
+		if(data == null){
+			http.send(res,-1,"system error");
+			return;
+		}
+		http.send(res,0,"ok",{data:data});
 	});
 });
 

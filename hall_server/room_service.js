@@ -94,7 +94,8 @@ exports.createRoom = function(account,userId,roomConf,fnCallback){
 		fnCallback(101,null);
 		return;
 	}
-	
+	console.log('createRoom config: ')
+	console.log(roomConf)
 	db.get_gems(account,function(data){
 		if(data != null){
 			//2、请求创建房间
@@ -105,7 +106,10 @@ exports.createRoom = function(account,userId,roomConf,fnCallback){
 			};
 			reqdata.sign = crypto.md5(userId + roomConf + data.gems + config.ROOM_PRI_KEY);
 			http.get(serverinfo.ip,serverinfo.httpPort,"/create_room",reqdata,function(ret,data){
-				//console.log(data);
+				console.log('create_room reqdata:');
+				console.log(data);
+				console.log('create_room reqret:');
+				console.log(ret);
 				if(ret){
 					if(data.errcode == 0){
 						fnCallback(0,data.roomid);

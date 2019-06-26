@@ -75,7 +75,8 @@ exports.create_account = function(account,password,callback){
         return;
     }
 
-    var psw = crypto.md5(password);
+    // var psw = crypto.md5(password);
+    var psw = password;
     var sql = 'INSERT INTO t_accounts(account,password) VALUES("' + account + '","' + psw + '")';
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -112,9 +113,10 @@ exports.get_account_info = function(account,password,callback){
         }
         
         if(password != null){
-            var psw = crypto.md5(password);
+            // var psw = crypto.md5(password);
+            var psw = password;
             if(rows[0].password == psw){
-                callback(null);
+                callback(rows[0]);
                 return;
             }    
         }
@@ -133,15 +135,16 @@ exports.is_user_exist = function(account,callback){
     var sql = 'SELECT userid FROM t_users WHERE account = "' + account + '"';
     query(sql, function(err, rows, fields) {
         if (err) {
-            throw err;
-        }
-
-        if(rows.length == 0){
             callback(false);
-            return;
+            throw err;
+        }else{
+            if(rows.length > 0){
+                callback(true);
+            }
+            else{
+                callback(false);
+            }
         }
-
-        callback(true);
     });  
 }
 
@@ -164,7 +167,7 @@ exports.get_user_data = function(account,callback){
             callback(null);
             return;
         }
-        rows[0].name = crypto.fromBase64(rows[0].name);
+        // rows[0].name = crypto.fromBase64(rows[0].name);
         callback(rows[0]);
     });
 };
@@ -187,7 +190,7 @@ exports.get_user_data_by_userid = function(userid,callback){
             callback(null);
             return;
         }
-        rows[0].name = crypto.fromBase64(rows[0].name);
+        // rows[0].name = crypto.fromBase64(rows[0].name);
         callback(rows[0]);
     });
 };
@@ -351,7 +354,7 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     else{
         headimg = 'null';
     }
-    name = crypto.toBase64(name);
+    // name = crypto.toBase64(name);
     var userId = generateUserId();
 
     var sql = 'INSERT INTO t_users(userid,account,name,coins,gems,sex,headimg) VALUES("{0}", "{1}","{2}",{3},{4},{5},{6})';
@@ -378,7 +381,7 @@ exports.update_user_info = function(userid,name,headimg,sex,callback){
     else{
         headimg = 'null';
     }
-    name = crypto.toBase64(name);
+    // name = crypto.toBase64(name);
     var sql = 'UPDATE t_users SET name="{0}",headimg={1},sex={2} WHERE account="{3}"';
     sql = sql.format(name,headimg,sex,userid);
     console.log(sql);
@@ -403,7 +406,7 @@ exports.get_user_base_info = function(userid,callback){
         if (err) {
             throw err;
         }
-        rows[0].name = crypto.fromBase64(rows[0].name);
+        // rows[0].name = crypto.fromBase64(rows[0].name);
         callback(rows[0]);
     });
 };
@@ -475,7 +478,6 @@ exports.get_room_id_of_user = function(userId,callback){
     });
 };
 
-
 exports.create_room = function(roomId,conf,ip,port,create_time,callback){
     callback = callback == null? nop:callback;
     var sql = "INSERT INTO t_rooms(uuid,id,base_info,ip,port,create_time) \
@@ -512,7 +514,7 @@ exports.get_room_uuid = function(roomId,callback){
 exports.update_seat_info = function(roomId,seatIndex,userId,icon,name,callback){
     callback = callback == null? nop:callback;
     var sql = 'UPDATE t_rooms SET user_id{0} = {1},user_icon{0} = "{2}",user_name{0} = "{3}" WHERE id = "{4}"';
-    name = crypto.toBase64(name);
+    // name = crypto.toBase64(name);
     sql = sql.format(seatIndex,userId,icon,name,roomId);
     //console.log(sql);
     query(sql,function(err,row,fields){
@@ -541,7 +543,6 @@ exports.update_num_of_turns = function(roomId,numOfTurns,callback){
         }
     });
 };
-
 
 exports.update_next_button = function(roomId,nextButton,callback){
     callback = callback == null? nop:callback;
@@ -595,10 +596,10 @@ exports.get_room_data = function(roomId,callback){
             throw err;
         }
         if(rows.length > 0){
-            rows[0].user_name0 = crypto.fromBase64(rows[0].user_name0);
-            rows[0].user_name1 = crypto.fromBase64(rows[0].user_name1);
-            rows[0].user_name2 = crypto.fromBase64(rows[0].user_name2);
-            rows[0].user_name3 = crypto.fromBase64(rows[0].user_name3);
+            // rows[0].user_name0 = crypto.fromBase64(rows[0].user_name0);
+            // rows[0].user_name1 = crypto.fromBase64(rows[0].user_name1);
+            // rows[0].user_name2 = crypto.fromBase64(rows[0].user_name2);
+            // rows[0].user_name3 = crypto.fromBase64(rows[0].user_name3);
             callback(rows[0]);
         }
         else{
@@ -743,6 +744,24 @@ exports.get_message = function(type,version,callback){
             else{
                 callback(null);
             }
+        }
+    });
+};
+
+exports.get_gameList_data = function(callback){
+    callback = callback == null? nop:callback;
+
+    var sql = 'SELECT * FROM t_gameList';
+    query(sql, function(err, rows, fields) {
+        if(err){
+            callback(null);
+            throw err;
+        }
+        if(rows.length > 0){
+            callback(rows);
+        }
+        else{
+            callback(null);
         }
     });
 };
