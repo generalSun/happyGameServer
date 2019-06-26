@@ -14,13 +14,15 @@ var JU_SHU_COST = [2,3,4];
 function generateRoomId(first){
 	first = first.toString() || '1'
 	var roomId = first;
-	for(var i = 0; i < 6; ++i){
+	for(var i = 0; i < 5; ++i){
 		roomId += Math.floor(Math.random()*10);
 	}
 	return roomId;
 }
 
 function constructRoomFromDb(dbdata){
+	console.log('constructRoomFromDb : ')
+	console.log(dbdata)
 	var roomInfo = {
 		uuid:dbdata.uuid,
 		id:dbdata.id,
@@ -31,13 +33,8 @@ function constructRoomFromDb(dbdata){
 		conf:JSON.parse(dbdata.base_info)
 	};
 
-
-	if(roomInfo.conf.type == "xlch"){
-		roomInfo.gameMgr = require("./gamemgr_xlch");
-	}
-	else{
-		roomInfo.gameMgr = require("../gameList/xzdd/gamemgr_xzdd");
-	}
+	roomInfo.gameMgr = require('./../gameList/'+roomInfo.conf.type+"/gamemgr_"+roomInfo.conf.type)
+	roomInfo.socketMgr = require('./../gameList/'+roomInfo.conf.type+"/"+roomInfo.conf.type+"_socket")
 	var roomId = roomInfo.id;
 
 	for(var i = 0; i < 4; ++i){
@@ -47,12 +44,6 @@ function constructRoomFromDb(dbdata){
 		s.name = dbdata["user_name" + i];
 		s.ready = false;
 		s.seatIndex = i;
-		s.numZiMo = 0;
-		s.numJiePao = 0;
-		s.numDianPao = 0;
-		s.numAnGang = 0;
-		s.numMingGang = 0;
-		s.numChaJiao = 0;
 
 		if(s.userId > 0){
 			userLocation[s.userId] = {
@@ -107,8 +98,7 @@ exports.enterRoom = function(roomId,userId,userName,callback){
 			//已存在
 			return 0;
 		}
-
-		for(var i = 0; i < 4; ++i){
+		for(var i = 0; i < room.conf.playerMaxNum; ++i){
 			var seat = room.seats[i];
 			if(seat.userId <= 0){
 				seat.userId = userId;
@@ -126,6 +116,7 @@ exports.enterRoom = function(roomId,userId,userName,callback){
 		//房间已满
 		return 1;	
 	}
+	console.log('game_server enterRoom')
 	var room = rooms[roomId];
 	if(room){
 		var ret = fnTakeSeat(room);

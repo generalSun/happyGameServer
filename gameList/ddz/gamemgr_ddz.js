@@ -1340,7 +1340,7 @@ exports.begin = function(roomId) {
             }else{
                 args.holdsNum = game.gameSeats[j].holdsNum
             }
-            seatsInfo.push(args)
+            msg.seatsInfo.push(args)
         }
         //通知游戏开始
         userMgr.sendMsg(s.userId,'game_begin_push',msg);
