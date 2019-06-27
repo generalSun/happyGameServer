@@ -24,8 +24,6 @@ app.all('*', function(req, res, next) {
 app.get('/get_server_info',function(req,res){
 	var serverId = req.query.serverid;
 	var sign = req.query.sign;
-	console.log(serverId);
-	console.log(sign);
 	if(serverId  != config.SERVER_ID || sign == null){
 		http.send(res,1,"invalid parameters");
 		return;
@@ -52,6 +50,8 @@ app.get('/create_room',function(req,res){
 	var sign = req.query.sign;
 	var gems = req.query.gems;
 	var conf = req.query.conf
+	var name = req.query.name
+	console.log('http_service create_room:')
 	if(userId == null || sign == null || conf == null){
 		http.send(res,1,"invalid parameters");
 		return;
@@ -59,21 +59,27 @@ app.get('/create_room',function(req,res){
 
 	var md5 = crypto.md5(userId + conf + gems + config.ROOM_PRI_KEY);
 	if(md5 != req.query.sign){
-		console.log("invalid reuqest.");
 		http.send(res,1,"sign check failed.");
 		return;
 	}
 	
 	conf = JSON.parse(conf);
-	console.log('http_service : ')
-	console.log(conf)
-	roomMgr.createRoom(userId,conf,gems,serverIp,config.CLIENT_PORT,function(errcode,roomId){
+	var createRoomInfo = {
+		userId:userId,
+		conf:conf,
+		gems:gems,
+		ip:serverIp,
+		port:config.CLIENT_PORT,
+		name:name
+	}
+	console.log(createRoomInfo)
+	roomMgr.createRoom(createRoomInfo,function(errcode,roomId){
 		if(errcode != 0 || roomId == null){
 			http.send(res,errcode,"create failed.");
 			return;	
 		}
 		else{
-			http.send(res,0,"ok",{roomid:roomId});			
+			http.send(res,0,"ok",{roomId:roomId});			
 		}
 	});
 });
@@ -81,7 +87,7 @@ app.get('/create_room',function(req,res){
 app.get('/enter_room',function(req,res){
 	var userId = parseInt(req.query.userId);
 	var name = req.query.name;
-	var roomId = req.query.roomid;
+	var roomId = req.query.roomId;
 	var sign = req.query.sign;
 	if(userId == null || roomId == null || sign == null){
 		http.send(res,1,"invalid parameters");
@@ -89,15 +95,19 @@ app.get('/enter_room',function(req,res){
 	}
 
 	var md5 = crypto.md5(userId + name + roomId + config.ROOM_PRI_KEY);
-	console.log(req.query);
-	console.log(md5);
 	if(md5 != sign){
 		http.send(res,2,"sign check failed.");
 		return;
 	}
-
+	var enterRoomInfo = {
+		userId:userId,
+		roomId:roomId,
+		name:name
+	}
 	//安排玩家坐下
-	roomMgr.enterRoom(roomId,userId,name,function(ret){
+	roomMgr.enterRoom(enterRoomInfo,function(ret){
+		console.log('http_service enter_room:')
+		console.log(ret)
 		if(ret != 0){
 			if(ret == 1){
 				http.send(res,4,"room is full.");
@@ -114,7 +124,7 @@ app.get('/enter_room',function(req,res){
 });
 
 app.get('/is_room_runing',function(req,res){
-	var roomId = req.query.roomid;
+	var roomId = req.query.roomId;
 	var sign = req.query.sign;
 	if(roomId == null || sign == null){
 		http.send(res,1,"invalid parameters");
@@ -159,7 +169,6 @@ function update(){
 		var format = function(bytes) {  
               return (bytes/1024/1024).toFixed(2)+'MB';  
         }; 
-		//console.log('Process: heapTotal '+format(mem.heapTotal) + ' heapUsed ' + format(mem.heapUsed) + ' rss ' + format(mem.rss));
 	}
 }
 

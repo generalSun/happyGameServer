@@ -155,7 +155,7 @@ exports.get_user_data = function(account,callback){
         return;
     }
 
-    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE account = "' + account + '"';
+    var sql = 'SELECT * FROM t_users WHERE account = "' + account + '"';
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -178,7 +178,7 @@ exports.get_user_data_by_userid = function(userId,callback){
         return;
     }
 
-    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomid FROM t_users WHERE userId = ' + userId;
+    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomId FROM t_users WHERE userId = ' + userId;
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -278,7 +278,7 @@ exports.update_user_history = function(userId,history,callback){
     }
 
     history = JSON.stringify(history);
-    var sql = 'UPDATE t_users SET roomid = null, history = \'' + history + '\' WHERE userId = "' + userId + '"';
+    var sql = 'UPDATE t_users SET history = \'' + history + '\' WHERE userId = "' + userId + '"';
     //console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -356,7 +356,7 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     // name = crypto.toBase64(name);
     var userId = generateUserId();
 
-    var sql = 'INSERT INTO t_users(userId,account,name,coins,gems,sex,headimg) VALUES("{0}", "{1}","{2}",{3},{4},{5},{6})';
+    var sql = 'INSERT INTO t_users(userId,account,name,coins,gems,sex,headimg) VALUES("{0}","{1}","{2}","{3}","{4}","{5}","{6}")';
     sql = sql.format(userId,account,name,coins,gems,sex,headimg);
     console.log(sql);
     query(sql, function(err, rows, fields) {
@@ -417,9 +417,8 @@ exports.is_room_exist = function(roomId,callback){
         if(err){
             callback(false);
             throw err;
-        }
-        else{
-            callback(rows.length > 0);
+        }else{
+            callback(rows.length > 0,rows[0]);
         }
     });
 };
@@ -439,16 +438,14 @@ exports.cost_gems = function(userId,cost,callback){
     });
 };
 
-exports.set_room_id_of_user = function(userId,roomId,callback){
+exports.set_room_info_of_user = function(userId,info,callback){
     callback = callback == null? nop:callback;
-    if(roomId != null){
-        roomId = '"' + roomId + '"';
-    }
-    var sql = 'UPDATE t_users SET roomid = '+ roomId + ' WHERE userId = "' + userId + '"';
+    info = info || {}
+    info = JSON.stringify(info);
+    var sql = "UPDATE t_users SET roomInfo = '"+ info +"' WHERE userId = '" + userId + "'";
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if(err){
-            console.log(err);
             callback(false);
             throw err;
         }
@@ -458,39 +455,44 @@ exports.set_room_id_of_user = function(userId,roomId,callback){
     });
 };
 
-exports.get_room_id_of_user = function(userId,callback){
+exports.get_room_info_of_user = function(userId,callback){
     callback = callback == null? nop:callback;
-    var sql = 'SELECT roomid FROM t_users WHERE userId = "' + userId + '"';
+    var sql = 'SELECT roomInfo FROM t_users WHERE userId = "' + userId + '"';
     query(sql, function(err, rows, fields) {
         if(err){
             callback(null);
             throw err;
-        }
-        else{
-            if(rows.length > 0){
-                callback(rows[0].roomid);
-            }
-            else{
+        }else{
+            if(rows.length == 0){
                 callback(null);
+                return
             }
+            var info = rows[0].roomInfo;
+            if(info == null || info == ""){
+                callback(null);    
+            }else{
+                console.log('get_room_info_of_user :')
+                console.log(rows)
+                info = JSON.parse(info);
+                callback(info);
+            }      
         }
     });
 };
 
 exports.create_room = function(roomId,conf,ip,port,create_time,callback){
     callback = callback == null? nop:callback;
-    var sql = "INSERT INTO t_rooms(uuid,id,base_info,ip,port,create_time) \
-                VALUES('{0}','{1}','{2}','{3}',{4},{5})";
+    var sql = "INSERT INTO t_rooms(uuid,id,base_info,create_time,ip,port) \
+                VALUES('{0}','{1}','{2}','{3}','{4}','{5}')";
     var uuid = Date.now() + roomId;
     var baseInfo = JSON.stringify(conf);
-    sql = sql.format(uuid,roomId,baseInfo,ip,port,create_time);
+    sql = sql.format(uuid,roomId,baseInfo,create_time,ip,port);
     console.log(sql);
     query(sql,function(err,row,fields){
         if(err){
             callback(null);
             throw err;
-        }
-        else{
+        }else{
             callback(uuid);
         }
     });
@@ -510,22 +512,48 @@ exports.get_room_uuid = function(roomId,callback){
     });
 };
 
-exports.update_seat_info = function(roomId,seatIndex,userId,icon,name,callback){
+exports.get_seat_info_of_rooms = function(roomId,callback){
     callback = callback == null? nop:callback;
-    var sql = 'UPDATE t_rooms SET user_id{0} = {1},user_icon{0} = "{2}",user_name{0} = "{3}" WHERE id = "{4}"';
-    // name = crypto.toBase64(name);
-    sql = sql.format(seatIndex,userId,icon,name,roomId);
-    //console.log(sql);
-    query(sql,function(err,row,fields){
+    var sql = 'SELECT usersInfo FROM t_rooms WHERE id = "' + roomId + '"';
+    console.log(sql);
+    query(sql,function(err,rows,fields){
+        if(err){
+            callback(null);
+            throw err;
+        }else{
+            if(rows.length == 0){
+                callback(null);
+                return
+            }
+            var info = rows[0].usersInfo;
+            if(info == null || info == ""){
+                callback(null);    
+            }else{
+                info = JSON.parse(info);
+                console.log('get_seat_info_of_rooms :')
+                console.log(info)
+                callback(info);
+            }      
+        }
+    });
+}
+
+exports.set_seat_info_of_rooms = function(roomId,info,callback){
+    callback = callback == null? nop:callback;
+    info = info || {}
+    info = JSON.stringify(info);
+    var sql = "UPDATE t_rooms SET usersInfo = '"+ info +"' WHERE id = '" + roomId + "'";
+    console.log(sql);
+    query(sql, function(err, rows, fields) {
         if(err){
             callback(false);
             throw err;
         }
         else{
-            callback(true);
+            callback(rows.length > 0);
         }
     });
-}
+};
 
 exports.update_num_of_turns = function(roomId,numOfTurns,callback){
     callback = callback == null? nop:callback;
@@ -543,10 +571,10 @@ exports.update_num_of_turns = function(roomId,numOfTurns,callback){
     });
 };
 
-exports.update_next_button = function(roomId,nextButton,callback){
+exports.update_currentPlayingIndex = function(roomId,currentPlayingIndex,callback){
     callback = callback == null? nop:callback;
-    var sql = 'UPDATE t_rooms SET next_button = {0} WHERE id = "{1}"'
-    sql = sql.format(nextButton,roomId);
+    var sql = 'UPDATE t_rooms SET currentPlayingIndex = {0} WHERE id = "{1}"'
+    sql = sql.format(currentPlayingIndex,roomId);
     //console.log(sql);
     query(sql,function(err,row,fields){
         if(err){

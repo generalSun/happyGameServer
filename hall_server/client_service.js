@@ -60,26 +60,35 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
-
-		db.get_room_id_of_user(data.userId,function(roomId){
-			//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
-			if(roomId != null){
-				//检查房间是否存在于数据库中
-				db.is_room_exist(roomId,function (retval){
-					if(retval){
-						ret.roomid = roomId;
+		console.log('client_service login:')
+		console.log(data)
+		var roomInfo = data.roomInfo
+		if(roomInfo == null || roomInfo == ''){
+			http.send(res,0,"ok",ret);
+			return
+		}
+		roomInfo = JSON.parse(roomInfo)
+		console.log(roomInfo)
+		for(var roomId in roomInfo){
+			//检查房间是否存在于数据库中
+			db.is_room_exist(roomId,function (retval,info){
+				if(retval){
+					var usersInfo = JSON.parse(info.usersInfo)
+					for(var userId in usersInfo){
+						if(data.userId == userId){
+							ret.roomId = roomId;
+							http.send(res,0,"ok",ret);
+							return
+						}
 					}
-					else{
-						//如果房间不在了，表示信息不同步，清除掉用户记录
-						db.set_room_id_of_user(data.userId,null);
-					}
-					http.send(res,0,"ok",ret);
-				});
-			}
-			else {
-				http.send(res,0,"ok",ret);
-			}
-		});
+				}else{
+					//如果房间不在了，表示信息不同步，清除掉用户记录
+					delete roomInfo[roomId]
+					db.set_room_info_of_user(data.userId,roomInfo);
+				}
+			});
+		}
+		http.send(res,0,"ok",ret);
 	});
 });
 
@@ -124,29 +133,42 @@ app.get('/create_private_room',function(req,res){
 			http.send(res,1,"system error");
 			return;
 		}
-		console.log('get_user_data: ')
-		console.log(data)
 		var userId = data.userId;
 		var name = data.name;
+		console.log('get_user_data')
 		//验证玩家状态
-		db.get_room_id_of_user(userId,function(roomId){
+		db.get_room_info_of_user(userId,function(roomId){
+			console.log(roomId)
 			if(roomId != null){
 				http.send(res,-1,"user is playing in room now.");
 				return;
 			}
+			var createRoomInfo = {
+				conf:conf,
+				account:account,
+				userId:userId,
+				name:name
+			}
 			//创建房间
-			room_service.createRoom(account,userId,conf,function(err,roomId){
+			room_service.createRoom(createRoomInfo,function(err,roomId){
 				if(err == 0 && roomId != null){
-					room_service.enterRoom(userId,name,roomId,function(errcode,enterInfo){
+					var enterRoomInfo = {
+						userId:userId,
+						roomId:roomId,
+						name:name
+					} 
+					room_service.enterRoom(enterRoomInfo,function(errcode,enterInfo){
+						console.log('client_service create_private_room enterRoom:')
+						console.log(enterInfo)
 						if(enterInfo){
 							var ret = {
-								roomid:roomId,
+								roomId:roomId,
 								ip:enterInfo.ip,
 								port:enterInfo.port,
 								token:enterInfo.token,
 								time:Date.now()
 							};
-							ret.sign = crypto.md5(ret.roomid + ret.token + ret.time + config.ROOM_PRI_KEY);
+							ret.sign = crypto.md5(ret.roomId + ret.token + ret.time + config.ROOM_PRI_KEY);
 							http.send(res,0,"ok",ret);
 						}
 						else{
@@ -164,7 +186,7 @@ app.get('/create_private_room',function(req,res){
 
 app.get('/enter_private_room',function(req,res){
 	var data = req.query;
-	var roomId = data.roomid;
+	var roomId = data.roomId;
 	if(roomId == null){
 		http.send(res,-1,"parameters don't match api requirements.");
 		return;
@@ -182,16 +204,16 @@ app.get('/enter_private_room',function(req,res){
 		}
 		var userId = data.userId;
 		var name = data.name;
-		console.log('enter_private_room:'+name)
-		//验证玩家状态
-		//todo
+		var enterRoomInfo = {
+			userId:userId,
+			roomId:roomId,
+			name:name
+		}
 		//进入房间
-		room_service.enterRoom(userId,name,roomId,function(errcode,enterInfo){
-			console.log('enter_private_room  enterRoom info:')
-			console.log(enterInfo)
+		room_service.enterRoom(enterRoomInfo,function(errcode,enterInfo){
 			if(enterInfo){
 				var ret = {
-					roomid:roomId,
+					roomId:roomId,
 					ip:enterInfo.ip,
 					port:enterInfo.port,
 					token:enterInfo.token,

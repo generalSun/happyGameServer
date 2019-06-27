@@ -763,7 +763,7 @@ function doGameOver(game,userId,forceEnd){
         //如果局数已够，则进行整体结算，并关闭房间
         if(isEnd){
             setTimeout(function(){
-                if(roomInfo.numOfGames > 1){
+                if(roomInfo.num_of_turns > 1){
                     store_history(roomInfo);    
                 }
                 
@@ -829,19 +829,19 @@ function doGameOver(game,userId,forceEnd){
         }
         delete games[roomId];
         
-        var old = roomInfo.nextButton;
+        var old = roomInfo.currentPlayingIndex;
         if(game.yipaoduoxiang >= 0){
-            roomInfo.nextButton = game.yipaoduoxiang;
+            roomInfo.currentPlayingIndex = game.yipaoduoxiang;
         }
         else if(game.firstHupai >= 0){
-            roomInfo.nextButton = game.firstHupai;
+            roomInfo.currentPlayingIndex = game.firstHupai;
         }
         else{
-            roomInfo.nextButton = (game.turn + 1) % 4;
+            roomInfo.currentPlayingIndex = (game.turn + 1) % 4;
         }
 
-        if(old != roomInfo.nextButton){
-            db.update_next_button(roomId,roomInfo.nextButton);
+        if(old != roomInfo.currentPlayingIndex){
+            db.update_currentPlayingIndex(roomId,roomInfo.currentPlayingIndex);
         }
     }
     
@@ -852,17 +852,17 @@ function doGameOver(game,userId,forceEnd){
         //保存游戏
         store_game(game,function(ret){
             
-            db.update_game_result(roomInfo.uuid,game.numOfGames,dbresult);
+            db.update_game_result(roomInfo.uuid,game.num_of_turns,dbresult);
             
             //记录打牌信息
             var str = JSON.stringify(game.actionList);
-            db.update_game_action_records(roomInfo.uuid,game.numOfGames,str);
+            db.update_game_action_records(roomInfo.uuid,game.num_of_turns,str);
         
             //保存游戏局数
-            db.update_num_of_turns(roomId,roomInfo.numOfGames);
+            db.update_num_of_turns(roomId,roomInfo.num_of_turns);
             
             //如果是第一次，并且不是强制解散 则扣除房卡
-            if(roomInfo.numOfGames == 1){
+            if(roomInfo.num_of_turns == 1){
                 var cost = 2;
                 if(roomInfo.conf.maxGames == 8){
                     cost = 3;
@@ -870,7 +870,7 @@ function doGameOver(game,userId,forceEnd){
                 db.cost_gems(game.gameSeats[0].userId,cost);
             }
 
-            var isEnd = (roomInfo.numOfGames >= roomInfo.conf.maxGames);
+            var isEnd = (roomInfo.num_of_turns >= roomInfo.conf.maxGames);
             fnNoticeResult(isEnd);
         });   
     }
@@ -947,7 +947,7 @@ function construct_game_base_info(game){
     var baseInfo = {
         type:game.conf.type,
         button:game.button,
-        index:game.numOfGames,
+        index:game.num_of_turns,
         pokers:game.pokers,
         game_seats:new Array(4)
     }
@@ -959,7 +959,7 @@ function construct_game_base_info(game){
 }
 
 function store_game(game,callback){
-    db.create_game(game.roomInfo.uuid,game.numOfGames,game.baseInfoJson,callback);
+    db.create_game(game.roomInfo.uuid,game.num_of_turns,game.baseInfoJson,callback);
 }
 /**
  -----------------------------------------------------------------------------------
@@ -1221,21 +1221,12 @@ exports.setReady = function(userId){
     roomMgr.setReady(userId,true);
 
     var game = games[roomId];
-    if(game == null){
-        for(var i = 0; i < roomInfo.seats.length; ++i){
-            var s = roomInfo.seats[i];
-            if(s.ready == false || userMgr.isOnline(s.userId) == false){
-                return;
-            }
-        }
-        //人到齐了，并且都准备好了，则开始新的一局
-        exports.begin(roomId);
-    }else{
+    if(game){//重新进入游戏
         var playerMaxNum = roomInfo.conf.playerMaxNum
         var data = {
             state:game.state,
             isNewTurn:game.isNewTurn,
-            numOfGames:roomInfo.numOfGames,
+            num_of_turns:roomInfo.num_of_turns,
             yuCards:game.yuCards,
             currentPlayingIndex:game.currentPlayingIndex,
         };
@@ -1275,8 +1266,8 @@ exports.begin = function(roomId) {
     var game = {
         conf:roomInfo.conf,//房间配置
         roomInfo:roomInfo,//房间信息
-        numOfGames:roomInfo.numOfGames,//游戏局数
-        currentPlayingIndex:roomInfo.nextButton,//指向当前操作玩家
+        num_of_turns:roomInfo.num_of_turns,//游戏局数
+        currentPlayingIndex:roomInfo.currentPlayingIndex,//指向当前操作玩家
         pokers:new Array(),//游戏所有扑克牌
         currentPokersIndex:0,//指向当前摸牌时pokers的位置
         gameSeats:new Array(roomInfo.conf.playerMaxNum),//游戏所有玩家
@@ -1286,7 +1277,7 @@ exports.begin = function(roomId) {
         actionList:[],//记录玩家操作信息，用于战绩回放
     };
 
-    roomInfo.numOfGames++;
+    roomInfo.num_of_turns++;
 
     for(var i = 0; i < roomInfo.conf.playerMaxNum; ++i){
         var data = game.gameSeats[i] = {};
@@ -1325,7 +1316,7 @@ exports.begin = function(roomId) {
         //开局时，通知前端必要的数据
         var s = seats[i];
         var msg = {
-            numOfGames:roomInfo.numOfGames,
+            num_of_turns:roomInfo.num_of_turns,
             yuCards:game.yuCards,
             currentPlayingIndex:game.currentPlayingIndex,
             seatsInfo:new Array()
@@ -2046,7 +2037,7 @@ exports.hasBegan = function(roomId){
     }
     var roomInfo = roomMgr.getRoom(roomId);
     if(roomInfo != null){
-        return roomInfo.numOfGames > 0;
+        return roomInfo.num_of_turns > 0;
     }
     return false;
 };

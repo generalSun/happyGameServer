@@ -939,7 +939,7 @@ function doGameOver(game,userId,forceEnd){
         //如果局数已够，则进行整体结算，并关闭房间
         if(isEnd){
             setTimeout(function(){
-                if(roomInfo.numOfGames > 1){
+                if(roomInfo.num_of_turns > 1){
                     store_history(roomInfo);    
                 }
                 userMgr.kickAllInRoom(roomId);
@@ -1008,7 +1008,7 @@ function doGameOver(game,userId,forceEnd){
         }
 
         if(old != roomInfo.nextButton){
-            db.update_next_button(roomId,roomInfo.nextButton);
+            db.update_currentPlayingIndex(roomId,roomInfo.nextButton);
         }
     }
     
@@ -1025,10 +1025,10 @@ function doGameOver(game,userId,forceEnd){
             db.update_game_action_records(roomInfo.uuid,game.gameIndex,str); 
         
             //保存游戏局数
-            db.update_num_of_turns(roomId,roomInfo.numOfGames);
+            db.update_num_of_turns(roomId,roomInfo.num_of_turns);
             
             //如果是第一次，则扣除房卡
-            if(roomInfo.numOfGames == 1){
+            if(roomInfo.num_of_turns == 1){
                 var cost = 2;
                 if(roomInfo.conf.maxGames == 8){
                     cost = 3;
@@ -1036,7 +1036,7 @@ function doGameOver(game,userId,forceEnd){
                 db.cost_gems(game.gameSeats[0].userId,cost);
             }
 
-            var isEnd = (roomInfo.numOfGames >= roomInfo.conf.maxGames);
+            var isEnd = (roomInfo.num_of_turns >= roomInfo.conf.maxGames);
             fnNoticeResult(isEnd);
         });            
     }
@@ -1101,7 +1101,7 @@ exports.setReady = function(userId,callback){
     }
     else{
         var numOfMJ = game.mahjongs.length - game.currentIndex;
-        var remainingGames = roomInfo.conf.maxGames - roomInfo.numOfGames;
+        var remainingGames = roomInfo.conf.maxGames - roomInfo.num_of_turns;
 
         var data = {
             state:game.state,
@@ -1211,7 +1211,7 @@ exports.begin = function(roomId) {
     var game = {
         conf:roomInfo.conf,
         roomInfo:roomInfo,
-        gameIndex:roomInfo.numOfGames,
+        gameIndex:roomInfo.num_of_turns,
 
         button:roomInfo.nextButton,
         mahjongs:new Array(108),
@@ -1229,7 +1229,7 @@ exports.begin = function(roomId) {
         chupaiCnt:0,
     };
 
-    roomInfo.numOfGames++;
+    roomInfo.num_of_turns++;
 
     for(var i = 0; i < 4; ++i){
         var data = game.gameSeats[i] = {};
@@ -1323,7 +1323,7 @@ exports.begin = function(roomId) {
         //通知还剩多少张牌
         userMgr.sendMsg(s.userId,'mj_count_push',numOfMJ);
         //通知还剩多少局
-        userMgr.sendMsg(s.userId,'game_num_push',roomInfo.numOfGames);
+        userMgr.sendMsg(s.userId,'game_num_push',roomInfo.num_of_turns);
         //通知游戏开始
         userMgr.sendMsg(s.userId,'game_begin_push',game.button);
 
@@ -2195,7 +2195,7 @@ exports.hasBegan = function(roomId){
     }
     var roomInfo = roomMgr.getRoom(roomId);
     if(roomInfo != null){
-        return roomInfo.numOfGames > 0;
+        return roomInfo.num_of_turns > 0;
     }
     return false;
 };

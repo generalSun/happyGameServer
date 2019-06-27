@@ -1,5 +1,5 @@
 ﻿var db = require('../utils/db');
-
+var constants = require('./config/constants')
 var rooms = {};
 var creatingRooms = {};
 
@@ -26,9 +26,10 @@ function constructRoomFromDb(dbdata){
 	var roomInfo = {
 		uuid:dbdata.uuid,
 		id:dbdata.id,
-		numOfGames:dbdata.num_of_turns,
+		num_of_turns:dbdata.num_of_turns,
 		createTime:dbdata.create_time,
-		nextButton:dbdata.next_button,
+		currentPlayingIndex:dbdata.currentPlayingIndex,
+		room_state:dbdata.room_state,
 		seats:new Array(4),
 		conf:JSON.parse(dbdata.base_info)
 	};
@@ -63,11 +64,16 @@ exports.destroy = function(roomId){
 		return;
 	}
 
-	for(var i = 0; i < 4; ++i){
+	for(var i = 0; i < roomInfo.playerMaxNum; ++i){
 		var userId = roomInfo.seats[i].userId;
 		if(userId > 0){
 			delete userLocation[userId];
-			db.set_room_id_of_user(userId,null);
+			db.get_room_info_of_user(userId,function(data){
+				if(data){
+					delete data[roomId]
+					db.set_room_info_of_user(userId,data);
+				}
+			});
 		}
 	}
 	
@@ -92,7 +98,11 @@ exports.isCreator = function(roomId,userId){
 	return roomInfo.conf.creator == userId;
 };
 
-exports.enterRoom = function(roomId,userId,userName,callback){
+exports.enterRoom = function(enterRoomInfo,callback){
+	enterRoomInfo = enterRoomInfo || {}
+	var userId = enterRoomInfo.userId
+	var roomId = enterRoomInfo.roomId
+	var name = enterRoomInfo.name
 	var fnTakeSeat = function(room){
 		if(exports.getUserRoom(userId) == roomId){
 			//已存在
@@ -102,13 +112,25 @@ exports.enterRoom = function(roomId,userId,userName,callback){
 			var seat = room.seats[i];
 			if(seat.userId <= 0){
 				seat.userId = userId;
-				seat.name = userName;
+				seat.name = name;
 				userLocation[userId] = {
 					roomId:roomId,
 					seatIndex:i
 				};
-				//console.log(userLocation[userId]);
-				db.update_seat_info(roomId,i,seat.userId,"",seat.name);
+				db.get_seat_info_of_rooms(roomId,function(ret){
+					if(ret == null){
+						ret = {}
+					}
+					var userInfo = {
+						userId:userId,
+						seatIndex:i,
+						name:name
+					}
+					ret[userId] = userInfo
+					console.log('roommgr enterRoom:')
+					console.log(ret)
+					db.set_seat_info_of_rooms(roomId,ret)
+				});
 				//正常
 				return 0;
 			}
@@ -116,19 +138,16 @@ exports.enterRoom = function(roomId,userId,userName,callback){
 		//房间已满
 		return 1;	
 	}
-	console.log('game_server enterRoom')
 	var room = rooms[roomId];
 	if(room){
 		var ret = fnTakeSeat(room);
 		callback(ret);
-	}
-	else{
+	}else{
 		db.get_room_data(roomId,function(dbdata){
 			if(dbdata == null){
 				//找不到房间
 				callback(2);
-			}
-			else{
+			}else{
 				//construct room.
 				room = constructRoomFromDb(dbdata);
 				//
@@ -223,17 +242,36 @@ exports.exitRoom = function(userId){
 			numOfPlayers++;
 		}
 	}
-	
-	db.set_room_id_of_user(userId,null);
+	db.get_room_info_of_user(userId,function(data){
+		if(data){
+			for(var i = 0; i < data.length; i++){
+				var info = data[i]
+				if(roomId == info.roomId){
+					if(info.field == 'private'){
+						delete data[roomId]
+					}
+					break
+				}
+			}
+			db.set_room_info_of_user(userId,data);
+		}
+	});
 
 	if(numOfPlayers == 0){
 		exports.destroy(roomId);
 	}
 };
 
-exports.createRoom = function(creator,roomConf,gems,ip,port,callback){
-	console.log('game_server createRoom_ddz:')
-	console.log(roomConf)
+exports.createRoom = function(createRoomInfo,callback){
+	createRoomInfo = createRoomInfo || {}
+	var creator = createRoomInfo.userId
+	var roomConf = createRoomInfo.conf
+	var gems = createRoomInfo.gems
+	var ip = createRoomInfo.ip
+	var port = createRoomInfo.port
+	var name = createRoomInfo.name
+	console.log('game_server createRoomInfo:')
+	console.log(createRoomInfo)
 	if(
 		roomConf.type == null
 		|| roomConf.rule == null
@@ -269,19 +307,18 @@ exports.createRoom = function(creator,roomConf,gems,ip,port,callback){
 		else{
 			creatingRooms[roomId] = true;
 			db.is_room_exist(roomId, function(ret) {
-
 				if(ret){
 					delete creatingRooms[roomId];
 					fnCreate();
-				}
-				else{
+				}else{
 					var createTime = Math.ceil(Date.now()/1000);
 					var roomInfo = {
 						uuid:"",
 						id:roomId,
-						numOfGames:0,
+						num_of_turns:0,
 						createTime:createTime,
-						nextButton:0,
+						currentPlayingIndex:0,
+						room_state:constants.ROOM_state.idel,
 						seats:[],
 						conf:{
 							type:roomConf.type,
@@ -318,8 +355,7 @@ exports.createRoom = function(creator,roomConf,gems,ip,port,callback){
 							rooms[roomId] = roomInfo;
 							totalRooms++;
 							callback(0,roomId);
-						}
-						else{
+						}else{
 							callback(3,null);
 						}
 					});

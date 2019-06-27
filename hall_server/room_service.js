@@ -88,31 +88,35 @@ function chooseServer(){
 	return serverinfo;
 }
 
-exports.createRoom = function(account,userId,roomConf,fnCallback){
+exports.createRoom = function(createRoomInfo,fnCallback){
 	var serverinfo = chooseServer();
 	if(serverinfo == null){
 		fnCallback(101,null);
 		return;
 	}
-	console.log('createRoom config: ')
-	console.log(roomConf)
+
+	var conf = createRoomInfo.conf
+	var account = createRoomInfo.account
+	var userId = createRoomInfo.userId
+	var name = createRoomInfo.name
 	db.get_gems(account,function(data){
 		if(data != null){
 			//2、请求创建房间
 			var reqdata = {
 				userId:userId,
 				gems:data.gems,
-				conf:roomConf
+				conf:conf,
+				name:name
 			};
-			reqdata.sign = crypto.md5(userId + roomConf + data.gems + config.ROOM_PRI_KEY);
+			reqdata.sign = crypto.md5(userId + conf + data.gems + config.ROOM_PRI_KEY);
+
+			console.log('room_service createRoom: ')
+			console.log(reqdata)
+
 			http.get(serverinfo.ip,serverinfo.httpPort,"/create_room",reqdata,function(ret,data){
-				console.log('create_room reqdata:');
-				console.log(data);
-				console.log('create_room reqret:');
-				console.log(ret);
 				if(ret){
 					if(data.errcode == 0){
-						fnCallback(0,data.roomid);
+						fnCallback(0,data.roomId);
 					}
 					else{
 						fnCallback(data.errcode,null);		
@@ -128,17 +132,15 @@ exports.createRoom = function(account,userId,roomConf,fnCallback){
 	});
 };
 
-exports.enterRoom = function(userId,name,roomId,fnCallback){
-	var reqdata = {
-		userId:userId,
-		name:name,
-		roomid:roomId
-	};
-	reqdata.sign = crypto.md5(userId + name + roomId + config.ROOM_PRI_KEY);
+exports.enterRoom = function(enterRoomInfo,fnCallback){
+	var userId = enterRoomInfo.userId
+	var name = enterRoomInfo.name
+	var roomId = enterRoomInfo.roomId
+	enterRoomInfo.sign = crypto.md5(userId + name + roomId + config.ROOM_PRI_KEY);
 
 	var checkRoomIsRuning = function(serverinfo,roomId,callback){
 		var sign = crypto.md5(roomId + config.ROOM_PRI_KEY);
-		http.get(serverinfo.ip,serverinfo.httpPort,"/is_room_runing",{roomid:roomId,sign:sign},function(ret,data){
+		http.get(serverinfo.ip,serverinfo.httpPort,"/is_room_runing",{roomId:roomId,sign:sign},function(ret,data){
 			if(ret){
 				if(data.errcode == 0 && data.runing == true){
 					callback(true);
@@ -154,24 +156,35 @@ exports.enterRoom = function(userId,name,roomId,fnCallback){
 	}
 
 	var enterRoomReq = function(serverinfo){
-		http.get(serverinfo.ip,serverinfo.httpPort,"/enter_room",reqdata,function(ret,data){
+		http.get(serverinfo.ip,serverinfo.httpPort,"/enter_room",enterRoomInfo,function(ret,data){
+			console.log('room_service enterRoom:');
 			console.log(data);
 			if(ret){
 				if(data.errcode == 0){
-					db.set_room_id_of_user(userId,roomId,function(ret){
-						fnCallback(0,{
-							ip:serverinfo.clientip,
-							port:serverinfo.clientport,
-							token:data.token
+					db.get_room_info_of_user(userId,function(args){
+						if(args == null){
+							args = {}
+						}
+						var info = {
+							roomId:roomId,
+							field:'private'
+						}
+						args[roomId] = info
+						console.log('room_service enterRoom:')
+						console.log(args)
+						db.set_room_info_of_user(userId,args,function(ret){
+							fnCallback(0,{
+								ip:serverinfo.clientip,
+								port:serverinfo.clientport,
+								token:data.token
+							});
 						});
 					});
-				}
-				else{
+				}else{
 					console.log(data.errmsg);
 					fnCallback(data.errcode,null);
 				}
-			}
-			else{
+			}else{
 				fnCallback(-1,null);
 			}
 		});
@@ -188,8 +201,6 @@ exports.enterRoom = function(userId,name,roomId,fnCallback){
 	}
 
 	db.get_room_addr(roomId,function(ret,ip,port){
-		console.log('get_room_addr :')
-		console.log(ret)
 		if(ret){
 			var id = ip + ":" + port;
 			var serverinfo = serverMap[id];
@@ -197,17 +208,14 @@ exports.enterRoom = function(userId,name,roomId,fnCallback){
 				checkRoomIsRuning(serverinfo,roomId,function(isRuning){
 					if(isRuning){
 						enterRoomReq(serverinfo);
-					}
-					else{
+					}else{
 						chooseServerAndEnter(serverinfo);
 					}
 				});
-			}
-			else{
+			}else{
 				chooseServerAndEnter(serverinfo);
 			}
-		}
-		else{
+		}else{
 			fnCallback(-2,null);
 		}
 	});

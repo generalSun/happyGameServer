@@ -39,7 +39,7 @@ exports.start = function(conf,mgr){
 				return;
 			}
 			var token = data.token;
-			var roomId = data.roomid;
+			var roomId = data.roomId;
 			var time = data.time;
 			var sign = data.sign;
 
@@ -80,7 +80,12 @@ exports.start = function(conf,mgr){
 
 			//返回房间信息
 			var roomInfo = roomMgr.getRoom(roomId);
-			
+
+			roomInfo.socketMgr.listenMsg(socket)
+			socket.gameMgr = roomInfo.gameMgr;
+			//玩家上线，强制设置为TRUE
+			socket.gameMgr.setReady(userId);
+
 			var seatIndex = roomMgr.getUserSeat(userId);
 			roomInfo.seats[seatIndex].ip = socket.handshake.address;
 
@@ -113,27 +118,21 @@ exports.start = function(conf,mgr){
 				errcode:0,
 				errmsg:"ok",
 				data:{
-					roomid:roomInfo.id,
+					roomId:roomInfo.id,
 					conf:roomInfo.conf,
-					numofgames:roomInfo.numOfGames,
+					numofgames:roomInfo.num_of_turns,
 					seats:seats
 				}
 			};
 			console.log('通知前端')
 			console.log(ret)
+			console.log(seats)
 			socket.emit('login_result',ret);
+
+			socket.emit('login_finished');
 
 			//通知其它客户端
 			userMgr.broacastInRoom('new_user_comes_push',userData,userId);
-			
-			socket.gameMgr = roomInfo.gameMgr;
-
-			roomInfo.socketMgr.listenMsg(socket)
-			
-			//玩家上线，强制设置为TRUE
-			socket.gameMgr.setReady(userId);
-
-			socket.emit('login_finished');
 
 			if(roomInfo.dr != null){
 				var dr = roomInfo.dr;
@@ -153,23 +152,6 @@ exports.start = function(conf,mgr){
 			}
 			socket.gameMgr.setReady(userId);
 			userMgr.broacastInRoom('user_ready_push',{userId:userId,ready:true},userId,true);
-		});
-
-		//出牌
-		socket.on('chupai',function(data){
-			if(socket.userId == null){
-				return;
-			}
-			var pai = data;
-			socket.gameMgr.chuPai(socket.userId,pai);
-		});
-
-		//过  遇上胡，碰，杠的时候，可以选择过
-		socket.on('guo',function(data){
-			if(socket.userId == null){
-				return;
-			}
-			socket.gameMgr.guo(socket.userId);
 		});
 		
 		//聊天
