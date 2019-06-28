@@ -2,7 +2,7 @@ var crypto = require('../utils/crypto');
 var express = require('express');
 var db = require('../utils/db');
 var http = require('../utils/http');
-var app = express();
+var app = require('./../common/common_app')
 
 var hallIp = null;
 var config = null;

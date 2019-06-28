@@ -4,7 +4,7 @@ var db = require('../utils/db');
 var http = require('../utils/http');
 var room_service = require("./room_service");
 
-var app = express();
+var app = require('./../common/common_app')
 var config = null;
 
 function check_account(req,res){
@@ -60,35 +60,53 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
-		console.log('client_service login:')
-		console.log(data)
 		var roomInfo = data.roomInfo
 		if(roomInfo == null || roomInfo == ''){
 			http.send(res,0,"ok",ret);
 			return
 		}
 		roomInfo = JSON.parse(roomInfo)
-		console.log(roomInfo)
+		var ps = new Array()
 		for(var roomId in roomInfo){
-			//检查房间是否存在于数据库中
-			db.is_room_exist(roomId,function (retval,info){
-				if(retval){
-					var usersInfo = JSON.parse(info.usersInfo)
-					for(var userId in usersInfo){
-						if(data.userId == userId){
-							ret.roomId = roomId;
-							http.send(res,0,"ok",ret);
-							return
+			var p = new Promise((resolve, reject) => {
+				//检查房间是否存在于数据库中
+				db.is_room_exist(roomId,function(retval,info){
+					if(retval){
+						var usersInfo = JSON.parse(info.usersInfo)
+						var args = {
+							usersInfo:usersInfo,
+							roomId:roomId,
+							userId:data.userId,
 						}
+						resolve(args)
+					}else{
+						//如果房间不在了，表示信息不同步，清除掉用户记录
+						delete roomInfo[roomId]
+						db.set_room_info_of_user(data.userId,roomInfo);
 					}
-				}else{
-					//如果房间不在了，表示信息不同步，清除掉用户记录
-					delete roomInfo[roomId]
-					db.set_room_info_of_user(data.userId,roomInfo);
-				}
-			});
+				});
+			})
+            ps.push(p)
 		}
-		http.send(res,0,"ok",ret);
+
+		Promise.all(ps).then(function(args){
+            for(var i = 0; i < args.length; i++){
+				var arg = args[i]
+				var usersInfo = arg.usersInfo
+				var roomId = arg.roomId
+				var userId = arg.userId
+				for(var id in usersInfo){
+					if(id == userId){
+						ret.roomId = roomId;
+						http.send(res,0,"ok",ret);
+						return
+					}
+				}
+			}
+			http.send(res,0,"ok",ret);
+        }).catch(function(err){
+            cc.log(err.message || err);
+        })
 	});
 });
 
@@ -135,13 +153,17 @@ app.get('/create_private_room',function(req,res){
 		}
 		var userId = data.userId;
 		var name = data.name;
-		console.log('get_user_data')
 		//验证玩家状态
-		db.get_room_info_of_user(userId,function(roomId){
-			console.log(roomId)
-			if(roomId != null){
-				http.send(res,-1,"user is playing in room now.");
-				return;
+		db.get_room_info_of_user(userId,function(roomInfo){
+			roomInfo = roomInfo || {}
+			if(roomInfo.length > 0){
+				for(var key in roomInfo){
+					var info = roomInfo[key]
+					if(info.field == 'private'){
+						http.send(res,-1,"user is playing in room now.");
+						return;
+					}
+				}
 			}
 			var createRoomInfo = {
 				conf:conf,
@@ -317,7 +339,6 @@ app.get('/get_message',function(req,res){
 });
 
 app.get('/get_gameList',function(req,res){
-	var data = req.query;
 	if(!check_account(req,res)){
 		return;
 	}

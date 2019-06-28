@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `happygame` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `happygame`;
 -- MySQL dump 10.13  Distrib 5.7.22, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: happygame
@@ -37,7 +35,6 @@ CREATE TABLE `t_accounts` (
 
 LOCK TABLES `t_accounts` WRITE;
 /*!40000 ALTER TABLE `t_accounts` DISABLE KEYS */;
-INSERT INTO `t_accounts` VALUES ('13812312312','1234'),('15912312312','1234');
 /*!40000 ALTER TABLE `t_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-27  9:48:04
+-- Dump completed on 2019-06-28  9:23:17

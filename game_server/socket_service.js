@@ -1,14 +1,14 @@
 var crypto = require('../utils/crypto');
 var db = require('../utils/db');
 var express = require('express');
-
+var constants = require('./config/constants')
 var tokenMgr = require('./tokenmgr');
 var roomMgr = require('./roommgr');
 var userMgr = require('./usermgr');
 var http = require('../utils/http');
 var io = null;
 
-var app = express();
+var app = require('./../common/common_app')
 
 //设置跨域访问
 app.all('*', function(req, res, next) {
@@ -42,12 +42,6 @@ exports.start = function(conf,mgr){
 			var roomId = data.roomId;
 			var time = data.time;
 			var sign = data.sign;
-
-			console.log(roomId);
-			console.log(token);
-			console.log(time);
-			console.log(sign);
-
 			
 			//检查参数合法性
 			if(token == null || roomId == null || sign == null || time == null){
@@ -77,20 +71,22 @@ exports.start = function(conf,mgr){
 
 			userMgr.bind(userId,socket);
 			socket.userId = userId;
-
 			//返回房间信息
 			var roomInfo = roomMgr.getRoom(roomId);
-
+			
 			roomInfo.socketMgr.listenMsg(socket)
 			socket.gameMgr = roomInfo.gameMgr;
-			//玩家上线，强制设置为TRUE
-			socket.gameMgr.setReady(userId);
+			if(roomInfo.num_of_turns == 0 && roomInfo.room_state == constants.ROOM_state.idel){
+				//玩家上线，强制设置为TRUE
+				socket.gameMgr.setReady(userId);
+			}
 
 			var seatIndex = roomMgr.getUserSeat(userId);
 			roomInfo.seats[seatIndex].ip = socket.handshake.address;
 
 			var userData = null;
 			var seats = [];
+			var readyNum = 0
 			for(var i = 0; i < roomInfo.seats.length; ++i){
 				var rs = roomInfo.seats[i];
 				var online = false;
@@ -108,6 +104,10 @@ exports.start = function(conf,mgr){
 					seatindex:i
 				});
 
+				if(rs.ready){
+					readyNum = readyNum + 1
+				}
+
 				if(userId == rs.userId){
 					userData = seats[i];
 				}
@@ -124,16 +124,21 @@ exports.start = function(conf,mgr){
 					seats:seats
 				}
 			};
-			console.log('通知前端')
-			console.log(ret)
-			console.log(seats)
 			socket.emit('login_result',ret);
 
 			socket.emit('login_finished');
-
+			console.log('socket_service login:')
+			console.log(roomInfo)
 			//通知其它客户端
 			userMgr.broacastInRoom('new_user_comes_push',userData,userId);
+			socket.gameMgr.enterRoomAgain(userId);
 
+			if(readyNum == roomInfo.seats.length){
+				if(roomInfo.num_of_turns == 0 && roomInfo.room_state == constants.ROOM_state.idel){
+					socket.gameMgr.begin(roomId);
+				}
+			}
+			
 			if(roomInfo.dr != null){
 				var dr = roomInfo.dr;
 				var ramaingTime = (dr.endTime - Date.now()) / 1000;
@@ -357,22 +362,15 @@ exports.start = function(conf,mgr){
 				userId:userId,
 				online:false
 			};
-
+			console.log('disconnect :')
+			console.log(data)
 			//通知房间内其它玩家
 			userMgr.broacastInRoom('user_state_push',data,userId);
 
 			//清除玩家的在线信息
 			userMgr.del(userId);
+			roomMgr.leaveRoom(userId)
 			socket.userId = null;
-		});
-		
-		socket.on('game_ping',function(data){
-			var userId = socket.userId;
-			if(!userId){
-				return;
-			}
-			//console.log('game_ping');
-			socket.emit('game_pong');
 		});
 	});
 

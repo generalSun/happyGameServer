@@ -21,7 +21,7 @@ function generateRoomId(first){
 }
 
 function constructRoomFromDb(dbdata){
-	console.log('constructRoomFromDb : ')
+	console.log('constructRoomFromDb:')
 	console.log(dbdata)
 	var roomInfo = {
 		uuid:dbdata.uuid,
@@ -30,19 +30,26 @@ function constructRoomFromDb(dbdata){
 		createTime:dbdata.create_time,
 		currentPlayingIndex:dbdata.currentPlayingIndex,
 		room_state:dbdata.room_state,
-		seats:new Array(4),
+		seats:new Array(),
 		conf:JSON.parse(dbdata.base_info)
 	};
-
+	
 	roomInfo.gameMgr = require('./../gameList/'+roomInfo.conf.type+"/gamemgr_"+roomInfo.conf.type)
 	roomInfo.socketMgr = require('./../gameList/'+roomInfo.conf.type+"/"+roomInfo.conf.type+"_socket")
+	
 	var roomId = roomInfo.id;
-
-	for(var i = 0; i < 4; ++i){
+	var usersInfo = JSON.parse(dbdata.usersInfo)
+	for(var i = 0; i < roomInfo.conf.playerMaxNum; ++i){
 		var s = roomInfo.seats[i] = {};
-		s.userId = dbdata["user_id" + i];
-		s.score = dbdata["user_score" + i];
-		s.name = dbdata["user_name" + i];
+		for(var key in usersInfo){
+			var info = usersInfo[key]
+			if(info.seatIndex == i){
+				s.userId = info.userId
+				s.score = info.score
+				s.name = info.name
+				break
+			}
+		}
 		s.ready = false;
 		s.seatIndex = i;
 
@@ -98,61 +105,91 @@ exports.isCreator = function(roomId,userId){
 	return roomInfo.conf.creator == userId;
 };
 
+exports.userInRoom = function(enterRoomInfo,callback){
+	enterRoomInfo = enterRoomInfo || {}
+	var userId = enterRoomInfo.userId
+	var roomId = enterRoomInfo.roomId
+	var name = enterRoomInfo.name
+	db.get_seat_info_of_rooms(roomId,function(ret){
+		console.log('roommgr userInRoom:')
+		console.log(ret)
+		if(ret == null){
+			ret = {}
+		}
+		var hasFind = false
+		var room = rooms[roomId];
+		for(var key in ret){
+			if(userId == key){
+				hasFind = true
+			}
+			var seatIndex = ret[key].seatIndex
+			var seat = room.seats[seatIndex];
+			seat.userId = key;
+			seat.name = ret[key].name;
+			seat.score = ret[key].score;
+			userLocation[key] = {
+				roomId:roomId,
+				seatIndex:seatIndex
+			};
+		}
+		if(!hasFind){
+			for(var i = 0; i < room.conf.playerMaxNum; ++i){
+				var seat = room.seats[i];
+				if(seat.userId <= 0){
+					seat.userId = userId;
+					seat.name = name;
+					userLocation[userId] = {
+						roomId:roomId,
+						seatIndex:i
+					};
+					var userInfo = {
+						userId:userId,
+						seatIndex:i,
+						name:name,
+						score:0
+					}
+					ret[userId] = userInfo
+					hasFind = true
+					db.set_seat_info_of_rooms(roomId,ret)
+					break
+				}
+			}
+		}
+		if(hasFind){
+			if(callback){
+				callback(0)
+			}
+		}else{
+			if(callback){
+				callback(1)
+			}
+		}
+	});
+};
+
 exports.enterRoom = function(enterRoomInfo,callback){
 	enterRoomInfo = enterRoomInfo || {}
 	var userId = enterRoomInfo.userId
 	var roomId = enterRoomInfo.roomId
 	var name = enterRoomInfo.name
-	var fnTakeSeat = function(room){
-		if(exports.getUserRoom(userId) == roomId){
-			//已存在
-			return 0;
-		}
-		for(var i = 0; i < room.conf.playerMaxNum; ++i){
-			var seat = room.seats[i];
-			if(seat.userId <= 0){
-				seat.userId = userId;
-				seat.name = name;
-				userLocation[userId] = {
-					roomId:roomId,
-					seatIndex:i
-				};
-				db.get_seat_info_of_rooms(roomId,function(ret){
-					if(ret == null){
-						ret = {}
-					}
-					var userInfo = {
-						userId:userId,
-						seatIndex:i,
-						name:name
-					}
-					ret[userId] = userInfo
-					console.log('roommgr enterRoom:')
-					console.log(ret)
-					db.set_seat_info_of_rooms(roomId,ret)
-				});
-				//正常
-				return 0;
-			}
-		}	
-		//房间已满
-		return 1;	
-	}
 	var room = rooms[roomId];
 	if(room){
-		var ret = fnTakeSeat(room);
-		callback(ret);
+		if(exports.getUserRoom(userId) == roomId){
+			console.log('已在房间中!')
+			callback(1);
+		}else{
+			console.log('将要进入房间中!')
+			callback(0);
+		}
 	}else{
 		db.get_room_data(roomId,function(dbdata){
 			if(dbdata == null){
-				//找不到房间
+				console.log('找不到房间!')
 				callback(2);
 			}else{
-				//construct room.
-				room = constructRoomFromDb(dbdata);
-				//
-				var ret = fnTakeSeat(room);
-				callback(ret);
+				console.log('将要进入房间中!')
+				constructRoomFromDb(dbdata);
+				callback(0);
 			}
 		});
 	}
@@ -206,6 +243,13 @@ exports.getUserRoom = function(userId){
 	return null;
 };
 
+exports.leaveRoom = function(userId){
+	var location = userLocation[userId];
+	if(location == null)
+		return;
+	delete userLocation[userId];
+};
+
 exports.getUserSeat = function(userId){
 	var location = userLocation[userId];
 	//console.log(userLocation[userId]);
@@ -244,16 +288,20 @@ exports.exitRoom = function(userId){
 	}
 	db.get_room_info_of_user(userId,function(data){
 		if(data){
+			var hasFind = false
 			for(var i = 0; i < data.length; i++){
 				var info = data[i]
 				if(roomId == info.roomId){
 					if(info.field == 'private'){
 						delete data[roomId]
+						hasFind = true
 					}
 					break
 				}
 			}
-			db.set_room_info_of_user(userId,data);
+			if(hasFind){
+				db.set_room_info_of_user(userId,data);
+			}
 		}
 	});
 
@@ -342,7 +390,6 @@ exports.createRoom = function(createRoomInfo,callback){
 							name:"",
 							ready:false,
 							seatIndex:i,
-							rule:roomConf.rule
 						});
 					}
 					

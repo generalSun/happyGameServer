@@ -28,7 +28,6 @@ exports.getOnlineCount = function(){
 }
 
 exports.sendMsg = function(userId,event,msgdata){
-    console.log(event);
     var userInfo = userList[userId];
     if(userInfo == null){
         return;
@@ -37,7 +36,8 @@ exports.sendMsg = function(userId,event,msgdata){
     if(socket == null){
         return;
     }
-
+    console.log('userId:'+userId+'   usermgr sendMsg:'+event)
+    console.log(msgdata)
     socket.emit(event,msgdata);
 };
 
@@ -73,7 +73,9 @@ exports.broacastInRoom = function(event,data,sender,includingSender){
     if(roomInfo == null){
         return;
     }
-
+    includingSender = includingSender || false
+    console.log('usermgr broacastInRoom:'+event +'     includingSender:'+includingSender)
+    console.log(data)
     for(var i = 0; i < roomInfo.seats.length; ++i){
         var rs = roomInfo.seats[i];
 

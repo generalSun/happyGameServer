@@ -178,7 +178,7 @@ exports.get_user_data_by_userid = function(userId,callback){
         return;
     }
 
-    var sql = 'SELECT userId,account,name,lv,exp,coins,gems,roomId FROM t_users WHERE userId = ' + userId;
+    var sql = 'SELECT userId,account,name,lv,exp,coins,gems FROM t_users WHERE userId = ' + userId;
     query(sql, function(err, rows, fields) {
         if (err) {
             callback(null);
@@ -413,6 +413,7 @@ exports.get_user_base_info = function(userId,callback){
 exports.is_room_exist = function(roomId,callback){
     callback = callback == null? nop:callback;
     var sql = 'SELECT * FROM t_rooms WHERE id = "' + roomId + '"';
+    console.log(sql)
     query(sql, function(err, rows, fields) {
         if(err){
             callback(false);
@@ -458,6 +459,7 @@ exports.set_room_info_of_user = function(userId,info,callback){
 exports.get_room_info_of_user = function(userId,callback){
     callback = callback == null? nop:callback;
     var sql = 'SELECT roomInfo FROM t_users WHERE userId = "' + userId + '"';
+    console.log(sql)
     query(sql, function(err, rows, fields) {
         if(err){
             callback(null);
@@ -471,9 +473,8 @@ exports.get_room_info_of_user = function(userId,callback){
             if(info == null || info == ""){
                 callback(null);    
             }else{
-                console.log('get_room_info_of_user :')
-                console.log(rows)
                 info = JSON.parse(info);
+                console.log(info)
                 callback(info);
             }      
         }

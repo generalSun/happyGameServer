@@ -3,7 +3,7 @@ var express = require('express');
 var db = require('../utils/db');
 var http = require("../utils/http");
 
-var app = express();
+var app = require('./../common/common_app')
 
 function send(res,ret){
 	var str = JSON.stringify(ret);

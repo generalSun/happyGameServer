@@ -1217,11 +1217,14 @@ exports.setReady = function(userId){
     if(roomInfo == null){
         return;
     }
-
+    console.log('gamemgr_ddz setReady')
     roomMgr.setReady(userId,true);
+}
 
-    var game = games[roomId];
-    if(game){//重新进入游戏
+//尝试重新一局
+exports.enterRoomAgain = function(userId) {
+    if(exports.isRoomBegin(userId)){
+        console.log('gamemgr_ddz enterRoomAgain')
         var playerMaxNum = roomInfo.conf.playerMaxNum
         var data = {
             state:game.state,
@@ -1255,6 +1258,27 @@ exports.setReady = function(userId){
     }
 }
 
+//尝试重新一局
+exports.isRoomBegin = function(userId) {
+    var roomId = roomMgr.getUserRoom(userId);
+    if(roomId == null){
+        console.log('1111111111111111111111111111111')
+        return false
+    }
+    var roomInfo = roomMgr.getRoom(roomId);
+    if(roomInfo == null){
+        console.log('2222222222222222222222222222')
+        return false
+    }
+    var game = games[roomId];
+    if(game){//重新进入游戏
+        console.log('3333333333333333333333333333333')
+        return true
+    }
+    console.log('444444444444444444444444444444')
+    return false
+};
+
 //开始新的一局
 exports.begin = function(roomId) {
     var roomInfo = roomMgr.getRoom(roomId);
@@ -1262,7 +1286,7 @@ exports.begin = function(roomId) {
         return;
     }
     var seats = roomInfo.seats;
-
+    console.log('gamemgr_ddz begin')
     var game = {
         conf:roomInfo.conf,//房间配置
         roomInfo:roomInfo,//房间信息
@@ -1334,7 +1358,7 @@ exports.begin = function(roomId) {
             msg.seatsInfo.push(args)
         }
         //通知游戏开始
-        userMgr.sendMsg(s.userId,'game_begin_push',msg);
+        userMgr.sendMsg(s.userId,'game_begin_push',msg,true);
     }
 };
 /**

@@ -6,7 +6,7 @@ var roomMgr = require("./roommgr");
 var userMgr = require("./usermgr");
 var tokenMgr = require("./tokenmgr");
 
-var app = express();
+var app = require('./../common/common_app')
 var config = null;
 
 var serverIp = "";
@@ -107,19 +107,21 @@ app.get('/enter_room',function(req,res){
 	//安排玩家坐下
 	roomMgr.enterRoom(enterRoomInfo,function(ret){
 		console.log('http_service enter_room:')
-		console.log(ret)
-		if(ret != 0){
-			if(ret == 1){
-				http.send(res,4,"room is full.");
-			}
-			else if(ret == 2){
-				http.send(res,3,"can't find room.");
-			}	
-			return;		
+		console.log(ret)//res code 0正常 3未找到房间 4已满 2已在房间中
+		if(ret == 0){
+			roomMgr.userInRoom(enterRoomInfo,function(state){
+				if(state == 0){
+					var token = tokenMgr.createToken(userId,5000);
+					http.send(res,0,"ok",{token:token});
+				}else{
+					http.send(res,1,"room has full.");
+				}
+			})
+		}else if(ret == 2){
+			http.send(res,3,"can't find room.");
+		}else if(ret == 1){
+			http.send(res,2,"has in room.");
 		}
-
-		var token = tokenMgr.createToken(userId,5000);
-		http.send(res,0,"ok",{token:token});
 	});
 });
 

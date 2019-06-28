@@ -4,7 +4,8 @@ var db = require('../utils/db');
 var http = require("../utils/http");
 var fibers = require('fibers');
 
-var app = express();
+// var app = express();
+var app = require('./../common/common_app');
 var hallAddr = "";
 
 function send(res,ret){
@@ -20,10 +21,6 @@ exports.start = function(cfg){
 	app.listen(config.CLIENT_PORT);
 	console.log("account server is listening on " + config.CLIENT_PORT);
 }
-
-
-
-
 
 //设置跨域访问
 app.all('*', function(req, res, next) {
