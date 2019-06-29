@@ -99,7 +99,7 @@ exports.createRoom = function(createRoomInfo,fnCallback){
 	var account = createRoomInfo.account
 	var userId = createRoomInfo.userId
 	var name = createRoomInfo.name
-	db.get_gems(account,function(data){
+	db.get_gems_of_users(account,function(data){
 		if(data != null){
 			//2、请求创建房间
 			var reqdata = {
@@ -117,8 +117,7 @@ exports.createRoom = function(createRoomInfo,fnCallback){
 				if(ret){
 					if(data.errcode == 0){
 						fnCallback(0,data.roomId);
-					}
-					else{
+					}else{
 						fnCallback(data.errcode,null);		
 					}
 					return;
@@ -144,12 +143,10 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 			if(ret){
 				if(data.errcode == 0 && data.runing == true){
 					callback(true);
-				}
-				else{
+				}else{
 					callback(false);
 				}
-			}
-			else{
+			}else{
 				callback(false);
 			}
 		});
@@ -161,7 +158,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 			console.log(data);
 			if(ret){
 				if(data.errcode == 0){
-					db.get_room_info_of_user(userId,function(args){
+					db.get_room_info_of_users(userId,function(args){
 						if(args == null){
 							args = {}
 						}
@@ -170,9 +167,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 							field:'private'
 						}
 						args[roomId] = info
-						console.log('room_service enterRoom:')
-						console.log(args)
-						db.set_room_info_of_user(userId,args,function(ret){
+						db.set_room_info_of_users(userId,args,function(ret){
 							fnCallback(0,{
 								ip:serverinfo.clientip,
 								port:serverinfo.clientport,
@@ -200,7 +195,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 		}
 	}
 
-	db.get_room_addr(roomId,function(ret,ip,port){
+	db.get_room_addr_of_rooms(roomId,function(ret,ip,port){
 		if(ret){
 			var id = ip + ":" + port;
 			var serverinfo = serverMap[id];

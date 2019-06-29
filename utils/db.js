@@ -1,4 +1,5 @@
 var mysql=require("mysql");  
+var constants = require('./../game_server/config/constants')
 var crypto = require('./crypto');
 
 var pool = null;
@@ -125,7 +126,7 @@ exports.get_account_info = function(account,password,callback){
     }); 
 };
 
-exports.is_user_exist = function(account,callback){
+exports.is_user_exist_of_users = function(account,callback){
     callback = callback == null? nop:callback;
     if(account == null){
         callback(false);
@@ -148,7 +149,53 @@ exports.is_user_exist = function(account,callback){
     });  
 }
 
-exports.get_user_data = function(account,callback){
+exports.get_user_online_of_users = function(userId,callback){
+    callback = callback == null? nop:callback;
+    if(userId == null){
+        callback(null);
+        return;
+    }
+
+    var sql = 'SELECT online FROM t_users WHERE userId = "' + userId + '"';
+    query(sql, function(err, rows, fields) {
+        if (err) {
+            callback(null);
+            throw err;
+        }
+
+        if(rows.length == 0){
+            callback(null);
+            return;
+        }
+        // rows[0].name = crypto.fromBase64(rows[0].name);
+        callback(rows[0]);
+    });
+};
+
+exports.set_user_online_of_users = function(userId,online,callback){
+    callback = callback == null? nop:callback;
+    if(userId == null){
+        callback(null);
+        return;
+    }
+
+    var sql = "UPDATE t_users SET online = '" + online + "' WHERE userId = '" + userId + "'";
+    query(sql, function(err, rows, fields) {
+        if (err) {
+            callback(null);
+            throw err;
+        }
+
+        if(rows.length == 0){
+            callback(null);
+            return;
+        }
+        // rows[0].name = crypto.fromBase64(rows[0].name);
+        callback(rows[0]);
+    });
+};
+
+exports.get_user_data_of_users = function(account,callback){
     callback = callback == null? nop:callback;
     if(account == null){
         callback(null);
@@ -217,7 +264,7 @@ exports.add_user_gems = function(userId,gems,callback){
     });
 };
 
-exports.get_gems = function(account,callback){
+exports.get_gems_of_users = function(account,callback){
     callback = callback == null? nop:callback;
     if(account == null){
         callback(null);
@@ -341,7 +388,7 @@ exports.get_detail_of_game = function(room_uuid,index,callback){
     });
 }
 
-exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
+exports.create_user_of_users = function(account,name,coins,gems,sex,headimg,callback){
     callback = callback == null? nop:callback;
     if(account == null || name == null || coins==null || gems==null){
         callback(false);
@@ -349,15 +396,14 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     }
     if(headimg){
         headimg = '"' + headimg + '"';
-    }
-    else{
+    }else{
         headimg = 'null';
     }
     // name = crypto.toBase64(name);
     var userId = generateUserId();
 
-    var sql = 'INSERT INTO t_users(userId,account,name,coins,gems,sex,headimg) VALUES("{0}","{1}","{2}","{3}","{4}","{5}","{6}")';
-    sql = sql.format(userId,account,name,coins,gems,sex,headimg);
+    var sql = 'INSERT INTO t_users(userId,account,name,coins,gems,sex,headimg,online) VALUES("{0}","{1}","{2}","{3}","{4}","{5}","{6}","{7}")';
+    sql = sql.format(userId,account,name,coins,gems,sex,headimg,1);
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -367,7 +413,7 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){
     });
 };
 
-exports.update_user_info = function(userId,name,headimg,sex,callback){
+exports.update_user_info_of_users = function(userId,name,headimg,sex,callback){
     callback = callback == null? nop:callback;
     if(userId == null){
         callback(null);
@@ -376,13 +422,12 @@ exports.update_user_info = function(userId,name,headimg,sex,callback){
  
     if(headimg){
         headimg = '"' + headimg + '"';
-    }
-    else{
+    }else{
         headimg = 'null';
     }
     // name = crypto.toBase64(name);
-    var sql = 'UPDATE t_users SET name="{0}",headimg={1},sex={2} WHERE account="{3}"';
-    sql = sql.format(name,headimg,sex,userId);
+    var sql = 'UPDATE t_users SET name="{0}",headimg={1},sex={2},online={3} WHERE account="{4}"';
+    sql = sql.format(name,headimg,sex,1,userId);
     console.log(sql);
     query(sql, function(err, rows, fields) {
         if (err) {
@@ -410,7 +455,7 @@ exports.get_user_base_info = function(userId,callback){
     });
 };
 
-exports.is_room_exist = function(roomId,callback){
+exports.is_room_exist_of_rooms = function(roomId,callback){
     callback = callback == null? nop:callback;
     var sql = 'SELECT * FROM t_rooms WHERE id = "' + roomId + '"';
     console.log(sql)
@@ -439,7 +484,7 @@ exports.cost_gems = function(userId,cost,callback){
     });
 };
 
-exports.set_room_info_of_user = function(userId,info,callback){
+exports.set_room_info_of_users = function(userId,info,callback){
     callback = callback == null? nop:callback;
     info = info || {}
     info = JSON.stringify(info);
@@ -456,7 +501,7 @@ exports.set_room_info_of_user = function(userId,info,callback){
     });
 };
 
-exports.get_room_info_of_user = function(userId,callback){
+exports.get_room_info_of_users = function(userId,callback){
     callback = callback == null? nop:callback;
     var sql = 'SELECT roomInfo FROM t_users WHERE userId = "' + userId + '"';
     console.log(sql)
@@ -481,13 +526,13 @@ exports.get_room_info_of_user = function(userId,callback){
     });
 };
 
-exports.create_room = function(roomId,conf,ip,port,create_time,callback){
+exports.create_room_of_rooms = function(roomId,conf,ip,port,create_time,callback){
     callback = callback == null? nop:callback;
-    var sql = "INSERT INTO t_rooms(uuid,id,base_info,create_time,ip,port) \
-                VALUES('{0}','{1}','{2}','{3}','{4}','{5}')";
+    var sql = "INSERT INTO t_rooms(uuid,id,base_info,create_time,ip,port,num_of_turns,currentPlayingIndex,room_state) \
+                VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
     var uuid = Date.now() + roomId;
     var baseInfo = JSON.stringify(conf);
-    sql = sql.format(uuid,roomId,baseInfo,create_time,ip,port);
+    sql = sql.format(uuid,roomId,baseInfo,create_time,ip,port,0,0,constants.ROOM_state.idel);
     console.log(sql);
     query(sql,function(err,row,fields){
         if(err){
@@ -588,7 +633,7 @@ exports.update_currentPlayingIndex = function(roomId,currentPlayingIndex,callbac
     });
 };
 
-exports.get_room_addr = function(roomId,callback){
+exports.get_room_addr_of_rooms = function(roomId,callback){
     callback = callback == null? nop:callback;
     if(roomId == null){
         callback(false,null,null);
@@ -610,7 +655,7 @@ exports.get_room_addr = function(roomId,callback){
     });
 };
 
-exports.get_room_data = function(roomId,callback){
+exports.get_room_data_of_rooms = function(roomId,callback){
     callback = callback == null? nop:callback;
     if(roomId == null){
         callback(null);

@@ -77,8 +77,7 @@ app.get('/create_room',function(req,res){
 		if(errcode != 0 || roomId == null){
 			http.send(res,errcode,"create failed.");
 			return;	
-		}
-		else{
+		}else{
 			http.send(res,0,"ok",{roomId:roomId});			
 		}
 	});

@@ -50,6 +50,7 @@ function constructRoomFromDb(dbdata){
 				break
 			}
 		}
+		s.online = 0
 		s.ready = false;
 		s.seatIndex = i;
 
@@ -75,10 +76,10 @@ exports.destroy = function(roomId){
 		var userId = roomInfo.seats[i].userId;
 		if(userId > 0){
 			delete userLocation[userId];
-			db.get_room_info_of_user(userId,function(data){
+			db.get_room_info_of_users(userId,function(data){
 				if(data){
 					delete data[roomId]
-					db.set_room_info_of_user(userId,data);
+					db.set_room_info_of_users(userId,data);
 				}
 			});
 		}
@@ -127,6 +128,7 @@ exports.userInRoom = function(enterRoomInfo,callback){
 			seat.userId = key;
 			seat.name = ret[key].name;
 			seat.score = ret[key].score;
+			seat.seatIndex = seatIndex
 			userLocation[key] = {
 				roomId:roomId,
 				seatIndex:seatIndex
@@ -138,6 +140,7 @@ exports.userInRoom = function(enterRoomInfo,callback){
 				if(seat.userId <= 0){
 					seat.userId = userId;
 					seat.name = name;
+					seat.online = 1
 					userLocation[userId] = {
 						roomId:roomId,
 						seatIndex:i
@@ -155,6 +158,7 @@ exports.userInRoom = function(enterRoomInfo,callback){
 				}
 			}
 		}
+		
 		if(hasFind){
 			if(callback){
 				callback(0)
@@ -182,7 +186,7 @@ exports.enterRoom = function(enterRoomInfo,callback){
 			callback(0);
 		}
 	}else{
-		db.get_room_data(roomId,function(dbdata){
+		db.get_room_data_of_rooms(roomId,function(dbdata){
 			if(dbdata == null){
 				console.log('找不到房间!')
 				callback(2);
@@ -286,7 +290,7 @@ exports.exitRoom = function(userId){
 			numOfPlayers++;
 		}
 	}
-	db.get_room_info_of_user(userId,function(data){
+	db.get_room_info_of_users(userId,function(data){
 		if(data){
 			var hasFind = false
 			for(var i = 0; i < data.length; i++){
@@ -300,7 +304,7 @@ exports.exitRoom = function(userId){
 				}
 			}
 			if(hasFind){
-				db.set_room_info_of_user(userId,data);
+				db.set_room_info_of_users(userId,data);
 			}
 		}
 	});
@@ -351,10 +355,9 @@ exports.createRoom = function(createRoomInfo,callback){
 		var roomId = generateRoomId(1);
 		if(rooms[roomId] != null || creatingRooms[roomId] != null){
 			fnCreate();
-		}
-		else{
+		}else{
 			creatingRooms[roomId] = true;
-			db.is_room_exist(roomId, function(ret) {
+			db.is_room_exist_of_rooms(roomId, function(ret) {
 				if(ret){
 					delete creatingRooms[roomId];
 					fnCreate();
@@ -390,11 +393,12 @@ exports.createRoom = function(createRoomInfo,callback){
 							name:"",
 							ready:false,
 							seatIndex:i,
+							online:0
 						});
 					}
 					
 					//写入数据库
-					db.create_room(roomInfo.id,roomInfo.conf,ip,port,createTime,function(uuid){
+					db.create_room_of_rooms(roomInfo.id,roomInfo.conf,ip,port,createTime,function(uuid){
 						delete creatingRooms[roomId];
 						if(uuid != null){
 							roomInfo.uuid = uuid;

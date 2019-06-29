@@ -32,6 +32,23 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
+/**
+ * 通过客户端传来的信息首先判断是否已经记录在数据库t_users中
+ * 有：先记录要返回客户端的基本信息，在判断是否有roomInfo：
+ * {
+ * 		有：逐一判断对应的房间号是否存在
+ * 		 [
+ * 			==> 存在则在在房间中查找是否有客户端玩家
+ * 					有：在基础信息上加房间号返回给客户端
+ * 					没有：进行下一个房间号判断
+ * 		
+ *  		==> 不存在则更新t_users数据库
+ * 			都不存在则直接返回客户端基础信息
+ * 		]
+ * 		没有：直接返回客户端基础信息
+ * }
+ * 没有：返回客户端可以登陆
+ **/
 app.get('/login',function(req,res){
 	if(!check_account(req,res)){
 		return;
@@ -43,7 +60,7 @@ app.get('/login',function(req,res){
 	}
 	
 	var account = req.query.account;
-	db.get_user_data(account,function(data){
+	db.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,0,"ok");
 			return;
@@ -60,6 +77,9 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
+		if(ret.userId){
+			db.set_user_online_of_users(ret.userId,1)
+		}
 		var roomInfo = data.roomInfo
 		if(roomInfo == null || roomInfo == ''){
 			http.send(res,0,"ok",ret);
@@ -70,7 +90,7 @@ app.get('/login',function(req,res){
 		for(var roomId in roomInfo){
 			var p = new Promise((resolve, reject) => {
 				//检查房间是否存在于数据库中
-				db.is_room_exist(roomId,function(retval,info){
+				db.is_room_exist_of_rooms(roomId,function(retval,info){
 					if(retval){
 						var usersInfo = JSON.parse(info.usersInfo)
 						var args = {
@@ -82,7 +102,7 @@ app.get('/login',function(req,res){
 					}else{
 						//如果房间不在了，表示信息不同步，清除掉用户记录
 						delete roomInfo[roomId]
-						db.set_room_info_of_user(data.userId,roomInfo);
+						db.set_room_info_of_users(data.userId,roomInfo);
 					}
 				});
 			})
@@ -118,20 +138,20 @@ app.get('/create_user',function(req,res){
 	var name = req.query.name;
 	var coins = 1000;
 	var gems = 21;
-	console.log(name);
+	var headimg = null
+	var sex = 0
+	console.log('client_service create_user account:'+account+'   name:'+name);
 
-	db.is_user_exist(account,function(ret){
+	db.is_user_exist_of_users(account,function(ret){
 		if(!ret){
-			db.create_user(account,name,coins,gems,0,null,function(ret){
+			db.create_user_of_users(account,name,coins,gems,sex,headimg,function(ret){
 				if (ret == null) {
 					http.send(res,2,"system error.");
-				}
-				else{
+				}else{
 					http.send(res,0,"ok");					
 				}
 			});
-		}
-		else{
+		}else{
 			http.send(res,1,"account have already exist.");
 		}
 	});
@@ -146,62 +166,57 @@ app.get('/create_private_room',function(req,res){
 	}
 	var account = data.account;
 	var conf = data.conf;
-	db.get_user_data(account,function(data){
+	db.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,1,"system error");
 			return;
 		}
 		var userId = data.userId;
 		var name = data.name;
-		//验证玩家状态
-		db.get_room_info_of_user(userId,function(roomInfo){
-			roomInfo = roomInfo || {}
-			if(roomInfo.length > 0){
-				for(var key in roomInfo){
-					var info = roomInfo[key]
-					if(info.field == 'private'){
-						http.send(res,-1,"user is playing in room now.");
-						return;
+		var roomInfo = data.roomInfo || {}
+		if(roomInfo.length > 0){
+			for(var key in roomInfo){
+				var info = roomInfo[key]
+				if(info.field == 'private'){
+					http.send(res,-1,"user is playing in room now.");
+					return;
+				}
+			}
+		}
+		var createRoomInfo = {
+			conf:conf,
+			account:account,
+			userId:userId,
+			name:name
+		}
+		//创建房间
+		room_service.createRoom(createRoomInfo,function(err,roomId){
+			if(err == 0 && roomId != null){
+				var enterRoomInfo = {
+					userId:userId,
+					roomId:roomId,
+					name:name
+				} 
+				room_service.enterRoom(enterRoomInfo,function(errcode,enterInfo){
+					console.log('client_service create_private_room enterRoom:')
+					console.log(enterInfo)
+					if(enterInfo){
+						var ret = {
+							roomId:roomId,
+							ip:enterInfo.ip,
+							port:enterInfo.port,
+							token:enterInfo.token,
+							time:Date.now()
+						};
+						ret.sign = crypto.md5(ret.roomId + ret.token + ret.time + config.ROOM_PRI_KEY);
+						http.send(res,0,"ok",ret);
+					}else{
+						http.send(res,errcode,"room doesn't exist.");
 					}
-				}
+				});
+			}else{
+				http.send(res,err,"create failed.");					
 			}
-			var createRoomInfo = {
-				conf:conf,
-				account:account,
-				userId:userId,
-				name:name
-			}
-			//创建房间
-			room_service.createRoom(createRoomInfo,function(err,roomId){
-				if(err == 0 && roomId != null){
-					var enterRoomInfo = {
-						userId:userId,
-						roomId:roomId,
-						name:name
-					} 
-					room_service.enterRoom(enterRoomInfo,function(errcode,enterInfo){
-						console.log('client_service create_private_room enterRoom:')
-						console.log(enterInfo)
-						if(enterInfo){
-							var ret = {
-								roomId:roomId,
-								ip:enterInfo.ip,
-								port:enterInfo.port,
-								token:enterInfo.token,
-								time:Date.now()
-							};
-							ret.sign = crypto.md5(ret.roomId + ret.token + ret.time + config.ROOM_PRI_KEY);
-							http.send(res,0,"ok",ret);
-						}
-						else{
-							http.send(res,errcode,"room doesn't exist.");
-						}
-					});
-				}
-				else{
-					http.send(res,err,"create failed.");					
-				}
-			});
 		});
 	});
 });
@@ -219,7 +234,7 @@ app.get('/enter_private_room',function(req,res){
 
 	var account = data.account;
 
-	db.get_user_data(account,function(data){
+	db.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,-1,"system error");
 			return;
@@ -257,7 +272,7 @@ app.get('/get_history_list',function(req,res){
 		return;
 	}
 	var account = data.account;
-	db.get_user_data(account,function(data){
+	db.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,-1,"system error");
 			return;
@@ -306,11 +321,10 @@ app.get('/get_user_status',function(req,res){
 		return;
 	}
 	var account = req.query.account;
-	db.get_gems(account,function(data){
+	db.get_gems_of_users(account,function(data){
 		if(data != null){
 			http.send(res,0,"ok",{gems:data.gems});	
-		}
-		else{
+		}else{
 			http.send(res,1,"get gems failed.");
 		}
 	});
@@ -349,6 +363,19 @@ app.get('/get_gameList',function(req,res){
 		}
 		http.send(res,0,"ok",{data:data});
 	});
+});
+
+app.get('/get_gameDestory',function(req,res){
+	if(!check_account(req,res)){
+		return;
+	}
+	var account = req.query.account;
+	db.get_user_data_of_users(account,function(data){
+		if(data == null){
+			return;
+		}
+		db.set_user_online_of_users(data.userId,0)
+	})	
 });
 
 exports.start = function($config){

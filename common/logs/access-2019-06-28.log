@@ -10224,3 +10224,73 @@
 
 [joke] 2019-06-28 21:54:25 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
 
+[joke] 2019-06-28 21:54:30 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:54:35 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:54:40 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:54:45 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:54:50 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:54:55 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:00 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:05 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:10 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:15 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:20 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:25 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:30 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:35 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:40 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:45 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:50 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:55:55 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:00 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:05 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:10 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:16 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:21 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:26 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:31 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:36 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:41 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:46 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:51 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:56:56 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:57:01 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:57:06 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:57:11 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:57:16 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+
+[joke] 2019-06-28 21:57:21 127.0.0.1 - GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1 {"id":"001","clientip":"127.0.0.1","clientport":"10000","httpPort":"9003","load":"1"} - - - ms - 
+

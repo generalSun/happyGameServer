@@ -53,11 +53,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 
 // 自定义token
 logger.token('from', function(req, res){
-    return JSON.stringify(req.query) || '-';
+    return '\nfrom :'+JSON.stringify(req.query) || '-';
 });
 
 logger.token('time', function(req, res){
-    return new Date().Format("yyyy-MM-dd hh:mm:ss"); 
+    return new Date().Format("yyyy-MM-dd hh:mm:ss") + '\n'; 
 });
 
 logger.token('nextROw', function(req, res){
@@ -70,11 +70,11 @@ logger.format('joke', '[joke] :time :remote-addr :remote-user :method :url :from
 //跳过不需要记录的请求
 var skip = function(req,res) {
     // return (req.url).indexOf('stylesheets') != -1
-    return req.length > 0
+    return (req.url).indexOf('register_gs') != -1
 }
 
 // 使用自定义的format
-app.use(logger('joke'));
+app.use(logger('joke',{skip: skip, immediate:true}));
 app.use(logger('joke',{skip: skip, stream: accessLogfile, immediate:true})); //打印到日志文件中  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
