@@ -1,0 +1,120 @@
+[joke] 2019-07-01 08:43:20
+ 127.0.0.1 - GET /get_server_info?serverid=127.0.0.1%3A10000&sign=5f07171cb498d75fd82ecd0de85df3a9 
+from :{"serverid":"127.0.0.1:10000","sign":"5f07171cb498d75fd82ecd0de85df3a9"} - - - ms - 
+
+[joke] 2019-07-01 08:43:58
+ ::ffff:127.0.0.1 - GET /auth?account=13812312312&password= 
+from :{"account":"13812312312","password":""} - - - ms - 
+
+[joke] 2019-07-01 08:43:59
+ ::ffff:127.0.0.1 - GET /login?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f"} - - - ms - 
+
+[joke] 2019-07-01 08:43:59
+ ::ffff:127.0.0.1 - GET /get_gameList?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f"} - - - ms - 
+
+[joke] 2019-07-01 08:43:59
+ ::ffff:127.0.0.1 - GET /base_info?userId=244849 
+from :{"userId":"244849"} - - - ms - 
+
+[joke] 2019-07-01 08:43:59
+ ::ffff:127.0.0.1 - HEAD /image?url=null.jpg 
+from :{"url":"null.jpg"} - - - ms - 
+
+[joke] 2019-07-01 08:43:59
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - - - ms - 
+
+[joke] 2019-07-01 08:44:04
+ ::ffff:127.0.0.1 - GET /base_info?userId=244849 
+from :{"userId":"244849"} - - - ms - 
+
+[joke] 2019-07-01 08:44:06
+ ::ffff:127.0.0.1 - GET /base_info?userId=244849 
+from :{"userId":"244849"} - - - ms - 
+
+[joke] 2019-07-01 08:46:28
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111111 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111111"} - - - ms - 
+
+[joke] 2019-07-01 08:46:30
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111115 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111115"} - - - ms - 
+
+[joke] 2019-07-01 08:46:31
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111119 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111119"} - - - ms - 
+
+[joke] 2019-07-01 08:46:33
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111118 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111118"} - - - ms - 
+
+[joke] 2019-07-01 08:46:34
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111114 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111114"} - - - ms - 
+
+[joke] 2019-07-01 08:46:50
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111119 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111119"} - - - ms - 
+
+[joke] 2019-07-01 08:46:51
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111116 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111116"} - - - ms - 
+
+[joke] 2019-07-01 08:46:53
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111118 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111118"} - - - ms - 
+
+[joke] 2019-07-01 08:46:55
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111110 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111110"} - - - ms - 
+
+[joke] 2019-07-01 08:46:57
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111111 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111111"} - - - ms - 
+
+[joke] 2019-07-01 08:46:58
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111112 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111112"} - - - ms - 
+
+[joke] 2019-07-01 08:46:59
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111113 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111113"} - - - ms - 
+
+[joke] 2019-07-01 08:47:01
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111116 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111116"} - - - ms - 
+
+[joke] 2019-07-01 08:47:02
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111115 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111115"} - - - ms - 
+
+[joke] 2019-07-01 08:47:03
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111119 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111119"} - - - ms - 
+
+[joke] 2019-07-01 08:47:04
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111118 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111118"} - - - ms - 
+
+[joke] 2019-07-01 08:47:05
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111114 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111114"} - - - ms - 
+
+[joke] 2019-07-01 08:47:06
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111119 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111119"} - - - ms - 
+
+[joke] 2019-07-01 08:47:07
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111116 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111116"} - - - ms - 
+
+[joke] 2019-07-01 08:47:09
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111117 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111117"} - - - ms - 
+
+[joke] 2019-07-01 08:47:10
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&roomId=111116 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","roomId":"111116"} - - - ms - 
+
