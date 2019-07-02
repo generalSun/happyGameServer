@@ -1,5 +1,4 @@
 var crypto = require('../utils/crypto');
-var db = require('../utils/db');
 var express = require('express');
 var constants = require('./config/constants')
 var tokenMgr = require('./tokenmgr');
@@ -31,8 +30,7 @@ exports.start = function(conf,mgr){
 	
 	io.sockets.on('connection',function(socket){
 		socket.on('login',function(data){
-			console.log('login : ')
-			console.log(data)
+			console.log('socket_service login data',data)
 			data = JSON.parse(data);
 			if(socket.userId != null){
 				//已经登陆过的就忽略
@@ -76,10 +74,8 @@ exports.start = function(conf,mgr){
 			
 			roomInfo.socketMgr.listenMsg(socket)
 			socket.gameMgr = roomInfo.gameMgr;
-			if(roomInfo.num_of_turns == 0 && roomInfo.room_state == constants.ROOM_state.idel){
-				//玩家上线，强制设置为TRUE
-				socket.gameMgr.setReady(userId);
-			}
+			//玩家上线，强制设置为TRUE
+			socket.gameMgr.setReady(userId);
 
 			var seatIndex = roomMgr.getUserSeat(userId);
 			roomInfo.seats[seatIndex].ip = socket.handshake.address;
@@ -127,17 +123,11 @@ exports.start = function(conf,mgr){
 			socket.emit('login_result',ret);
 
 			socket.emit('login_finished');
-			console.log('socket_service login:')
-			console.log(roomInfo)
+			console.log('socket_service login roomInfo',roomInfo)
 			//通知其它客户端
 			userMgr.broacastInRoom('new_user_comes_push',userData,userId);
-			socket.gameMgr.enterRoomAgain(userId);
-
-			if(readyNum == roomInfo.seats.length){
-				if(roomInfo.num_of_turns == 0 && roomInfo.room_state == constants.ROOM_state.idel){
-					socket.gameMgr.begin(roomId);
-				}
-			}
+			socket.gameMgr.enterRoomAgain(userId,roomInfo);
+			socket.gameMgr.begin(roomId);
 			
 			if(roomInfo.dr != null){
 				var dr = roomInfo.dr;

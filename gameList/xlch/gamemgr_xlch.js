@@ -1008,7 +1008,7 @@ function doGameOver(game,userId,forceEnd){
         }
 
         if(old != roomInfo.nextButton){
-            db.update_currentPlayingIndex(roomId,roomInfo.nextButton);
+            db.update_currentPlayingIndex_of_games(roomId,roomInfo.nextButton);
         }
     }
     
@@ -1025,7 +1025,7 @@ function doGameOver(game,userId,forceEnd){
             db.update_game_action_records(roomInfo.uuid,game.gameIndex,str); 
         
             //保存游戏局数
-            db.update_num_of_turns(roomId,roomInfo.num_of_turns);
+            db.update_num_of_turns_of_games(roomId,roomInfo.num_of_turns);
             
             //如果是第一次，则扣除房卡
             if(roomInfo.num_of_turns == 1){
@@ -1146,7 +1146,7 @@ exports.setReady = function(userId,callback){
 }
 
 function store_single_history(userId,history){
-    db.get_user_history(userId,function(data){
+    db.get_user_history_of_users(userId,function(data){
         if(data == null){
             data = [];
         }
@@ -1197,7 +1197,7 @@ function construct_game_base_info(game){
 }
 
 function store_game(game,callback){
-    db.create_game(game.roomInfo.uuid,game.gameIndex,game.baseInfoJson,callback);
+    db.create_game_of_games(game.roomInfo.uuid,game.gameIndex,game.baseInfoJson,callback);
 }
 
 //开始新的一局

@@ -3,6 +3,12 @@ var express = require('express');
 var db = require('../utils/db');
 var http = require('../utils/http');
 var room_service = require("./room_service");
+var db_users = require('./../dbList/users/db_users')
+var db_rooms = require('./../dbList/rooms/db_rooms')
+var db_games = require('./../dbList/games/db_games')
+var db_gamesArchive = require('./../dbList/gamesArchive/db_gamesArchive')
+var db_message = require('./../dbList/message/db_message')
+var db_gameList = require('./../dbList/gameList/db_gameList')
 
 var app = require('./../common/common_app')
 var config = null;
@@ -32,40 +38,20 @@ app.all('*', function(req, res, next) {
 	next();
 });
 
-/**
- * 通过客户端传来的信息首先判断是否已经记录在数据库t_users中
- * 有：先记录要返回客户端的基本信息，在判断是否有roomInfo：
- * {
- * 		有：逐一判断对应的房间号是否存在
- * 		 [
- * 			==> 存在则在在房间中查找是否有客户端玩家
- * 					有：在基础信息上加房间号返回给客户端
- * 					没有：进行下一个房间号判断
- * 		
- *  		==> 不存在则更新t_users数据库
- * 			都不存在则直接返回客户端基础信息
- * 		]
- * 		没有：直接返回客户端基础信息
- * }
- * 没有：返回客户端可以登陆
- **/
 app.get('/login',function(req,res){
 	if(!check_account(req,res)){
 		return;
 	}
-	
 	var ip = req.ip;
 	if(ip.indexOf("::ffff:") != -1){
 		ip = ip.substr(7);
 	}
-	
 	var account = req.query.account;
-	db.get_user_data_of_users(account,function(data){
+	db_users.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,0,"ok");
 			return;
 		}
-
 		var ret = {
 			account:data.account,
 			userId:data.userId,
@@ -77,9 +63,7 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
-		if(ret.userId){
-			db.set_user_online_of_users(ret.userId,1)
-		}
+		db_users.set_user_online_of_users(ret.userId,1)
 		var roomInfo = data.roomInfo
 		if(roomInfo == null || roomInfo == ''){
 			http.send(res,0,"ok",ret);
@@ -90,7 +74,7 @@ app.get('/login',function(req,res){
 		for(var roomId in roomInfo){
 			var p = new Promise((resolve, reject) => {
 				//检查房间是否存在于数据库中
-				db.is_room_exist_of_rooms(roomId,function(retval,info){
+				db_rooms.is_room_exist_of_rooms(roomId,function(retval,info){
 					if(retval){
 						var usersInfo = JSON.parse(info.usersInfo)
 						var args = {
@@ -102,7 +86,7 @@ app.get('/login',function(req,res){
 					}else{
 						//如果房间不在了，表示信息不同步，清除掉用户记录
 						delete roomInfo[roomId]
-						db.set_room_info_of_users(data.userId,roomInfo);
+						db_users.set_room_info_of_users(data.userId,roomInfo);
 					}
 				});
 			})
@@ -142,9 +126,9 @@ app.get('/create_user',function(req,res){
 	var sex = 0
 	console.log('client_service create_user account:'+account+'   name:'+name);
 
-	db.is_user_exist_of_users(account,function(ret){
+	db_users.is_user_exist_of_users(account,function(ret){
 		if(!ret){
-			db.create_user_of_users(account,name,coins,gems,sex,headimg,function(ret){
+			db_users.create_user_of_users(account,name,coins,gems,sex,headimg,function(ret){
 				if (ret == null) {
 					http.send(res,2,"system error.");
 				}else{
@@ -166,7 +150,7 @@ app.get('/create_private_room',function(req,res){
 	}
 	var account = data.account;
 	var conf = data.conf;
-	db.get_user_data_of_users(account,function(data){
+	db_users.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,1,"system error");
 			return;
@@ -234,7 +218,7 @@ app.get('/enter_private_room',function(req,res){
 
 	var account = data.account;
 
-	db.get_user_data_of_users(account,function(data){
+	db_users.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,-1,"system error");
 			return;
@@ -272,13 +256,13 @@ app.get('/get_history_list',function(req,res){
 		return;
 	}
 	var account = data.account;
-	db.get_user_data_of_users(account,function(data){
+	db_users.get_user_data_of_users(account,function(data){
 		if(data == null){
 			http.send(res,-1,"system error");
 			return;
 		}
 		var userId = data.userId;
-		db.get_user_history(userId,function(history){
+		db_users.get_user_history_of_users(userId,function(history){
 			http.send(res,0,"ok",{history:history});
 		});
 	});
@@ -294,7 +278,7 @@ app.get('/get_games_of_room',function(req,res){
 	if(!check_account(req,res)){
 		return;
 	}
-	db.get_games_of_room(uuid,function(data){
+	db_gamesArchive.get_games_of_gamesArchive(uuid,function(data){
 		console.log(data);
 		http.send(res,0,"ok",{data:data});
 	});
@@ -311,7 +295,7 @@ app.get('/get_detail_of_game',function(req,res){
 	if(!check_account(req,res)){
 		return;
 	}
-	db.get_detail_of_game(uuid,index,function(data){
+	db_gamesArchive.get_detail_of_gamesArchive(uuid,index,function(data){
 		http.send(res,0,"ok",{data:data});
 	});
 });
@@ -321,7 +305,7 @@ app.get('/get_user_status',function(req,res){
 		return;
 	}
 	var account = req.query.account;
-	db.get_gems_of_users(account,function(data){
+	db_users.get_gems_of_users(account,function(data){
 		if(data != null){
 			http.send(res,0,"ok",{gems:data.gems});	
 		}else{
@@ -342,7 +326,7 @@ app.get('/get_message',function(req,res){
 	}
 	
 	var version = req.query.version;
-	db.get_message(type,version,function(data){
+	db_message.get_message_of_message(type,version,function(data){
 		if(data != null){
 			http.send(res,0,"ok",{msg:data.msg,version:data.version});	
 		}
@@ -356,26 +340,13 @@ app.get('/get_gameList',function(req,res){
 	if(!check_account(req,res)){
 		return;
 	}
-	db.get_gameList_data(function(data){
+	db_gameList.get_gameList_of_gameList(function(data){
 		if(data == null){
 			http.send(res,-1,"system error");
 			return;
 		}
 		http.send(res,0,"ok",{data:data});
 	});
-});
-
-app.get('/get_gameDestory',function(req,res){
-	if(!check_account(req,res)){
-		return;
-	}
-	var account = req.query.account;
-	db.get_user_data_of_users(account,function(data){
-		if(data == null){
-			return;
-		}
-		db.set_user_online_of_users(data.userId,0)
-	})	
 });
 
 exports.start = function($config){

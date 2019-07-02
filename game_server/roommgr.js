@@ -1,5 +1,6 @@
-﻿var db = require('../utils/db');
-var constants = require('./config/constants')
+﻿var constants = require('./config/constants')
+var db_rooms = require('../dbList/rooms/db_rooms')
+var db_users = require('../dbList/users/db_users')
 var rooms = {};
 var creatingRooms = {};
 
@@ -25,11 +26,8 @@ function constructRoomFromDb(dbdata){
 	console.log(dbdata)
 	var roomInfo = {
 		uuid:dbdata.uuid,
-		id:dbdata.id,
-		num_of_turns:dbdata.num_of_turns,
-		createTime:dbdata.create_time,
-		currentPlayingIndex:dbdata.currentPlayingIndex,
-		room_state:dbdata.room_state,
+		roomId:dbdata.roomId,
+		create_time:dbdata.create_time,
 		seats:new Array(),
 		conf:JSON.parse(dbdata.base_info)
 	};
@@ -37,7 +35,7 @@ function constructRoomFromDb(dbdata){
 	roomInfo.gameMgr = require('./../gameList/'+roomInfo.conf.type+"/gamemgr_"+roomInfo.conf.type)
 	roomInfo.socketMgr = require('./../gameList/'+roomInfo.conf.type+"/"+roomInfo.conf.type+"_socket")
 	
-	var roomId = roomInfo.id;
+	var roomId = roomInfo.roomId;
 	var usersInfo = JSON.parse(dbdata.usersInfo)
 	for(var i = 0; i < roomInfo.conf.playerMaxNum; ++i){
 		var s = roomInfo.seats[i] = {};
@@ -72,14 +70,14 @@ exports.destroy = function(roomId){
 		return;
 	}
 
-	for(var i = 0; i < roomInfo.playerMaxNum; ++i){
+	for(var i = 0; i < roomInfo.conf.playerMaxNum; ++i){
 		var userId = roomInfo.seats[i].userId;
 		if(userId > 0){
 			delete userLocation[userId];
-			db.get_room_info_of_users(userId,function(data){
+			db_users.get_room_info_of_users(userId,function(data){
 				if(data){
 					delete data[roomId]
-					db.set_room_info_of_users(userId,data);
+					db_users.set_room_info_of_users(userId,data);
 				}
 			});
 		}
@@ -87,7 +85,7 @@ exports.destroy = function(roomId){
 	
 	delete rooms[roomId];
 	totalRooms--;
-	db.delete_room(roomId);
+	db_rooms.delete_room_of_rooms(roomId);
 }
 
 exports.getTotalRooms = function(){
@@ -111,18 +109,14 @@ exports.userInRoom = function(enterRoomInfo,callback){
 	var userId = enterRoomInfo.userId
 	var roomId = enterRoomInfo.roomId
 	var name = enterRoomInfo.name
-	db.get_seat_info_of_rooms(roomId,function(ret){
-		console.log('roommgr userInRoom:')
-		console.log(ret)
+	db_rooms.get_seat_info_of_rooms(roomId,function(ret){
+		console.log('roommgr userInRoom:',ret)
 		if(ret == null){
 			ret = {}
 		}
 		var hasFind = false
 		var room = rooms[roomId];
 		for(var key in ret){
-			if(userId == key){
-				hasFind = true
-			}
 			var seatIndex = ret[key].seatIndex
 			var seat = room.seats[seatIndex];
 			seat.userId = key;
@@ -133,6 +127,11 @@ exports.userInRoom = function(enterRoomInfo,callback){
 				roomId:roomId,
 				seatIndex:seatIndex
 			};
+			if(userId == key){
+				hasFind = true
+				seat.online = 1
+				seat.ready = true;
+			}
 		}
 		if(!hasFind){
 			for(var i = 0; i < room.conf.playerMaxNum; ++i){
@@ -141,6 +140,9 @@ exports.userInRoom = function(enterRoomInfo,callback){
 					seat.userId = userId;
 					seat.name = name;
 					seat.online = 1
+					seat.score = 0;
+					seat.ready = true;
+					seat.seatIndex = i
 					userLocation[userId] = {
 						roomId:roomId,
 						seatIndex:i
@@ -153,7 +155,7 @@ exports.userInRoom = function(enterRoomInfo,callback){
 					}
 					ret[userId] = userInfo
 					hasFind = true
-					db.set_seat_info_of_rooms(roomId,ret)
+					db_rooms.set_seat_info_of_rooms(roomId,ret)
 					break
 				}
 			}
@@ -186,7 +188,7 @@ exports.enterRoom = function(enterRoomInfo,callback){
 			callback(0);
 		}
 	}else{
-		db.get_room_data_of_rooms(roomId,function(dbdata){
+		db_rooms.get_room_data_of_rooms(roomId,function(dbdata){
 			if(dbdata == null){
 				console.log('找不到房间!')
 				callback(2);
@@ -290,7 +292,7 @@ exports.exitRoom = function(userId){
 			numOfPlayers++;
 		}
 	}
-	db.get_room_info_of_users(userId,function(data){
+	db_users.get_room_info_of_users(userId,function(data){
 		if(data){
 			var hasFind = false
 			for(var i = 0; i < data.length; i++){
@@ -304,7 +306,7 @@ exports.exitRoom = function(userId){
 				}
 			}
 			if(hasFind){
-				db.set_room_info_of_users(userId,data);
+				db_users.set_room_info_of_users(userId,data);
 			}
 		}
 	});
@@ -357,19 +359,16 @@ exports.createRoom = function(createRoomInfo,callback){
 			fnCreate();
 		}else{
 			creatingRooms[roomId] = true;
-			db.is_room_exist_of_rooms(roomId, function(ret) {
+			db_rooms.is_room_exist_of_rooms(roomId, function(ret) {
 				if(ret){
 					delete creatingRooms[roomId];
 					fnCreate();
 				}else{
-					var createTime = Math.ceil(Date.now()/1000);
+					var create_time = Math.ceil(Date.now()/1000);
 					var roomInfo = {
 						uuid:"",
-						id:roomId,
-						num_of_turns:0,
-						createTime:createTime,
-						currentPlayingIndex:0,
-						room_state:constants.ROOM_state.idel,
+						roomId:roomId,
+						create_time:create_time,
 						seats:[],
 						conf:{
 							type:roomConf.type,
@@ -398,7 +397,7 @@ exports.createRoom = function(createRoomInfo,callback){
 					}
 					
 					//写入数据库
-					db.create_room_of_rooms(roomInfo.id,roomInfo.conf,ip,port,createTime,function(uuid){
+					db_rooms.create_room_of_rooms(roomInfo.roomId,roomInfo.conf,ip,port,create_time,function(uuid){
 						delete creatingRooms[roomId];
 						if(uuid != null){
 							roomInfo.uuid = uuid;

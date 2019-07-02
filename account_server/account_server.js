@@ -1,8 +1,9 @@
 var crypto = require('../utils/crypto');
 var express = require('express');
-var db = require('../utils/db');
 var http = require("../utils/http");
 var fibers = require('fibers');
+var db_account = require('./../dbList/account/db_account')
+var db_users = require('./../dbList/users/db_users')
 
 // var app = express();
 var app = require('./../common/common_app');
@@ -46,16 +47,15 @@ app.get('/register',function(req,res){
 		send(res,{errcode:0,errmsg:"ok"});	
 	};
 
-	db.is_account_exist(account,function(exist){
+	db_account.is_account_exist_of_account(account,function(exist){
 		if(exist){
 			console.log("account has been used.");
 			fnFailed();
 		}else{
-			db.create_account(account,password,function(ret){
+			db_account.create_account_of_account(account,password,function(ret){
 				if (ret) {
 					fnSucceed();
-				}
-				else{
+				}else{
 					fnFailed();
 				}
 			});	
@@ -66,13 +66,6 @@ app.get('/register',function(req,res){
 app.get('/get_app_web',function(req,res){
 	var ret = {
 		appweb:config.APP_WEB,
-	}
-	send(res,ret);
-});
-
-app.get('/get_serverinfo',function(req,res){
-	var ret = {
-		hall:hallAddr,
 	}
 	send(res,ret);
 });
@@ -93,9 +86,9 @@ app.get('/guest',function(req,res){
 
 app.get('/auth',function(req,res){
 	var account = req.query.account;
-	var password = req.query.password;
+	var password = req.query.password || ''
 	console.log('auth  account:'+account)
-	db.get_account_info(account,password,function(info){
+	db_account.get_account_info_of_account(account,password,function(info){
 		if(info == null){
 			send(res,{errcode:1,errmsg:"invalid account"});
 			return;
@@ -152,13 +145,13 @@ function get_state_info(access_token,openid,callback){
 function create_user(account,name,sex,headimgurl,callback){
 	var coins = 1000;
 	var gems = 21;
-	db.is_user_exist_of_users(account,function(ret){
+	db_users.is_user_exist_of_users(account,function(ret){
 		if(!ret){
-			db.create_user_of_users(account,name,coins,gems,sex,headimgurl,function(ret){
+			db_users.create_user_of_users(account,name,coins,gems,sex,headimgurl,function(ret){
 				callback();
 			});
 		}else{
-			db.update_user_info_of_users(account,name,headimgurl,sex,function(ret){
+			db_users.update_user_info_of_users(account,name,headimgurl,sex,function(ret){
 				callback();
 			});
 		}
@@ -204,7 +197,7 @@ app.get('/wechat_auth',function(req,res){
 
 app.get('/base_info',function(req,res){
 	var userId = req.query.userId;
-	db.get_user_base_info(userId,function(data){
+	db_users.get_user_base_info_of_users(userId,function(data){
 		var ret = {
 	        errcode:0,
 	        errmsg:"ok",

@@ -1,12 +1,11 @@
 var crypto = require('../utils/crypto');
 var express = require('express');
-var db = require('../utils/db');
 var http = require('../utils/http');
 var roomMgr = require("./roommgr");
 var userMgr = require("./usermgr");
 var tokenMgr = require("./tokenmgr");
 
-var app = require('./../common/common_app')
+var app = require('../common/common_app')
 var config = null;
 
 var serverIp = "";
@@ -159,8 +158,7 @@ function update(){
 				if(data.ip != null){
 					serverIp = data.ip;
 				}
-			}
-			else{
+			}else{
 				//
 				lastTickTime = 0;
 			}

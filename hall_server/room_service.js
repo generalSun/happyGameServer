@@ -1,8 +1,9 @@
 var crypto = require('../utils/crypto');
 var express = require('express');
-var db = require('../utils/db');
 var http = require('../utils/http');
 var app = require('./../common/common_app')
+var db_users = require('./../dbList/users/db_users')
+var db_rooms = require('./../dbList/rooms/db_rooms')
 
 var hallIp = null;
 var config = null;
@@ -99,7 +100,7 @@ exports.createRoom = function(createRoomInfo,fnCallback){
 	var account = createRoomInfo.account
 	var userId = createRoomInfo.userId
 	var name = createRoomInfo.name
-	db.get_gems_of_users(account,function(data){
+	db_users.get_gems_of_users(account,function(data){
 		if(data != null){
 			//2、请求创建房间
 			var reqdata = {
@@ -158,7 +159,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 			console.log(data);
 			if(ret){
 				if(data.errcode == 0){
-					db.get_room_info_of_users(userId,function(args){
+					db_users.get_room_info_of_users(userId,function(args){
 						if(args == null){
 							args = {}
 						}
@@ -167,7 +168,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 							field:'private'
 						}
 						args[roomId] = info
-						db.set_room_info_of_users(userId,args,function(ret){
+						db_users.set_room_info_of_users(userId,args,function(ret){
 							fnCallback(0,{
 								ip:serverinfo.clientip,
 								port:serverinfo.clientport,
@@ -195,7 +196,7 @@ exports.enterRoom = function(enterRoomInfo,fnCallback){
 		}
 	}
 
-	db.get_room_addr_of_rooms(roomId,function(ret,ip,port){
+	db_rooms.get_room_addr_of_rooms(roomId,function(ret,ip,port){
 		if(ret){
 			var id = ip + ":" + port;
 			var serverinfo = serverMap[id];

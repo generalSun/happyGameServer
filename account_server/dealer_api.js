@@ -1,7 +1,7 @@
 var crypto = require('../utils/crypto');
 var express = require('express');
-var db = require('../utils/db');
 var http = require("../utils/http");
+var db_users = require('./../dbList/users/db_users')
 
 var app = require('./../common/common_app')
 
@@ -28,7 +28,7 @@ app.all('*', function(req, res, next) {
 
 app.get('/get_user_info',function(req,res){
 	var userId = req.query.userId;
-	db.get_user_data_by_userid(userId,function (data) {
+	db_users.get_user_data_by_userid_of_users(userId,function (data) {
 		if(data){
 			var ret = {
 				userId:userId,
@@ -37,8 +37,7 @@ app.get('/get_user_info',function(req,res){
 				headimg:data.headimg
 			}
 			http.send(res,0,"ok",ret);
-		}
-		else{
+		}else{
 			http.send(res,1,"null");
 		}
 	});
@@ -47,11 +46,10 @@ app.get('/get_user_info',function(req,res){
 app.get('/add_user_gems',function(req,res){
 	var userId = req.query.userId;
 	var gems = req.query.gems;
-	db.add_user_gems(userId,gems,function(suc){
+	db_users.add_user_gems_of_users(userId,gems,function(suc){
 		if(suc){
 			http.send(res,0,"ok");
-		}
-		else{
+		}else{
 			http.send(res,1,"failed");
 		}
 	});
