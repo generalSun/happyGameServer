@@ -2,6 +2,8 @@ var roomMgr = require("../../game_server/roommgr");
 var userMgr = require("../../game_server/usermgr");
 var mjutils = require('../../utils/mjutils');
 var db = require("../../utils/db");
+var db_rooms = require('./../../dbList/rooms/db_rooms')
+var db_games = require('./../../dbList/games/db_games')
 var crypto = require("../../utils/crypto");
 var constants = require('./../../game_server/config/constants')
 var games = {};
@@ -853,14 +855,14 @@ function doGameOver(game,userId,forceEnd){
         //保存游戏
         store_game(game,function(ret){
             
-            db.update_game_result(roomInfo.uuid,game.num_of_turns,dbresult);
+            db.update_game_result_of_games(roomInfo.uuid,dbresult);
             
             //记录打牌信息
             var str = JSON.stringify(game.actionList);
-            db.update_game_action_records(roomInfo.uuid,game.num_of_turns,str);
+            db.update_game_action_records_of_games(roomInfo.uuid,str);
         
             //保存游戏局数
-            db.update_num_of_turns_of_games(roomId,roomInfo.num_of_turns);
+            db.update_num_of_turns_of_rooms(roomId,roomInfo.num_of_turns);
             
             //如果是第一次，并且不是强制解散 则扣除房卡
             if(roomInfo.num_of_turns == 1){
@@ -960,7 +962,7 @@ function construct_game_base_info(game){
 }
 
 function store_game(game,callback){
-    db.create_game_of_games(game.roomInfo.uuid,game.num_of_turns,game.baseInfoJson,callback);
+    db.create_game_of_games(game.roomInfo.uuid,game.baseInfoJson,callback);
 }
 /**
  -----------------------------------------------------------------------------------
@@ -1132,9 +1134,8 @@ function sendOperations(game,seatData) {
     userMgr.sendMsg(seatData.userId,'game_action_push',data);
 }
 
-function shuffle(game) {
-    var pokers = game.pokers;
-    var playerMaxNum = game.conf.playerMaxNum
+function shuffle(playerMaxNum) {
+    var pokers = [];
     if(playerMaxNum == 3){
         pokers = [
             0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,//黑桃
@@ -1167,35 +1168,37 @@ function shuffle(game) {
         pokers[index] = pokers[lastIndex];
         pokers[lastIndex] = t;
     }
+    return pokers
 }
 
 function mopai(game,seatIndex) {
     if(game.currentPokersIndex == game.pokers.length){
         return -1;
     }
-    var data = game.gameSeats[seatIndex];
-    var pokers = data.holds;
+    
     var pai = game.pokers[game.currentPokersIndex];
-    pokers.push(pai);
-    game.gameSeats[seatIndex].holdsNum += 1;
+    game.gameSeats[seatIndex].holds.push(pai);
+    game.gameSeats[seatIndex].holdsNum ++;
     game.currentPokersIndex ++;
     return pai;
 }
 
-function deal(game){
+function deal(game,playerMaxNum){
     //强制清0
     game.currentPokersIndex = 0;
-    var playerMaxNum = game.conf.playerMaxNum
     var pokers = game.pokers;
-    var perPlayerPokerNum = pokers.length%playerMaxNum
-    
+    var perPlayerPokerNum = 17
+    if(playerMaxNum == 3){
+        perPlayerPokerNum = 17
+    }else if(playerMaxNum == 4){
+        perPlayerPokerNum = 27
+    }
     var seatIndex = game.currentPlayingIndex;
     for(var i = 0; i < perPlayerPokerNum*playerMaxNum; ++i){
-        var pokers = game.gameSeats[seatIndex].holds;
-        if(pokers == null){
-            pokers = [];
-            game.gameSeats[seatIndex].holds = pokers;
-            game.gameSeats[seatIndex].holdsNum = pokers.length;
+        var holds = game.gameSeats[seatIndex].holds;
+        if(holds == null || holds.length == 0){
+            game.gameSeats[seatIndex].holds = [];
+            game.gameSeats[seatIndex].holdsNum = 0;
         }
         mopai(game,seatIndex);
         seatIndex ++;
@@ -1221,9 +1224,15 @@ exports.setReady = function(userId){
 }
 
 //尝试重新一局
-exports.enterRoomAgain = function(userId,roomInfo) {
-    if(!exports.isRoomBegin(roomInfo.id)){
-        return
+exports.enterRoomAgain = function(userId,roomInfo,info) {
+    var game = games[roomInfo.roomId]
+    if(!game){
+        game = exports.createGame(roomInfo.roomId)
+        games[roomInfo.roomId] = game;
+        //洗牌
+        game.pokers = shuffle(roomInfo.conf.playerMaxNum);
+        //发牌
+        deal(game,roomInfo.conf.playerMaxNum);
     }
     var playerMaxNum = roomInfo.conf.playerMaxNum
     var data = {
@@ -1231,7 +1240,7 @@ exports.enterRoomAgain = function(userId,roomInfo) {
         isNewTurn:game.isNewTurn,
         num_of_turns:roomInfo.num_of_turns,
         yuCards:game.yuCards,
-        currentPlayingIndex:game.currentPlayingIndex,
+        currentPlayingIndex:info.currentPlayingIndex,
     };
 
     data.seatsInfo = [];
@@ -1257,38 +1266,16 @@ exports.enterRoomAgain = function(userId,roomInfo) {
     sendOperations(game,seatData);
 }
 
-//尝试重新一局
-exports.isRoomBegin = function(roomId) {
+//创建房间
+exports.createGame = function(roomId) {
     var roomInfo = roomMgr.getRoom(roomId);
-    if(roomInfo == null){
-        console.log('1111111111111111')
-        return false
-    }
-    var game = games[roomId];
-    if(game){//重新进入游戏
-        console.log('2222222222222222')
-        return true
-    }
-    console.log('333333333333333')
-    return false
-};
-
-//开始新的一局
-exports.begin = function(roomId) {
-    var roomInfo = roomMgr.getRoom(roomId);
-    if(roomInfo == null){
-        return;
-    }
-    if(exports.isRoomBegin(roomId)){
-        return
+    if(!roomInfo){
+        return null
     }
     var seats = roomInfo.seats;
-    var createTime = Math.ceil(Date.now()/1000);
     var game = {
-        createTime:createTime,
-        conf:roomInfo.conf,//房间配置
-        roomInfo:roomInfo,//房间信息
-        num_of_turns:0,//游戏局数
+        start_time:Math.ceil(Date.now()/1000),
+        roomId:roomInfo.roomId,
         currentPlayingIndex:0,//指向当前操作玩家
         pokers:new Array(),//游戏所有扑克牌
         currentPokersIndex:0,//指向当前摸牌时pokers的位置
@@ -1298,13 +1285,8 @@ exports.begin = function(roomId) {
         state:constants.ROOM_state.idel,//游戏状态
         actionList:[],//记录玩家操作信息，用于战绩回放
     };
-
-    roomInfo.num_of_turns++;
-
     for(var i = 0; i < roomInfo.conf.playerMaxNum; ++i){
         var data = game.gameSeats[i] = {};
-
-        data.game = game;
 
         data.seatIndex = i;
 
@@ -1319,45 +1301,64 @@ exports.begin = function(roomId) {
         //手牌数量
         data.holdsNum = 0;
 
-        //是否可以出牌
-        data.canChuPai = false;
-
         data.actions = [];
 
         data.score = 0;
 
         gameSeatsOfUsers[data.userId] = data;
     }
-    games[roomId] = game;
-    //洗牌
-    shuffle(game);
-    //发牌
-    deal(game);
+    return game
+};
 
-    for(var i = 0; i < seats.length; ++i){
-        //开局时，通知前端必要的数据
-        var s = seats[i];
-        var msg = {
-            num_of_turns:roomInfo.num_of_turns,
-            yuCards:game.yuCards,
-            currentPlayingIndex:game.currentPlayingIndex,
-            seatsInfo:new Array()
-        }
-        for(var j = 0; j < seats.length; ++j){
-            var seat = seats[j]
-            var args = {
-                userId:seat.userId
-            }
-            if(seat.userId == s.userId){
-                args.holds = game.gameSeats[j].holds
-            }else{
-                args.holdsNum = game.gameSeats[j].holdsNum
-            }
-            msg.seatsInfo.push(args)
-        }
-        //通知游戏开始
-        userMgr.sendMsg(s.userId,'game_begin_push',msg,true);
+//开始新的一局
+exports.begin = function(userId,roomId) {
+    var roomInfo = roomMgr.getRoom(roomId);
+    if(roomInfo == null){
+        return;
     }
+
+    db_games.is_game_exist_of_games(roomId,function(ret,info){
+        if(ret){
+            exports.enterRoomAgain(userId,roomId,info)
+        }else{
+            var game = exports.createGame(roomId)
+            if(!game){
+                return
+            }
+            games[roomId] = game;
+            //洗牌
+            game.pokers = shuffle(roomInfo.conf.playerMaxNum);
+            //发牌
+            deal(game,roomInfo.conf.playerMaxNum);
+            db_games.create_game_of_games(roomId,game.start_time,game.currentPlayingIndex)
+            roomInfo.num_of_turns++;
+            db_rooms.update_num_of_turns_of_rooms(roomId,roomInfo.num_of_turns)
+            for(var i = 0; i < game.gameSeats.length; ++i){
+                //开局时，通知前端必要的数据
+                var s = game.gameSeats[i];
+                var msg = {
+                    num_of_turns:roomInfo.num_of_turns,
+                    yuCards:game.yuCards,
+                    currentPlayingIndex:game.currentPlayingIndex,
+                    seatsInfo:new Array()
+                }
+                for(var j = 0; j < game.gameSeats.length; ++j){
+                    var seat = game.gameSeats[j]
+                    var args = {
+                        userId:seat.userId
+                    }
+                    if(seat.userId == s.userId){
+                        args.holds = game.gameSeats[j].holds
+                    }else{
+                        args.holdsNum = game.gameSeats[j].holdsNum
+                    }
+                    msg.seatsInfo.push(args)
+                }
+                //通知游戏开始
+                userMgr.sendMsg(s.userId,'game_begin_push',msg);
+            }
+        }
+    })
 };
 
 exports.isPlaying = function(userId){
@@ -1416,11 +1417,14 @@ exports.dissolveRequest = function(roomId,userId){
         return null;
     }
 
-    roomInfo.dr = {
-        endTime:Date.now() + 30000,
-        states:[false,false,false,false]
-    };
-    roomInfo.dr.states[seatIndex] = true;
+    roomInfo.dr = {}
+    roomInfo.dr.endTime = Date.now() + 30000
+    roomInfo.dr.originator = userId
+    roomInfo.dr.states = []
+    for(var i = 0; i < roomInfo.conf.playerMaxNum; i++){
+        roomInfo.dr.states[i] = 0
+    }
+    roomInfo.dr.states[seatIndex] = 1;
 
     dissolvingList.push(roomId);
 
@@ -1443,9 +1447,8 @@ exports.dissolveAgree = function(roomId,userId,agree){
     }
 
     if(agree){
-        roomInfo.dr.states[seatIndex] = true;
-    }
-    else{
+        roomInfo.dr.states[seatIndex] = 1;
+    }else{
         roomInfo.dr = null;
         var idx = dissolvingList.indexOf(roomId);
         if(idx != -1){
@@ -1466,8 +1469,7 @@ function update() {
                 exports.doDissolve(roomId);
                 dissolvingList.splice(i,1); 
             }
-        }
-        else{
+        }else{
             dissolvingList.splice(i,1);
         }
     }

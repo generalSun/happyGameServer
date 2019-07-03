@@ -28,6 +28,7 @@ function constructRoomFromDb(dbdata){
 		uuid:dbdata.uuid,
 		roomId:dbdata.roomId,
 		create_time:dbdata.create_time,
+		num_of_turns:dbdata.num_of_turns,
 		seats:new Array(),
 		conf:JSON.parse(dbdata.base_info)
 	};
@@ -369,6 +370,7 @@ exports.createRoom = function(createRoomInfo,callback){
 						uuid:"",
 						roomId:roomId,
 						create_time:create_time,
+						num_of_turns:0,
 						seats:[],
 						conf:{
 							type:roomConf.type,

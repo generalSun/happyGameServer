@@ -989,14 +989,14 @@ function doGameOver(game,userId,forceEnd){
         //保存游戏
         store_game(game,function(ret){
             
-            db.update_game_result(roomInfo.uuid,game.gameIndex,dbresult);
+            db.update_game_result_of_games(roomInfo.uuid,dbresult);
             
             //记录打牌信息
             var str = JSON.stringify(game.actionList);
-            db.update_game_action_records(roomInfo.uuid,game.gameIndex,str);
+            db.update_game_action_records_of_games(roomInfo.uuid,game.gameIndex,str);
         
             //保存游戏局数
-            db.update_num_of_turns_of_games(roomId,roomInfo.num_of_turns);
+            db.update_num_of_turns_of_rooms(roomId,roomInfo.num_of_turns);
             
             //如果是第一次，并且不是强制解散 则扣除房卡
             if(roomInfo.num_of_turns == 1){

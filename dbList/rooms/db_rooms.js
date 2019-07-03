@@ -20,11 +20,11 @@ exports.is_room_exist_of_rooms = function(roomId,callback){
 
 exports.create_room_of_rooms = function(roomId,conf,ip,port,create_time,callback){
     callback = callback == null? nop:callback;
-    var sql = "INSERT INTO t_rooms(uuid,roomId,base_info,ip,port,create_time) \
-                VALUES('{0}','{1}','{2}','{3}','{4}','{5}')";
+    var sql = "INSERT INTO t_rooms(uuid,roomId,base_info,ip,port,create_time,num_of_turns) \
+                VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')";
     var uuid = Date.now() + roomId;
     var baseInfo = JSON.stringify(conf);
-    sql = sql.format(uuid,roomId,baseInfo,ip,port,create_time);
+    sql = sql.format(uuid,roomId,baseInfo,ip,port,create_time,0);
     console.log(sql);
     db.query(sql,function(err,row,fields){
         if(err){
@@ -157,3 +157,19 @@ exports.delete_room_of_rooms = function(roomId,callback){
         }
     });
 }
+
+exports.update_num_of_turns_of_rooms = function(roomId,numOfTurns,callback){
+    callback = callback == null? nop:callback;
+    var sql = 'UPDATE t_rooms SET num_of_turns = {0} WHERE roomId = "{1}"'
+    sql = sql.format(numOfTurns,roomId);
+    console.log(sql);
+    db.query(sql,function(err,row,fields){
+        if(err){
+            callback(false);
+            throw err;
+        }
+        else{
+            callback(true);
+        }
+    });
+};

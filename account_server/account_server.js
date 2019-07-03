@@ -38,9 +38,9 @@ app.all('*', function(req, res, next) {
 app.get('/register',function(req,res){
 	var account = req.query.account;
 	var password = req.query.password;
-	console.log('register  account:'+account)
-	var fnFailed = function(){
-		send(res,{errcode:1,errmsg:"account has been used."});
+	console.log('account_server register',account,password)
+	var fnFailed = function(errmsg){
+		send(res,{errcode:1,errmsg:errmsg});
 	};
 
 	var fnSucceed = function(){
@@ -49,14 +49,13 @@ app.get('/register',function(req,res){
 
 	db_account.is_account_exist_of_account(account,function(exist){
 		if(exist){
-			console.log("account has been used.");
-			fnFailed();
+			fnFailed('账号已经被使用！');
 		}else{
-			db_account.create_account_of_account(account,password,function(ret){
+			db_account.create_account_of_account(account,password,function(ret,reason){
 				if (ret) {
 					fnSucceed();
 				}else{
-					fnFailed();
+					fnFailed(reason || '账号创建失败！');
 				}
 			});	
 		}
@@ -87,10 +86,10 @@ app.get('/guest',function(req,res){
 app.get('/auth',function(req,res){
 	var account = req.query.account;
 	var password = req.query.password || ''
-	console.log('auth  account:'+account)
 	db_account.get_account_info_of_account(account,password,function(info){
-		if(info == null){
-			send(res,{errcode:1,errmsg:"invalid account"});
+		console.log('account_server auth',info)
+		if(info.errmsg){
+			send(res,{errcode:1,errmsg:info.errmsg});
 			return;
 		}
 

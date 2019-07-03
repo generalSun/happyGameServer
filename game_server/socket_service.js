@@ -30,7 +30,7 @@ exports.start = function(conf,mgr){
 	
 	io.sockets.on('connection',function(socket){
 		socket.on('login',function(data){
-			console.log('socket_service login data',data)
+			// console.log('socket_service login data',data)
 			data = JSON.parse(data);
 			if(socket.userId != null){
 				//已经登陆过的就忽略
@@ -66,7 +66,11 @@ exports.start = function(conf,mgr){
 			//检查房间合法性
 			var userId = tokenMgr.getUserID(token);
 			var roomId = roomMgr.getUserRoom(userId);
-
+			if(!roomId){
+				console.log(4);
+				socket.emit('login_result',{errcode:3,errmsg:"roomId is null."});
+				return
+			}
 			userMgr.bind(userId,socket);
 			socket.userId = userId;
 			//返回房间信息
@@ -126,15 +130,18 @@ exports.start = function(conf,mgr){
 			console.log('socket_service login roomInfo',roomInfo)
 			//通知其它客户端
 			userMgr.broacastInRoom('new_user_comes_push',userData,userId);
-			socket.gameMgr.enterRoomAgain(userId,roomInfo);
-			socket.gameMgr.begin(roomId);
+
+			if(readyNum >= roomInfo.seats.length){
+				socket.gameMgr.begin(userId,roomId);
+			}
 			
 			if(roomInfo.dr != null){
 				var dr = roomInfo.dr;
 				var ramaingTime = (dr.endTime - Date.now()) / 1000;
 				var data = {
 					time:ramaingTime,
-					states:dr.states
+					states:dr.states,
+					originator:dr.originator
 				}
 				userMgr.sendMsg(userId,'dissolve_notice_push',data);	
 			}
@@ -210,7 +217,7 @@ exports.start = function(conf,mgr){
 			}
 			
 			//通知其它玩家，有人退出了房间
-			userMgr.broacastInRoom('exit_notify_push',userId,userId,false);
+			userMgr.broacastInRoom('exit_notify_push',{userId:userId},userId,false);
 			
 			roomMgr.exitRoom(userId);
 			userMgr.del(userId);
@@ -250,21 +257,17 @@ exports.start = function(conf,mgr){
 		//解散房间
 		socket.on('dissolve_request',function(data){
 			var userId = socket.userId;
-			console.log(1);
 			if(userId == null){
-				console.log(2);
 				return;
 			}
 
 			var roomId = roomMgr.getUserRoom(userId);
 			if(roomId == null){
-				console.log(3);
 				return;
 			}
 
 			//如果游戏未开始，则不可以
 			if(socket.gameMgr.hasBegan(roomId) == false){
-				console.log(4);
 				return;
 			}
 
@@ -274,12 +277,11 @@ exports.start = function(conf,mgr){
 				var ramaingTime = (dr.endTime - Date.now()) / 1000;
 				var data = {
 					time:ramaingTime,
-					states:dr.states
+					states:dr.states,
+					originator:userId
 				}
-				console.log(5);
 				userMgr.broacastInRoom('dissolve_notice_push',data,userId,true);
 			}
-			console.log(6);
 		});
 
 		socket.on('dissolve_agree',function(data){
