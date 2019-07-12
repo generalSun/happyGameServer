@@ -1,0 +1,2044 @@
+[2019-6-6 11:21:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:21:48] GET /get_server_info?serverid=127.0.0.1%3A10000&sign=5f07171cb498d75fd82ecd0de85df3a9
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:21:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:21:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /auth?account=13812312312&password=123
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /login?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /get_gameList?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /base_info?userId=244849
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:7] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:22:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:23:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:37] GET /auth?account=13812345678&password=123
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:37] GET /login?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:38] GET /get_gameList?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:38] GET /base_info?userId=407909
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:38] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:38] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /auth?account=15912312312&password=123
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /login?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /get_gameList?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /base_info?userId=617755
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:55] GET /image?url=null.jpg
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:24:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:25] GET /create_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&conf=%7B%22type%22:%22ddz%22,%22rule%22:0,%22difen%22:0,%22jushuxuanze%22:0,%22playerMaxNum%22:3%7D
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:25] GET /create_room?userId=244849&gems=21&conf=%7B%22type%22%3A%22ddz%22%2C%22rule%22%3A0%2C%22difen%22%3A0%2C%22jushuxuanze%22%3A0%2C%22playerMaxNum%22%3A3%7D&name=%E9%A9%AC%E6%99%B6%E6%BB%A2&sign=6e8c8c84f0b87b36430cac8680f3abe0
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:25] GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:25] GET /enter_room?userId=244849&roomId=124086&name=%E9%A9%AC%E6%99%B6%E6%BB%A2&sign=70ff5a393b405fcb204d32cb1aadc9bd
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:25:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:3] GET /enter_private_room?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0&roomId=124086
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:3] GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:3] GET /enter_room?userId=407909&roomId=124086&name=%E8%8A%B1%E5%87%8C%E6%99%B6&sign=b18eb5a97e415b49b1fe60bc94ea257b
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:15] GET /enter_private_room?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4&roomId=124086
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:15] GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:15] GET /enter_room?userId=617755&roomId=124086&name=%E5%8D%8E%E4%BD%B3%E6%AC%A3&sign=a416a8c908ee757c73dd8bc6b90e745f
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:26:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:27:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:13] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:18] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:23] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:28] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:33] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:38] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:43] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:48] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:53] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:28:58] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:3] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:8] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:14] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:19] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:24] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:29] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:34] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:39] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:44] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:49] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:54] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:29:59] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:4] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:9] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:14] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:19] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:24] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:29] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:34] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:39] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:44] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:49] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:54] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:30:59] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:4] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:9] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:14] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:19] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:25] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+
+[2019-6-6 11:31:30] GET /register_gs?id=001&clientip=127.0.0.1&clientport=10000&httpPort=9003&load=1
+Error: Not Found
+    at G:\happyGame\2\server\common\common_app.js:86:15
+    at Layer.handle [as handle_request] (G:\happyGame\2\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (G:\happyGame\2\server\node_modules\express\lib\router\index.js:317:13)
+    at G:\happyGame\2\server\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (G:\happyGame\2\server\node_modules\express\lib\router\index.js:335:12)
+    at next (G:\happyGame\2\server\node_modules\express\lib\router\index.js:275:10)
+    at SendStream.error (G:\happyGame\2\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (events.js:189:13)
+    at SendStream.error (G:\happyGame\2\server\node_modules\send\index.js:270:17)
+    at SendStream.onStatError (G:\happyGame\2\server\node_modules\send\index.js:421:12)
+
+

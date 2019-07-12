@@ -26,18 +26,18 @@ CREATE TABLE `t_users` (
   `userId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `account` varchar(64) NOT NULL DEFAULT '' COMMENT '账号',
   `name` varchar(32) DEFAULT NULL COMMENT '用户昵称',
-  `sex` int(1) DEFAULT NULL COMMENT '玩家性别',
+  `sex` int(1) NOT NULL COMMENT '玩家性别',
+  `online` tinyint(2) NOT NULL DEFAULT '0' COMMENT '玩家在线状态',
   `headimg` varchar(256) DEFAULT NULL COMMENT '玩家头像',
   `lv` smallint(6) DEFAULT '1' COMMENT '用户等级',
   `exp` int(11) DEFAULT '0' COMMENT '用户经验',
   `coins` int(11) DEFAULT '0' COMMENT '用户金币',
   `gems` int(11) DEFAULT '0' COMMENT '用户宝石',
-  `history` varchar(4096) NOT NULL DEFAULT '',
-  `roomInfo` varchar(1024) NOT NULL DEFAULT '' COMMENT '玩家房间列表有私有房和好友房',
-  `online` tinyint(2) NOT NULL DEFAULT '0' COMMENT '玩家在线状态',
+  `history` varchar(4096) DEFAULT '',
+  `roomInfo` varchar(1024) DEFAULT '' COMMENT '玩家房间列表有私有房和好友房',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `account` (`account`)
-) ENGINE=InnoDB AUTO_INCREMENT=997290 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=617756 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `t_users` (
 
 LOCK TABLES `t_users` WRITE;
 /*!40000 ALTER TABLE `t_users` DISABLE KEYS */;
+INSERT INTO `t_users` VALUES (244849,'vivi_13812312312','马晶滢',0,1,'null',1,0,1000,21,'','{\"124086\":{\"roomId\":\"124086\",\"field\":\"private\"}}'),(407909,'vivi_13812345678','花凌晶',0,1,'null',1,0,1000,21,'','{\"124086\":{\"roomId\":\"124086\",\"field\":\"private\"}}'),(617755,'vivi_15912312312','华佳欣',0,1,'null',1,0,1000,21,'','{\"124086\":{\"roomId\":\"124086\",\"field\":\"private\"}}');
 /*!40000 ALTER TABLE `t_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-28  9:23:18
+-- Dump completed on 2019-07-06 15:28:37

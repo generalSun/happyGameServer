@@ -23,14 +23,12 @@ DROP TABLE IF EXISTS `t_games`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_games` (
-  `room_uuid` char(20) NOT NULL,
-  `game_index` smallint(6) NOT NULL,
-  `base_info` varchar(1024) NOT NULL,
-  `create_time` int(11) NOT NULL,
-  `snapshots` char(255) DEFAULT NULL,
+  `roomId` char(20) NOT NULL,
   `action_records` varchar(2048) DEFAULT NULL,
   `result` char(255) DEFAULT NULL,
-  PRIMARY KEY (`room_uuid`,`game_index`)
+  `currentPlayingIndex` tinyint(10) NOT NULL DEFAULT '0',
+  `start_time` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`roomId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,6 +38,7 @@ CREATE TABLE `t_games` (
 
 LOCK TABLES `t_games` WRITE;
 /*!40000 ALTER TABLE `t_games` DISABLE KEYS */;
+INSERT INTO `t_games` VALUES ('124086',NULL,NULL,0,1562383577);
 /*!40000 ALTER TABLE `t_games` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-28  9:23:18
+-- Dump completed on 2019-07-06 15:28:38

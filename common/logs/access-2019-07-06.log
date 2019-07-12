@@ -1,0 +1,116 @@
+[joke] 2019-07-06 11:21:48
+ 127.0.0.1 - GET /get_server_info?serverid=127.0.0.1%3A10000&sign=5f07171cb498d75fd82ecd0de85df3a9 
+from :{"serverid":"127.0.0.1:10000","sign":"5f07171cb498d75fd82ecd0de85df3a9"} - - - ms - 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /auth?account=13812312312&password=123 
+from :{"account":"13812312312","password":"123"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /login?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /get_gameList?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /base_info?userId=244849 
+from :{"userId":"244849"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:22:07
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:37
+ ::ffff:127.0.0.1 - GET /auth?account=13812345678&password=123 
+from :{"account":"13812345678","password":"123"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:37
+ ::ffff:127.0.0.1 - GET /login?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0 
+from :{"account":"vivi_13812345678","sign":"612ba9babe5e35c612722632e6c541f0"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:38
+ ::ffff:127.0.0.1 - GET /get_gameList?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0 
+from :{"account":"vivi_13812345678","sign":"612ba9babe5e35c612722632e6c541f0"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:38
+ ::ffff:127.0.0.1 - GET /base_info?userId=407909 
+from :{"userId":"407909"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:38
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:38
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /auth?account=15912312312&password=123 
+from :{"account":"15912312312","password":"123"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /login?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4 
+from :{"account":"vivi_15912312312","sign":"35bf7afe6b7816d2d7c21c9528418af4"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /get_gameList?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4 
+from :{"account":"vivi_15912312312","sign":"35bf7afe6b7816d2d7c21c9528418af4"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /base_info?userId=617755 
+from :{"userId":"617755"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:24:55
+ ::ffff:127.0.0.1 - GET /image?url=null.jpg 
+from :{"url":"null.jpg"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:25:25
+ ::ffff:127.0.0.1 - GET /create_private_room?account=vivi_13812312312&sign=a57c39b7ac928ed83cd8407006f4421f&conf=%7B%22type%22:%22ddz%22,%22rule%22:0,%22difen%22:0,%22jushuxuanze%22:0,%22playerMaxNum%22:3%7D 
+from :{"account":"vivi_13812312312","sign":"a57c39b7ac928ed83cd8407006f4421f","conf":"{\"type\":\"ddz\",\"rule\":0,\"difen\":0,\"jushuxuanze\":0,\"playerMaxNum\":3}"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:25:25
+ 127.0.0.1 - GET /create_room?userId=244849&gems=21&conf=%7B%22type%22%3A%22ddz%22%2C%22rule%22%3A0%2C%22difen%22%3A0%2C%22jushuxuanze%22%3A0%2C%22playerMaxNum%22%3A3%7D&name=%E9%A9%AC%E6%99%B6%E6%BB%A2&sign=6e8c8c84f0b87b36430cac8680f3abe0 
+from :{"userId":"244849","gems":"21","conf":"{\"type\":\"ddz\",\"rule\":0,\"difen\":0,\"jushuxuanze\":0,\"playerMaxNum\":3}","name":"马晶滢","sign":"6e8c8c84f0b87b36430cac8680f3abe0"} - - - ms - 
+
+[joke] 2019-07-06 11:25:25
+ 127.0.0.1 - GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e 
+from :{"roomId":"124086","sign":"a743c7629098ad1171b9dee7ff50b94e"} - - - ms - 
+
+[joke] 2019-07-06 11:25:25
+ 127.0.0.1 - GET /enter_room?userId=244849&roomId=124086&name=%E9%A9%AC%E6%99%B6%E6%BB%A2&sign=70ff5a393b405fcb204d32cb1aadc9bd 
+from :{"userId":"244849","roomId":"124086","name":"马晶滢","sign":"70ff5a393b405fcb204d32cb1aadc9bd"} - - - ms - 
+
+[joke] 2019-07-06 11:26:03
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_13812345678&sign=612ba9babe5e35c612722632e6c541f0&roomId=124086 
+from :{"account":"vivi_13812345678","sign":"612ba9babe5e35c612722632e6c541f0","roomId":"124086"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:26:03
+ 127.0.0.1 - GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e 
+from :{"roomId":"124086","sign":"a743c7629098ad1171b9dee7ff50b94e"} - - - ms - 
+
+[joke] 2019-07-06 11:26:03
+ 127.0.0.1 - GET /enter_room?userId=407909&roomId=124086&name=%E8%8A%B1%E5%87%8C%E6%99%B6&sign=b18eb5a97e415b49b1fe60bc94ea257b 
+from :{"userId":"407909","roomId":"124086","name":"花凌晶","sign":"b18eb5a97e415b49b1fe60bc94ea257b"} - - - ms - 
+
+[joke] 2019-07-06 11:26:15
+ ::ffff:127.0.0.1 - GET /enter_private_room?account=vivi_15912312312&sign=35bf7afe6b7816d2d7c21c9528418af4&roomId=124086 
+from :{"account":"vivi_15912312312","sign":"35bf7afe6b7816d2d7c21c9528418af4","roomId":"124086"} - http://localhost:7456/ - ms Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36 
+
+[joke] 2019-07-06 11:26:15
+ 127.0.0.1 - GET /is_room_runing?roomId=124086&sign=a743c7629098ad1171b9dee7ff50b94e 
+from :{"roomId":"124086","sign":"a743c7629098ad1171b9dee7ff50b94e"} - - - ms - 
+
+[joke] 2019-07-06 11:26:15
+ 127.0.0.1 - GET /enter_room?userId=617755&roomId=124086&name=%E5%8D%8E%E4%BD%B3%E6%AC%A3&sign=a416a8c908ee757c73dd8bc6b90e745f 
+from :{"userId":"617755","roomId":"124086","name":"华佳欣","sign":"a416a8c908ee757c73dd8bc6b90e745f"} - - - ms - 
+

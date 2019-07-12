@@ -38,7 +38,7 @@ CREATE TABLE `t_gamelist` (
 
 LOCK TABLES `t_gamelist` WRITE;
 /*!40000 ALTER TABLE `t_gamelist` DISABLE KEYS */;
-INSERT INTO `t_gamelist` VALUES (1,'斗地主','ddz',0,'{\"mode\":[0,1],\"difen\":[0,2],\"jushuxuanze\":[0,1,2]}');
+INSERT INTO `t_gamelist` VALUES (1,'斗地主','ddz',0,'{\"mode\":[0,1],\"difen\":[0,1,2],\"jushuxuanze\":[0,1,2]}');
 /*!40000 ALTER TABLE `t_gamelist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-28  9:23:18
+-- Dump completed on 2019-07-06 15:28:37

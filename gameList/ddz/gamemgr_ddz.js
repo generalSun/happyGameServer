@@ -302,9 +302,6 @@ function doUserMoPai(game){
     //广播通知玩家出牌方
     turnSeat.canChuPai = true;
     userMgr.broacastInRoom('game_chupai_push',turnSeat.userId,turnSeat.userId,true);
-
-    //通知玩家做对应操作
-    sendOperations(game,turnSeat,game.chuPai);
 }
 
 function isSameType(type,arr){
@@ -733,152 +730,6 @@ function calculateResult(game,roomInfo){
     }
 }
 
-function doGameOver(game,userId,forceEnd){
-    var roomId = roomMgr.getUserRoom(userId);
-    if(roomId == null){
-        return;
-    }
-    var roomInfo = roomMgr.getRoom(roomId);
-    if(roomInfo == null){
-        return;
-    }
-
-    var results = [];
-    var dbresult = [0,0,0,0];
-    
-    var fnNoticeResult = function(isEnd){
-        var endinfo = null;
-        if(isEnd){
-            endinfo = [];
-            for(var i = 0; i < roomInfo.seats.length; ++i){
-                var rs = roomInfo.seats[i];
-                endinfo.push({
-                    numzimo:rs.numZiMo,
-                    numjiepao:rs.numJiePao,
-                    numdianpao:rs.numDianPao,
-                    numangang:rs.numAnGang,
-                    numminggang:rs.numMingGang,
-                    numchadajiao:rs.numChaJiao, 
-                });
-            }   
-        }
-        userMgr.broacastInRoom('game_over_push',{results:results,endinfo:endinfo},userId,true);
-        //如果局数已够，则进行整体结算，并关闭房间
-        if(isEnd){
-            setTimeout(function(){
-                if(roomInfo.num_of_turns > 1){
-                    store_history(roomInfo);    
-                }
-                
-                userMgr.kickAllInRoom(roomId);
-                roomMgr.destroy(roomId);
-                db.archive_games(roomInfo.uuid);            
-            },1500);
-        }
-    }
-
-    if(game != null){
-        if(!forceEnd){
-            calculateResult(game,roomInfo);    
-        }
-       
-        for(var i = 0; i < roomInfo.seats.length; ++i){
-            var rs = roomInfo.seats[i];
-            var sd = game.gameSeats[i];
-
-            rs.ready = false;
-            rs.score += sd.score;
-            rs.numZiMo += sd.numZiMo;
-            rs.numJiePao += sd.numJiePao;
-            rs.numDianPao += sd.numDianPao;
-            rs.numAnGang += sd.numAnGang;
-            rs.numMingGang += sd.numMingGang;
-            rs.numChaJiao += sd.numChaJiao;
-            
-            var userRT = {
-                userId:sd.userId,
-                pengs:sd.pengs,
-                actions:[],
-                wangangs:sd.wangangs,
-                diangangs:sd.diangangs,
-                angangs:sd.angangs,
-                numofgen:sd.numofgen,
-                holds:sd.holds,
-                fan:sd.fan,
-                score:sd.score,
-                totalscore:rs.score,
-                qingyise:sd.qingyise,
-                pattern:sd.pattern,
-                isganghu:sd.isGangHu,
-                menqing:sd.isMenQing,
-                zhongzhang:sd.isZhongZhang,
-                jingouhu:sd.isJinGouHu,
-                haidihu:sd.isHaiDiHu,
-                tianhu:sd.isTianHu,
-                dihu:sd.isDiHu,
-                huorder:game.hupaiList.indexOf(i),
-            };
-            
-            for(var k in sd.actions){
-                userRT.actions[k] = {
-                    type:sd.actions[k].type,
-                };
-            }
-            results.push(userRT);
-
-
-            dbresult[i] = sd.score;
-            delete gameSeatsOfUsers[sd.userId];
-        }
-        delete games[roomId];
-        
-        var old = roomInfo.currentPlayingIndex;
-        if(game.yipaoduoxiang >= 0){
-            roomInfo.currentPlayingIndex = game.yipaoduoxiang;
-        }
-        else if(game.firstHupai >= 0){
-            roomInfo.currentPlayingIndex = game.firstHupai;
-        }
-        else{
-            roomInfo.currentPlayingIndex = (game.turn + 1) % 4;
-        }
-
-        if(old != roomInfo.currentPlayingIndex){
-            db.update_currentPlayingIndex_of_games(roomId,roomInfo.currentPlayingIndex);
-        }
-    }
-    
-    if(forceEnd || game == null){
-        fnNoticeResult(true);   
-    }
-    else{
-        //保存游戏
-        store_game(game,function(ret){
-            
-            db.update_game_result_of_games(roomInfo.uuid,dbresult);
-            
-            //记录打牌信息
-            var str = JSON.stringify(game.actionList);
-            db.update_game_action_records_of_games(roomInfo.uuid,str);
-        
-            //保存游戏局数
-            db.update_num_of_turns_of_rooms(roomId,roomInfo.num_of_turns);
-            
-            //如果是第一次，并且不是强制解散 则扣除房卡
-            if(roomInfo.num_of_turns == 1){
-                var cost = 2;
-                if(roomInfo.conf.maxGames == 8){
-                    cost = 3;
-                }
-                db.cost_gems(game.gameSeats[0].userId,cost);
-            }
-
-            var isEnd = (roomInfo.num_of_turns >= roomInfo.conf.maxGames);
-            fnNoticeResult(isEnd);
-        });   
-    }
-}
-
 function recordUserAction(game,seatData,type,target){
     var d = {type:type,targets:[]};
     if(target != null){
@@ -1109,7 +960,6 @@ exports.chuPai = function(userId,pai){
         checkCanPeng(game,ddd,pai);
         checkCanDianGang(game,ddd,pai);
         if(hasOperations(ddd)){
-            sendOperations(game,ddd,game.chuPai);
             hasActions = true;    
         }
     }
@@ -1125,14 +975,6 @@ exports.chuPai = function(userId,pai){
         },500);
     }
 };
-
-function sendOperations(game,seatData) {
-    var data = {
-        currentPlayingIndex:game.currentPlayingIndex,
-    };
-    //如果可以有操作，则进行操作
-    userMgr.sendMsg(seatData.userId,'game_action_push',data);
-}
 
 function shuffle(playerMaxNum) {
     var pokers = [];
@@ -1211,18 +1053,6 @@ function deal(game,playerMaxNum){
     }
 }
 
-exports.setReady = function(userId){
-    var roomId = roomMgr.getUserRoom(userId);
-    if(roomId == null){
-        return;
-    }
-    var roomInfo = roomMgr.getRoom(roomId);
-    if(roomInfo == null){
-        return;
-    }
-    roomMgr.setReady(userId,true);
-}
-
 //尝试重新一局
 exports.enterRoomAgain = function(userId,roomInfo,info) {
     var game = games[roomInfo.roomId]
@@ -1263,7 +1093,6 @@ exports.enterRoomAgain = function(userId,roomInfo,info) {
 
     //同步整个信息给客户端
     userMgr.sendMsg(userId,'game_sync_push',data);
-    sendOperations(game,seatData);
 }
 
 //创建房间
@@ -1290,6 +1119,8 @@ exports.createGame = function(roomId) {
 
         data.seatIndex = i;
 
+        data.roomId = game.roomId;
+
         data.userId = seats[i].userId;
 
         //持有的牌
@@ -1302,8 +1133,6 @@ exports.createGame = function(roomId) {
         data.holdsNum = 0;
 
         data.actions = [];
-
-        data.score = 0;
 
         gameSeatsOfUsers[data.userId] = data;
     }
@@ -1319,7 +1148,7 @@ exports.begin = function(userId,roomId) {
 
     db_games.is_game_exist_of_games(roomId,function(ret,info){
         if(ret){
-            exports.enterRoomAgain(userId,roomId,info)
+            exports.enterRoomAgain(userId,roomInfo,info)
         }else{
             var game = exports.createGame(roomId)
             if(!game){
@@ -1366,10 +1195,12 @@ exports.isPlaying = function(userId){
     if(seatData == null){
         return false;
     }
-
-    var game = seatData.game;
-
-    if(game.state == "idle"){
+    var roomId = seatData.roomId
+    var game = games[roomId]
+    if(!game){
+        return false
+    }
+    if(game.state == constants.ROOM_state.idel){
         return false;
     }
     return true;
@@ -1386,6 +1217,36 @@ exports.hasBegan = function(roomId){
     }
     return false;
 };
+
+exports.destroyGame = function(roomId){
+    var game = games[roomId];
+    if(game == null){
+        return;
+    }
+    for(var i = 0; i < game.gameSeats.length; ++i){
+        var seat = game.gameSeats[i]
+        gameSeatsOfUsers[seat.userId]?(delete gameSeatsOfUsers[seat.userId]):null
+    }
+    delete games[roomId]
+    db_games.delete_game_of_games(roomId)
+};
+
+function doGameOver(game,userId,forceEnd){
+    var roomId = roomMgr.getUserRoom(userId);
+    if(roomId == null){
+        return;
+    }
+    var roomInfo = roomMgr.getRoom(roomId);
+    if(roomInfo == null){
+        return;
+    }
+    userMgr.broacastInRoom('game_over_push',{},userId,true);
+    setTimeout(function(){
+        userMgr.kickAllInRoom(roomId);
+        roomMgr.destroy(roomId);           
+    },1500);
+    exports.destroyGame(roomId)
+}
 /**
  -----------------------------------------------------------------------------------
  */

@@ -79,7 +79,8 @@ exports.start = function(conf,mgr){
 			roomInfo.socketMgr.listenMsg(socket)
 			socket.gameMgr = roomInfo.gameMgr;
 			//玩家上线，强制设置为TRUE
-			socket.gameMgr.setReady(userId);
+			roomMgr.setReady(userId,true);
+			roomMgr.setOnline(userId,1);
 
 			var seatIndex = roomMgr.getUserSeat(userId);
 			roomInfo.seats[seatIndex].ip = socket.handshake.address;
@@ -362,6 +363,7 @@ exports.start = function(conf,mgr){
 			//清除玩家的在线信息
 			userMgr.del(userId);
 			roomMgr.leaveRoom(userId)
+			roomMgr.setOnline(userId,false)
 			socket.userId = null;
 		});
 	});

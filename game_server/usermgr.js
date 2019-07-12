@@ -5,13 +5,11 @@ var userOnline = 0;
 exports.bind = function(userId,socket){
     userList[userId] = socket;
     userOnline++;
-    db_users.set_user_online_of_users(userId,1)
 };
 
 exports.del = function(userId,socket){
     delete userList[userId];
     userOnline--;
-    db_users.set_user_online_of_users(userId,0)
 };
 
 exports.get = function(userId){

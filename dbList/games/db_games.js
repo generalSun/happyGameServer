@@ -33,7 +33,7 @@ exports.create_game_of_games = function(roomId,start_time,currentPlayingIndex,ca
     });
 };
 
-exports.delete_games = function(roomId,callback){
+exports.delete_game_of_games = function(roomId,callback){
     callback = callback == null? nop:callback;
     if(roomId == null){
         callback(false);
