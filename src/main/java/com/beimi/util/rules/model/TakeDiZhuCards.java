@@ -352,11 +352,17 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 	 * @param num
 	 * @return
 	 */
-	private byte[] getSubCards(byte[] cards,int value,int num){
+	private byte[] getSubCards(byte[] cards,int v,int num){
 		byte[] takeCards = new byte[num];
 		int index = 0 ;
 		for(int i=0 ; i<cards.length ; i++){
-			if(cards[i]/4 == value){
+			int card = cards[i];
+			int value = card % 13;
+			int color = (int)Math.floor(card / 13);
+			if(color == 4){
+				value = 13;
+			}
+			if(value == v){
 				takeCards[index++] = cards[i] ;
 			}
 		}

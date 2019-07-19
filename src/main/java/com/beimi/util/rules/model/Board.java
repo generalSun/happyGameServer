@@ -124,7 +124,6 @@ public abstract class Board implements Message,java.io.Serializable {
 	private TakeCards last;//上一个出牌
 	
 	private boolean finished ;
-	private boolean newturn = false;
 	
 	private List<Byte> history = new ArrayList<Byte>();
 	
@@ -152,13 +151,6 @@ public abstract class Board implements Message,java.io.Serializable {
 	private String banker ;		//庄家|地主
 	private String currplayer ;	//当前出牌人
 	private byte currcard ;		//当前出牌
-	public boolean isNewTurn() {
-		return newturn;
-	}
-
-	public void setNewTurn(boolean newturn) {
-		this.newturn = newturn;
-	}
 
 	public boolean getHasFixed() {
 		return hasFixed;

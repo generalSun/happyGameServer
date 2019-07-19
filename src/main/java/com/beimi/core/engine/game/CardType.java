@@ -5,12 +5,12 @@ public class CardType implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int maxcard ;	//最大的牌面值
+	private int maxcard ;	//最大个数的最大牌的牌面值
 	private int cardtype ;	//牌型
 	private int typesize ;	//不同牌数量 JJQK = 3
 	private boolean king ;	//王炸
 	private boolean bomb;	//炸弹
-	private int mincard ; 	//最小的牌面值
+	private int mincard ; 	//最大个数的最小牌的牌面值
 	private int cardnum ;	//最大牌张数  ， JJJQ，= 3
 	private byte maxcardvalue ;//最大的牌值
 	

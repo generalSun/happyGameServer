@@ -309,11 +309,16 @@ public class ActionTaskUtils {
 	public static Map<Integer , Integer> type(byte[] cards){
 		Map<Integer,Integer> types = new HashMap<Integer,Integer>();
 		for(int i=0 ; i<cards.length ; i++){
-			int card = cards[i]/4 ;
-			if(types.get(card) == null){
-				types.put(card, 1) ;
+			int card = cards[i];
+			int value = card % 13;
+			int color = (int)Math.floor(card / 13);
+			if(color == 4){
+				value = 13;
+			}
+			if(types.get(value) == null){
+				types.put(value, 1) ;
 			}else{
-				types.put(card, types.get(card)+1) ;
+				types.put(value, types.get(value)+1) ;
 			}
 		}
 		return types ;
