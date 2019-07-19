@@ -118,7 +118,7 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 		}
 		if(this.cards!=null){
 			player.setCards(this.removeCards(player.getCards() , this.cards));
-			this.cardType =  ActionTaskUtils.identification(cards);
+			this.cardType =  ActionTaskUtils.identification(this.cards);
 			this.type = cardType.getCardtype() ;
 		}
 		this.cardsnum = player.getCards().length ;
@@ -188,15 +188,15 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 		return retValue ;
 	}
 	/**
-	 * 找到num对子
-	 * @param num
+	 * 找到对子
+	 * @param num对子数量
 	 * @return
 	 */
 	public byte[] getPair(byte[] cards , Map<Integer,Integer> types , int mincard , int num ){
 		byte[] retCards = null;
 		List<Integer> retValue = new ArrayList<Integer>();
 		for(int i=0 ; i<14 ; i++){
-			if(types.get(i) != null && types.get(i) == 2  && retValue.size() < num && (i<0 || i>mincard)){
+			if(types.get(i) != null && types.get(i) >= 2  && retValue.size() < num && i > mincard){
 				retValue.add(i) ;
 			}
 			if(retValue.size() >= num){
@@ -209,23 +209,37 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 			for(int temp : retValue){
 				int times = 0 ;
 				for(byte card : cards){
-					if(card/4 == temp){
+					int value = ActionTaskUtils.getCardValue(card);
+					int color = ActionTaskUtils.getCardColor(card);
+					if(color < 4 && value == temp){
 						retCards[inx++] = card ;
 						times++;
 					}
-					if(times == 2){
+					if(times >= 2){
 						break ;
 					}
 				}
+				if(inx >= num*2){
+					break ;
+				}
+			}
+			if(inx == 0){
+				retCards = null ;
 			}
 		}
 		return retCards ;
 	}
+
+	/**
+	 * 找到单牌
+	 * @param num单牌数量
+	 * @return
+	 */
 	public byte[] getSingle(byte[] cards, Map<Integer,Integer> types , int mincard ,int num ){
 		byte[] retCards = null;
 		List<Integer> retValue = new ArrayList<Integer>();
 		for(int i=0 ; i<14 ; i++){
-			if(types.get(i) != null && types.get(i) ==1  && retValue.size() < num && (i>mincard || i == 13)){
+			if(types.get(i) != null && types.get(i) >= 1  && retValue.size() < num && i > mincard){
 				retValue.add(i) ;
 			}
 			if(retValue.size() >= num){
@@ -237,18 +251,14 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 			int inx = 0 ;
 			for(int temp : retValue){
 				for(byte card : cards){
-					if(temp == 13 && mincard == 13){
-						if(card == 53){
-							retCards[inx++] = card ;
-						}
-					}else{
-						if(card/4 == temp){
-							retCards[inx++] = card ;
-						}
+					int value = ActionTaskUtils.getCardValue(card);
+					if(value == temp){
+						retCards[inx++] = card ;
+						break;
 					}
-					if(inx >= num){
-						break ;
-					}
+				}
+				if(inx >= num){
+					break ;
 				}
 			}
 			if(inx == 0){
@@ -257,16 +267,17 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 		}
 		return retCards ;
 	}
+	
 	/**
-	 * 找到num对子
-	 * @param num
+	 * 找到三个
+	 * @param num三个的数量
 	 * @return
 	 */
 	public byte[] getThree(byte[] cards , Map<Integer,Integer> types , int mincard , int num){
 		byte[] retCards = null;
 		List<Integer> retValue = new ArrayList<Integer>();
 		for(int i=0 ; i<14 ; i++){
-			if(types.get(i) != null && types.get(i) == 3  && retValue.size() < num && (i<0 || i>mincard)){
+			if(types.get(i) != null && types.get(i) >= 3  && retValue.size() < num && i > mincard){
 				retValue.add(i) ;
 			}
 			if(retValue.size() >= num){
@@ -279,14 +290,22 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 			for(int temp : retValue){
 				int times = 0 ;
 				for(byte card : cards){
-					if(card/4 == temp){
+					int value = ActionTaskUtils.getCardValue(card);
+					int color = ActionTaskUtils.getCardColor(card);
+					if(color < 4 && value == temp){
 						retCards[inx++] = card ;
 						times++;
 					}
-					if(times == 3){
+					if(times >= 3){
 						break ;
 					}
 				}
+				if(inx >= num*3){
+					break ;
+				}
+			}
+			if(inx == 0){
+				retCards = null;
 			}
 		}
 		return retCards ;
@@ -357,11 +376,7 @@ public class TakeDiZhuCards extends TakeCards implements Message , java.io.Seria
 		int index = 0 ;
 		for(int i=0 ; i<cards.length ; i++){
 			int card = cards[i];
-			int value = card % 13;
-			int color = (int)Math.floor(card / 13);
-			if(color == 4){
-				value = 13;
-			}
+			int value = ActionTaskUtils.getCardValue(card);
 			if(value == v){
 				takeCards[index++] = cards[i] ;
 			}

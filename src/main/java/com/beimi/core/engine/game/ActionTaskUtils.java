@@ -22,7 +22,6 @@ import com.beimi.util.rules.model.RoomReady;
 import com.beimi.util.server.handler.BeiMiClient;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
-import com.sun.tools.classfile.Annotation.element_value;
 
 import cn.hutool.core.lang.Console;
 
@@ -280,13 +279,13 @@ public class ActionTaskUtils {
 		boolean allow = false ;
 		if(playCardType.isKing()){	//王炸，无敌
 			allow = true ;
+		}else if(lastCardType.isKing()){
+			allow = false ;
 		}else if(playCardType.isBomb()){
 			if(lastCardType.isBomb()){ //都是炸弹
 				if(playCardType.getMaxcard() > lastCardType.getMaxcard()){
 					allow = true ;
 				}
-			}else if(lastCardType.isKing()){
-				allow = false ;
 			}else{
 				allow = true ;
 			}
@@ -294,8 +293,6 @@ public class ActionTaskUtils {
 			allow = false ;
 		}else if(playCardType.getCardtype() == lastCardType.getCardtype() && playCardType.getCardtype()>0 && lastCardType.getCardtype() > 0){
 			if(playCardType.getMaxcard() > lastCardType.getMaxcard()){
-				allow = true ;
-			}else if(playCardType.getMaxcardvalue() == 53){
 				allow = true ;
 			}
 		}
@@ -310,11 +307,7 @@ public class ActionTaskUtils {
 		Map<Integer,Integer> types = new HashMap<Integer,Integer>();
 		for(int i=0 ; i<cards.length ; i++){
 			int card = cards[i];
-			int value = card % 13;
-			int color = (int)Math.floor(card / 13);
-			if(color == 4){
-				value = 13;
-			}
+			int value = getCardValue(card);
 			if(types.get(value) == null){
 				types.put(value, 1) ;
 			}else{
@@ -322,6 +315,46 @@ public class ActionTaskUtils {
 			}
 		}
 		return types ;
+	}
+
+	/**
+	 * 获取牌值
+	 * @param card
+	 * @return
+	 */
+	public static int getCardValue(int card){
+		int value = card % 13;
+		int color = (int)Math.floor(card / 13);
+		if(color == 4){
+			value = 13;
+		}
+		return value;
+	}
+
+	/**
+	 * 获取客户端显示牌值
+	 * @param card
+	 * @return
+	 */
+	public static int getCardLogicValue(int card){
+		int value = getCardValue(card);
+		value = value + 3;
+		if(value >= 16){
+			value = 14;
+		}else if(value > 13){
+			value = value - 13;
+		}
+		return value;
+	}
+
+	/**
+	 * 获取牌的花色
+	 * @param card
+	 * @return
+	 */
+	public static int getCardColor(int card){
+		int color = (int)Math.floor(card / 13);
+		return color;
 	}
 	
 	/**
@@ -333,13 +366,12 @@ public class ActionTaskUtils {
 		CardType cardTypeBean = new CardType();
 		Map<Integer,Integer> types = new HashMap<Integer,Integer>();
 		int max = -1 , maxcard = -1 , cardtype = 0 , mincard = -1 , min = 100;
+		Console.log("玩家出牌：");
 		for(int i=0 ; i<cards.length ; i++){
 			int card = cards[i];
-			int value = card % 13;
-			int color = (int)Math.floor(card / 13);
-			if(color == 4){
-				value = 13;
-			}
+			int value = getCardValue(card);
+			int logicValue = getCardLogicValue(card);
+			Console.log(String.format("牌：%d   服务端牌值%d  客户端牌值：%d", card,value,logicValue));
 			if(types.get(value) == null){
 				types.put(value, 1) ;
 			}else{
@@ -373,49 +405,79 @@ public class ActionTaskUtils {
 		cardTypeBean.setTypesize(types.size());
 		cardTypeBean.setMaxcard(maxcard);
 		
-		
+		Console.log(String.format("提取出的牌分类尺寸：%d", types.size()));
+		String typeName = "无牌型";
 		switch(types.size()){
 			case 1 : 
 				switch(max){
-					case 1 : cardtype = BMDataContext.CardsTypeEnum.ONE.getType() ;break;		//单张
+					case 1 : 
+						typeName = "单张";
+						cardtype = BMDataContext.CardsTypeEnum.ONE.getType() ;
+						break;		//单张
 					case 2 : 
 						if(mincard == 13){
+							typeName = "王炸";
 							cardtype = BMDataContext.CardsTypeEnum.ELEVEN.getType();//王炸
 						}else{
+							typeName = "对子";
 							cardtype = BMDataContext.CardsTypeEnum.TWO.getType() ;//对子
 						}
 						break;		//一对
-					case 3 : cardtype = BMDataContext.CardsTypeEnum.THREE.getType() ;break;		//三张
-					case 4 : cardtype = BMDataContext.CardsTypeEnum.TEN.getType() ;break;		//炸弹
+					case 3 : 
+						typeName = "三张";
+						cardtype = BMDataContext.CardsTypeEnum.THREE.getType() ;
+						break;		//三张
+					case 4 : 
+						typeName = "炸弹";
+						cardtype = BMDataContext.CardsTypeEnum.TEN.getType() ;
+						break;		//炸弹
 				}
-				;break ;
+				break ;
 			case 2 :
 				switch(max){
 					case 3 :
 						if(min == 1){//三带一
+							typeName = "三带一";
 							cardtype = BMDataContext.CardsTypeEnum.FOUR.getType() ;
 						}else if(min == 2){//三带一对
 							if(cardTypeBean.getMaxcardvalue() != 53){
+								typeName = "三带一对";
 								cardtype = BMDataContext.CardsTypeEnum.FORMTWO.getType() ;
 							}
 						}else if(min == 3){//飞机不带
 							if(isAva(types,mincard) && maxcard <= 11){
+								typeName = "飞机不带";
 								cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
 							}
 						}
 						break;	
-					case 4 : cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;break;	//四带一对
+					case 4 : 
+						typeName = "四带一对";
+						cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;
+						break;	//四带一对
 				}
-				;break ;
+				break ;
 			case 3 : 
 				switch(max){
 					case 1 : ;break;	//无牌型
-					case 2 : if(cards.length == 6 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//3连对
-					case 3 : if(isAva(types, mincard) && min == max && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//三飞
+					case 2 : 
+						if(cards.length == 6 && isAva(types, mincard) && maxcard <= 11){
+							typeName = "3连对";
+							cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;
+						}
+						break;		//3连对
+					case 3 : 
+						if(isAva(types, mincard) && min == max && maxcard <= 11){
+							typeName = "三飞";
+							cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+						}
+						break;		//三飞
 					case 4 : 
 						if(cards.length == 6){
+							typeName = "四带二";
 							cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;//四带二
 						}else if(cards.length == 8 && cardTypeBean.getMaxcardvalue() != 53){
+							typeName = "四带二对";
 							cardtype = BMDataContext.CardsTypeEnum.NINEONE.getType() ;//四带二对
 						}
 						break;		
@@ -424,12 +486,19 @@ public class ActionTaskUtils {
 			case 4 : 
 				switch(max){
 					case 1 : ;break;		//无牌型
-					case 2 : if(cards.length == 8 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//4连对
+					case 2 : 
+						if(cards.length == 8 && isAva(types, mincard) && maxcard <= 11){
+							typeName = "4连对";
+							cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;
+						}
+						break;		//4连对
 					case 3 : 
 						if(isAva(types, mincard,3) && maxcard <= 11){
 							if(cards.length == 8){
+								typeName = "飞机	带翅膀";
 								cardtype = BMDataContext.CardsTypeEnum.EIGHT.getType() ;//飞机	带翅膀
 							}else if(cards.length == 10){
+								typeName = "飞机	带翅膀";
 								cardtype = BMDataContext.CardsTypeEnum.EIGHTONE.getType() ;//飞机	带翅膀
 							}
 						}
@@ -438,26 +507,76 @@ public class ActionTaskUtils {
 				break ;
 			case 5 : 
 				switch(max){
-					case 1 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(cards.length == 10 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//5连对
-					case 3 : if(isAva(types, mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//5飞机
-				};break ;
+					case 1 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "顺子";
+							cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;
+						}
+						break;		//顺子
+					case 2 : 
+						if(cards.length == 10 && isAva(types, mincard) && maxcard <= 11){
+							typeName = "5连对";
+							cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;
+						}
+						break;		//5连对
+					case 3 : 
+						if(isAva(types, mincard) && max == min && maxcard <= 11){
+							typeName = "5飞机";
+							cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+						}
+						break;		//5飞机
+				};
+				break ;
 			case 6 : 
 				switch(max){
-					case 1 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//6连对
-					case 3 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//6飞机
-				};break ;
-			default: 
+					case 1 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "顺子";
+							cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;
+						}
+						break;		//顺子
+					case 2 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "6连对";
+							cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;
+						}
+						break;		//6连对
+					case 3 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "6飞机";
+							cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+						}
+						break;		//6飞机
+				};
+				break ;
+			default:
 				switch(max){
-					case 1 : if(isAva(types ,mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//连对
-				};break ;
+					case 1 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "顺子";
+							cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;
+						}
+						break;		//顺子
+					case 2 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "连对";
+							cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;
+						}
+						break;		//6连对
+					case 3 : 
+						if(isAva(types ,mincard) && max == min && maxcard <= 11){
+							typeName = "飞机";
+							cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+						}
+						break;		//6飞机
+				};
+				break;
 		}
 		cardTypeBean.setCardtype(cardtype);
 		cardTypeBean.setKing(cardtype == BMDataContext.CardsTypeEnum.ELEVEN.getType());
 		cardTypeBean.setBomb(cardtype == BMDataContext.CardsTypeEnum.TEN.getType());
-		cn.hutool.core.lang.Console.log(String.format("玩家出牌牌型:%d", cardtype));
+
+		Console.log(String.format("分析出的牌型：%s", typeName));
 		return cardTypeBean ;
 	}
 

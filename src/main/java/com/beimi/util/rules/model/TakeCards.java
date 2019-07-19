@@ -37,17 +37,11 @@ public abstract class TakeCards implements Message , java.io.Serializable{
 	private boolean sameside ;	//同一伙
 	
 	private int cardsnum ;	//当前出牌的人 剩下多少张 牌
-	private boolean newturn = false;//是否新的一轮出牌
 	private String nextplayer ;		// 下一个出牌玩家
-	private boolean automic ;		//是否允许不出牌过
+	
+	private boolean newTurn ;		//是否新的一轮
 	private byte nextplayercard ;	//下一个玩家翻到的新牌
-	public boolean isNewTurn() {
-		return newturn;
-	}
 
-	public void setNewTurn(boolean newturn) {
-		this.newturn = newturn;
-	}
 	/**
 	 * 移除出牌
 	 * @param cards
@@ -190,12 +184,12 @@ public abstract class TakeCards implements Message , java.io.Serializable{
 		this.nextplayercard = nextplayercard;
 	}
 
-	public boolean isAutomic() {
-		return automic;
+	public boolean isNewTurn() {
+		return newTurn;
 	}
 
-	public void setAutomic(boolean automic) {
-		this.automic = automic;
+	public void setNewTurn(boolean newTurn) {
+		this.newTurn = newTurn;
 	}
 
 	public boolean isBomb() {

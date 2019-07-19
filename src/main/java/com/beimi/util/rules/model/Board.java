@@ -150,7 +150,23 @@ public abstract class Board implements Message,java.io.Serializable {
 	private boolean hasFixed = false;//是否定庄
 	private String banker ;		//庄家|地主
 	private String currplayer ;	//当前出牌人
+	private String maxplayer ;		// 最大出牌玩家
 	private byte currcard ;		//当前出牌
+	public String getMaxPlayer() {
+		return maxplayer;
+	}
+
+	public void setMaxPlayer(String maxplayer) {
+		this.maxplayer = maxplayer;
+	}
+
+	public boolean isNewTurn() {
+		boolean newturn = false;
+		if(this.maxplayer == null || this.currplayer == null || this.maxplayer == this.currplayer){
+			newturn = true;
+		}
+		return newturn;
+	}
 
 	public boolean getHasFixed() {
 		return hasFixed;

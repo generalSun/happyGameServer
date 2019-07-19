@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<name>server</name>
-	<description>贝密游戏</description>
+	<description>快乐游游戏</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

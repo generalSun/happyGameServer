@@ -153,7 +153,7 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 	 * 
 	 * @param player
 	 * @param current
-	 * @return
+	 * @return 
 	 */
 	public TakeCards takecard( Player player , boolean allow , byte[] playCards) {
 		return new TakeDiZhuCards(player , allow , playCards);
@@ -208,10 +208,8 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 	}
 
 	@Override
-	public TakeCards takeCardsRequest(GameRoom gameRoom , Board board, Player player,
-			String orgi, boolean auto, byte[] playCards) {
+	public TakeCards takeCardsRequest(GameRoom gameRoom,Board board,Player player,String orgi,boolean auto,byte[] playCards) {
 		TakeCards takeCards = null ;
-		boolean automic = false ;
 		//超时了 ， 执行自动出牌
 		if((auto == true || playCards != null)){
 			CardType playCardType = null ;
@@ -219,10 +217,11 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 				playCardType = ActionTaskUtils.identification(playCards) ;
 			}
 			if(playCardType == null || playCardType.getCardtype() > 0){
-				if(board.getLast() == null || board.getLast().getUserid().equals(player.getPlayuser())){	//当前无出牌信息，刚开始出牌，或者出牌无玩家 压
+				if(board.isNewTurn()){	//当前为新的一轮
 					/**
 					 * 超时处理，如果当前是托管的或玩家超时，直接从最小的牌开始出，如果是 AI，则 需要根据AI级别（低级/中级/高级） 计算出牌 ， 目前先不管，直接从最小的牌开始出
 					 */
+					board.setLast(null);
 					takeCards = board.takecard(player , true , playCards) ;
 				}else{
 					if(playCards == null){
@@ -244,9 +243,7 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 			takeCards.setAllow(true);
 			if(takeCards.getCards()!=null){
 				Arrays.sort(takeCards.getCards());
-			}
-			
-			if(takeCards.getCards()!=null){
+				board.setMaxPlayer(player.getPlayuser());
 				board.setLast(takeCards);
 				takeCards.setDonot(false);	//出牌
 			}else{		
@@ -262,16 +259,13 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 			if(next!=null){
 				takeCards.setNextplayer(next.getPlayuser());
 				board.setNextplayer(new NextPlayer(next.getPlayuser(), false));
-
-				if(board.getLast() != null && board.getLast().getUserid().equals(next.getPlayuser())){	//当前无出牌信息，刚开始出牌，或者出牌无玩家 压
-					automic = true ;
-				}
-				takeCards.setAutomic(automic);
+				board.setCurrplayer(next.getPlayuser());
 			}
 			if(board.isWin()){//出完了
 				board.setWinner(player.getPlayuser());
 				takeCards.setOver(true);
 			}
+			takeCards.setNewTurn(board.isNewTurn());//是否新的一轮
 			/**
 			 * 放到 Board的列表里去，如果是不洗牌玩法，则直接将出牌结果 重新发牌
 			 */
