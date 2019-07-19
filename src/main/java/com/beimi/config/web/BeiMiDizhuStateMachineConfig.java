@@ -12,7 +12,7 @@ import com.beimi.core.engine.game.action.JoinAction;
 import com.beimi.core.engine.game.action.dizhu.AutoAction;
 import com.beimi.core.engine.game.action.dizhu.CatchAction;
 import com.beimi.core.engine.game.action.dizhu.RaiseHandsAction;
-import com.beimi.core.engine.game.action.majiang.PlayCardsAction;
+import com.beimi.core.engine.game.action.dizhu.PlayCardsAction;
 import com.beimi.core.statemachine.BeiMiStateMachine;
 import com.beimi.core.statemachine.config.StateConfigurer;
 import com.beimi.core.statemachine.config.StateMachineTransitionConfigurer;

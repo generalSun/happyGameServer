@@ -1,4 +1,4 @@
-package com.beimi.core.engine.game.action.dizhu;
+package com.beimi.core.engine.game.action.majiang;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,7 +26,7 @@ public class PlayMJCardsAction<T,S> implements Action<T, S>{
 				Board board = (Board) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
 				int interval = (int) message.getMessageHeaders().getHeaders().get("interval") ;
 				String nextPlayer = board.getBanker();
-				if(!StringUtils.isBlank(board.getNextplayer().getNextplayer())){
+				if(board.getNextplayer() != null && !StringUtils.isBlank(board.getNextplayer().getNextplayer())){
 					nextPlayer = board.getNextplayer().getNextplayer() ;
 				}
 				CacheHelper.getExpireCache().put(gameRoom.getRoomid(), new CreateMJPlayCardsTask(interval , nextPlayer , gameRoom , gameRoom.getOrgi()));

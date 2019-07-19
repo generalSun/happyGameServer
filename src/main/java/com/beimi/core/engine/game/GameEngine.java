@@ -51,6 +51,13 @@ public class GameEngine {
 				userClient.setGamestatus(BMDataContext.GameStatusEnum.READY.toString());
 			}
 			/**
+			 * 游戏状态 ， 玩家请求 游戏房间，活动房间状态后，发送事件给 StateMachine，由 StateMachine驱动 游戏状态 ， 此处只负责通知房间内的玩家
+			 * 1、有新的玩家加入
+			 * 2、给当前新加入的玩家发送房间中所有玩家信息（不包含隐私信息，根据业务需求，修改PlayUserClient的字段，剔除掉隐私信息后发送）
+			 */
+			ActionTaskUtils.sendEvent("joinroom", userClient.getId(),new JoinRoom(userClient, gameEvent.getIndex(), gameEvent.getGameRoom().getPlayers() , gameEvent.getGameRoom()));
+			ActionTaskUtils.playerJoinRoom(beiMiClient,userClient, gameEvent.getGameRoom());
+			/**
 			 * 当前是在游戏中还是 未开始
 			 */
 			Board board = (Board) CacheHelper.getBoardCacheBean().getCacheObject(gameEvent.getRoomid(), gameEvent.getOrgi());
@@ -66,19 +73,9 @@ public class GameEngine {
 					if((board.getLast()!=null && board.getLast().getUserid().equals(currentPlayer.getPlayuser())) || (board.getLast() == null && board.getBanker().equals(currentPlayer.getPlayuser()))){
 						automic = true ;
 					}
-					ActionTaskUtils.sendEvent("recovery", new RecoveryData(currentPlayer , board.getLasthands() , board.getNextplayer()!=null ? board.getNextplayer().getNextplayer() : null , 25 , automic , board) , gameEvent.getGameRoom());
+					ActionTaskUtils.sendEvent("recovery", new RecoveryData(currentPlayer , board.getLasthands() , board.getNextplayer()!=null ? board.getNextplayer().getNextplayer() : null , 25 , automic , board,gameEvent.getGameRoom()) , gameEvent.getGameRoom());
 				}
 			}else{
-				/**
-				 * 游戏状态 ， 玩家请求 游戏房间，活动房间状态后，发送事件给 StateMachine，由 StateMachine驱动 游戏状态 ， 此处只负责通知房间内的玩家
-				 * 1、有新的玩家加入
-				 * 2、给当前新加入的玩家发送房间中所有玩家信息（不包含隐私信息，根据业务需求，修改PlayUserClient的字段，剔除掉隐私信息后发送）
-				 */
-				ActionTaskUtils.sendEvent("joinroom", new JoinRoom(userClient, gameEvent.getIndex(), gameEvent.getGameRoom().getPlayers() , gameEvent.getGameRoom()) , gameEvent.getGameRoom());
-				/**
-				 * 发送给单一玩家的消息
-				 */
-				ActionTaskUtils.sendPlayers(beiMiClient, gameEvent.getGameRoom());
 				//通知状态
 				GameUtils.getGame(beiMiClient.getPlayway() , gameEvent.getOrgi()).change(gameEvent);	//通知状态机 , 此处应由状态机处理异步执行
 			}
@@ -203,6 +200,7 @@ public class GameEngine {
 			playUser.setRoomready(false);
 			
 			playerList.add(playUser) ;
+			playUser.setServerIndex(playerList.indexOf(playUser));
 			NettyClients.getInstance().joinRoom(playUser.getId(), gameRoom.getId());
 			CacheHelper.getGamePlayerCacheBean().put(playUser.getId(), playUser, playUser.getOrgi()); //将用户加入到 room ， MultiCache
 		}

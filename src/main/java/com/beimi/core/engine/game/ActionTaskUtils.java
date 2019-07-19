@@ -1,5 +1,6 @@
 package com.beimi.core.engine.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +24,8 @@ import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.sun.tools.classfile.Annotation.element_value;
 
+import cn.hutool.core.lang.Console;
+
 public class ActionTaskUtils {
 	/**
 	 * 
@@ -44,6 +47,7 @@ public class ActionTaskUtils {
 			}
 		}
 	}
+
 	/**
 	 * 通知就绪
 	 * @param gameRoom
@@ -117,7 +121,41 @@ public class ActionTaskUtils {
 		PlayUserClient playerUserClient = (PlayUserClient) CacheHelper.getApiUserCacheBean().getCacheObject(userid, orgi) ;
 		return playerUserClient!=null && !BMDataContext.PlayerTypeEnum.OFFLINE.toString().equals(playerUserClient.getPlayertype()) && !BMDataContext.PlayerTypeEnum.LEAVE.toString().equals(playerUserClient.getPlayertype()) ;
 	}
-	
+
+	/**
+	 * 玩家加入房间
+	 * 给自己发送其他玩家列表，给其他玩家发送当前玩家加入
+	 * @param beiMiClient
+	 * @param userClient
+	 * @param gameRoom
+	 */
+	public static void playerJoinRoom(BeiMiClient beiMiClient,PlayUserClient userClient,GameRoom gameRoom){
+		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
+		List<PlayUserClient> otherList = new ArrayList<PlayUserClient>();
+		for(PlayUserClient user : playerList){
+			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
+			if(client!=null && online(client.getUserid() , client.getOrgi())){
+				if(!client.getUserid().equals(beiMiClient.getUserid())){
+					otherList.add(user);
+				}
+			}
+		}
+		
+		for(PlayUserClient user : playerList){
+			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
+			if(client!=null && online(client.getUserid() , client.getOrgi())){
+				if(client.getUserid().equals(beiMiClient.getUserid())){
+					if(otherList.size() > 0){
+						beiMiClient.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers(),otherList,BMDataContext.BEIMI_PLAYERS_EVENT));
+					}
+				}else{
+					List<PlayUserClient> list = new ArrayList<PlayUserClient>();
+					list.add(userClient);
+					client.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers(),list,BMDataContext.BEIMI_PLAYERS_EVENT));
+				}
+			}
+		}
+	}	
 	
 	/**
 	 * 
@@ -294,20 +332,6 @@ public class ActionTaskUtils {
 			int card = cards[i];
 			int value = card % 13;
 			int color = (int)Math.floor(card / 13);
-			int logicValue = value;
-			if(color == 4){
-				if(value == 0){
-					logicValue = 15;
-				}else{
-					logicValue = 16;
-				}
-			}else{
-				if(value == 0){
-					logicValue = 13;
-				}else if(value == 1){
-					logicValue = 14;
-				}
-			}
 			if(color == 4){
 				value = 13;
 			}
@@ -318,10 +342,12 @@ public class ActionTaskUtils {
 			}
 			if(types.get(value) > max){
 				max = types.get(value) ;//最大个数
-				maxcard = value ;//最大个数的牌面值
+				maxcard = value ;//最大个数的最大牌值
 			}
-			if(mincard < 0 || mincard > value){
-				mincard = value ;//最小牌面值
+			if(types.get(value) == max){
+				if(mincard < 0 || mincard > value){
+					mincard = value ;//最大个数的最小牌值
+				}
 			}
 			
 			if(cards[i] > cardTypeBean.getMaxcardvalue()){
@@ -364,9 +390,13 @@ public class ActionTaskUtils {
 						if(min == 1){//三带一
 							cardtype = BMDataContext.CardsTypeEnum.FOUR.getType() ;
 						}else if(min == 2){//三带一对
-							cardtype = BMDataContext.CardsTypeEnum.FORMTWO.getType() ;
+							if(cardTypeBean.getMaxcardvalue() != 53){
+								cardtype = BMDataContext.CardsTypeEnum.FORMTWO.getType() ;
+							}
 						}else if(min == 3){//飞机不带
-							cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+							if(isAva(types,mincard) && maxcard <= 11){
+								cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;
+							}
 						}
 						break;	
 					case 4 : cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;break;	//四带一对
@@ -375,21 +405,27 @@ public class ActionTaskUtils {
 			case 3 : 
 				switch(max){
 					case 1 : ;break;	//无牌型
-					case 2 : if(cards.length == 6 && isAva(types, mincard)){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//3连对
-					case 3 : if(isAva(types, mincard) && min == max){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//三顺
-					case 4 : if(cards.length == 6 || cards.length == 8) {cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;}break;		//四带二
+					case 2 : if(cards.length == 6 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//3连对
+					case 3 : if(isAva(types, mincard) && min == max && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//三飞
+					case 4 : 
+						if(cards.length == 6){
+							cardtype = BMDataContext.CardsTypeEnum.NINE.getType() ;//四带二
+						}else if(cards.length == 8 && cardTypeBean.getMaxcardvalue() != 53){
+							cardtype = BMDataContext.CardsTypeEnum.NINEONE.getType() ;//四带二对
+						}
+						break;		
 				}
 				break;
 			case 4 : 
 				switch(max){
 					case 1 : ;break;		//无牌型
-					case 2 : if(cards.length == 8 && isAva(types, mincard)){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//4连对
+					case 2 : if(cards.length == 8 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//4连对
 					case 3 : 
-						if(isAva(types, mincard)){
+						if(isAva(types, mincard,3) && maxcard <= 11){
 							if(cards.length == 8){
-								cardtype = BMDataContext.CardsTypeEnum.EIGHT.getType() ;
+								cardtype = BMDataContext.CardsTypeEnum.EIGHT.getType() ;//飞机	带翅膀
 							}else if(cards.length == 10){
-								cardtype = BMDataContext.CardsTypeEnum.EIGHTONE.getType() ;
+								cardtype = BMDataContext.CardsTypeEnum.EIGHTONE.getType() ;//飞机	带翅膀
 							}
 						}
 						break;		//飞机
@@ -397,26 +433,43 @@ public class ActionTaskUtils {
 				break ;
 			case 5 : 
 				switch(max){
-					case 1 : if(isAva(types ,mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(cards.length == 10 && isAva(types, mincard)){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//5连对
-					case 3 : if(isAva(types, mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//5飞机
+					case 1 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
+					case 2 : if(cards.length == 10 && isAva(types, mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//5连对
+					case 3 : if(isAva(types, mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//5飞机
 				};break ;
 			case 6 : 
 				switch(max){
-					case 1 : if(isAva(types ,mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(isAva(types ,mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//6连对
-					case 3 : if(isAva(types ,mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//6飞机
+					case 1 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
+					case 2 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//6连对
+					case 3 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SEVEN.getType() ;}break;		//6飞机
 				};break ;
 			default: 
 				switch(max){
-					case 1 : if(isAva(types ,mincard)){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
-					case 2 : if(isAva(types ,mincard) && max == min){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//连对
+					case 1 : if(isAva(types ,mincard) && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.FIVE.getType() ;}break;		//连子
+					case 2 : if(isAva(types ,mincard) && max == min && maxcard <= 11){cardtype = BMDataContext.CardsTypeEnum.SIX.getType() ;}break;		//连对
 				};break ;
 		}
 		cardTypeBean.setCardtype(cardtype);
 		cardTypeBean.setKing(cardtype == BMDataContext.CardsTypeEnum.ELEVEN.getType());
 		cardTypeBean.setBomb(cardtype == BMDataContext.CardsTypeEnum.TEN.getType());
+		cn.hutool.core.lang.Console.log(String.format("玩家出牌牌型:%d", cardtype));
 		return cardTypeBean ;
+	}
+
+	private static boolean isAva(Map<Integer,Integer> types , int mincard, int num){
+		boolean ava = true ;
+		Map<Integer,Integer> temp = new HashMap<Integer,Integer>();
+		int minValue = -1;
+		for(int i = mincard ; i< 14  ; i++){
+			if(types.get(i) != null && types.get(i) == num){
+				if(minValue < 0){
+					minValue = i;
+				}
+				temp.put(i, num);
+			}
+		}
+		ava = isAva(temp, minValue);
+		return ava ;
 	}
 	
 	private static boolean isAva(Map<Integer,Integer> types , int mincard){

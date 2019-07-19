@@ -18,7 +18,6 @@ import com.beimi.util.cache.CacheHelper;
 import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
-import com.beimi.util.rules.model.card.Card;
 
 /**
  * 牌局，用于描述当前牌局的内容 ， 
@@ -213,13 +212,11 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 			String orgi, boolean auto, byte[] playCards) {
 		TakeCards takeCards = null ;
 		boolean automic = false ;
-		System.out.println("当前玩家出牌：" + Card.getInstance().cardsToString(playCards));
 		//超时了 ， 执行自动出牌
 		if((auto == true || playCards != null)){
 			CardType playCardType = null ;
 			if(playCards!=null && playCards.length > 0){
 				playCardType = ActionTaskUtils.identification(playCards) ;
-				System.out.println("当前玩家出牌牌型：" + playCardType.getCardtype());
 			}
 			if(playCardType == null || playCardType.getCardtype() > 0){
 				if(board.getLast() == null || board.getLast().getUserid().equals(player.getPlayuser())){	//当前无出牌信息，刚开始出牌，或者出牌无玩家 压

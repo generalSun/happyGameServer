@@ -46,6 +46,7 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 	private Date passupdatetime = new Date();
 	
 	private long playerindex ;
+	private int serverindex;
 	
 	private String command ;	//指令
 	
@@ -114,7 +115,6 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 	public String getId() {
 		return id;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -408,6 +408,14 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 
 	public void setPlayerindex(long playerindex) {
 		this.playerindex = playerindex;
+	}
+
+	@Transient
+	public int getServerIndex() {
+		return serverindex;
+	}
+	public void setServerIndex(int serverindex) {
+		this.serverindex = serverindex;
 	}
 
 	@Transient

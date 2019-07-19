@@ -18,7 +18,7 @@ public class GameServer {
 	public GameServer(int port, GameEventHandler wsMsgHandler) throws IOException {
 		wsServerStarter = new WsServerStarter(port, wsMsgHandler);
 		serverGroupContext = wsServerStarter.getServerGroupContext();
-		serverGroupContext.setHeartbeatTimeout(1000*3);
+		// serverGroupContext.setHeartbeatTimeout(1000*3);
 	}
 
 	/**

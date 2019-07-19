@@ -14,6 +14,7 @@ public class UserBoard implements Message,Serializable{
 	private Player player ;
 	private Player[] players ;
 	private int deskcards ;	//剩下多少张牌
+	private int numofgames ;	//局数
 	private String command ;
 	private String event ;
 	
@@ -30,12 +31,13 @@ public class UserBoard implements Message,Serializable{
 	 * @param board
 	 * @param curruser
 	 */
-	public UserBoard(Board board , String curruser , String command){
+	public UserBoard(Board board ,int numofgames, String curruser , String command){
 		players = new Player[board.getPlayers().length-1] ;
 		this.command = command ;
 		if(board.getDeskcards()!=null){
 			this.deskcards = board.getDeskcards().size() ;
 		}
+		this.numofgames = numofgames;
 		int inx = 0 ;
 		for(Player temp : board.getPlayers()){
 			if(temp.getPlayuser().equals(curruser)){
@@ -47,6 +49,13 @@ public class UserBoard implements Message,Serializable{
 				players[inx++] = clonePlayer;
 			}
 		}
+	}
+
+	public int getNumOfGames() {
+		return numofgames;
+	}
+	public void setNumOfGames(int numofgames) {
+		this.numofgames = numofgames;
 	}
 	
 	public Player getPlayer() {

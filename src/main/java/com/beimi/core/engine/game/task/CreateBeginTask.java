@@ -70,7 +70,7 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 			/**
 			 * 每个人收到的 牌面不同，所以不用 ROOM发送广播消息，而是用 遍历房间里所有成员发送消息的方式
 			 */
-			ActionTaskUtils.sendEvent(playerUser, new UserBoard(board , playerUser.getId() , "play"));
+			ActionTaskUtils.sendEvent(playerUser, new UserBoard(board ,gameRoom.getCardsnum(), playerUser.getId() , "play"));
 		}
 		
 		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());

@@ -232,9 +232,9 @@ public class BMDataContext {
 	}
 	
 	public enum CardsTypeEnum{
-		ONE(1),		//单张      3~K,A,2
-		TWO(2),		//一对	 3~K,A,2
-		THREE(3),	//三张	 3~K,A,2
+		ONE(1),		//单张      K
+		TWO(2),		//一对	 kK
+		THREE(3),	//三张	 kkk
 		FOUR(4),	//三带一	 AAA+K
 		FORMTWO(41),	//三带对	 AAA+K
 		FIVE(5),	//单顺	连子		10JQKA

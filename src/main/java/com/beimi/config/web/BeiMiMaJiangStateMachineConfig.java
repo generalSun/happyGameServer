@@ -9,7 +9,7 @@ import com.beimi.core.engine.game.action.AllCardsAction;
 import com.beimi.core.engine.game.action.EnoughAction;
 import com.beimi.core.engine.game.action.EnterAction;
 import com.beimi.core.engine.game.action.JoinAction;
-import com.beimi.core.engine.game.action.dizhu.PlayMJCardsAction;
+import com.beimi.core.engine.game.action.majiang.PlayMJCardsAction;
 import com.beimi.core.engine.game.action.majiang.DealMJCardAction;
 import com.beimi.core.engine.game.action.majiang.MJRaiseHandsAction;
 import com.beimi.core.engine.game.action.majiang.SelectAction;

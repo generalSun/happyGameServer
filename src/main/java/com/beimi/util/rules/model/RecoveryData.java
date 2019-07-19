@@ -7,6 +7,7 @@ import com.beimi.core.engine.game.GameBoard;
 import com.beimi.core.engine.game.Message;
 import com.beimi.core.engine.game.impl.Banker;
 import com.beimi.core.engine.game.impl.UserBoard;
+import com.beimi.web.model.GameRoom;
 
 public class RecoveryData implements Message{
 	/**
@@ -14,7 +15,6 @@ public class RecoveryData implements Message{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String command ;
-	private String userid ;
 	private Player player ;
 	private byte[] lasthands;
 	private TakeCards last ;
@@ -26,7 +26,6 @@ public class RecoveryData implements Message{
 	private GameBoard data ;
 	private int ratio ;
 	private byte[] hiscards ;
-	
 	private SelectColor selectcolor ;
 	
 	private UserBoard userboard ;
@@ -43,21 +42,19 @@ public class RecoveryData implements Message{
 	
 	
 	
-	public RecoveryData(Player player , byte[] lasthands , String nextplayer , int time , boolean automic , Board board){
+	public RecoveryData(Player player , byte[] lasthands , String nextplayer , int time , boolean automic , Board board, GameRoom gameRoom){
 		this.player = player ;
-		this.userid = player.getPlayuser() ;
 		this.lasthands = lasthands ;
 		this.nextplayer = nextplayer ;
 		this.banker = new Banker(board.getBanker()) ;
 		this.time = time ;
 		this.automic = automic;
 		this.data = new GameBoard(board.getBanker(), board.getRatio()) ;
-		
 		this.hiscards = player.getHistory() ;
 		
 		this.ratio = board.getRatio() ;
 		
-		this.userboard = new UserBoard(board, player.getPlayuser(), "play") ;
+		this.userboard = new UserBoard(board, gameRoom.getNumofgames(),player.getPlayuser(), "play") ;
 		
 		this.selectcolor =  new SelectColor(board.getBanker(), player.getPlayuser()) ;
 		this.selectcolor.setColor(player.getColor());
@@ -73,7 +70,6 @@ public class RecoveryData implements Message{
 		}
 		cardsnum = tempList.toArray(this.cardsnum) ;
 	}
-	
 	
 	public String getCommand() {
 		return command;
@@ -99,7 +95,8 @@ public class RecoveryData implements Message{
 
 	public void setNextplayer(String nextplayer) {
 		this.nextplayer = nextplayer;
-	}
+	}
+
 	public int getTime() {
 		return time;
 	}
@@ -130,17 +127,6 @@ public class RecoveryData implements Message{
 	public void setBanker(Banker banker) {
 		this.banker = banker;
 	}
-
-
-	public String getUserid() {
-		return userid;
-	}
-
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
 
 	public TakeCards getLast() {
 		return last;
