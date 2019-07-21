@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
+import cn.hutool.core.lang.Console;
+
 import com.beimi.core.BMDataContext;
 import com.beimi.core.engine.game.state.GameEvent;
 import com.beimi.core.engine.game.task.majiang.CreateMJRaiseHandsTask;
@@ -116,7 +118,7 @@ public class GameEngine {
 					if(gameRoom != null){	
 						/**
 						 * 修正获取gameroom获取的问题，因为删除房间的时候，为了不损失性能，没有将 队列里的房间信息删除，如果有玩家获取到这个垃圾信息
-						 * 则立即进行重新获取房价， 
+						 * 则立即进行重新获取房间， 
 						 */
 						while(CacheHelper.getGameRoomCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) == null){
 							if("true".equals(beiMiClient.getExtparams().get("automatch"))){
@@ -221,19 +223,20 @@ public class GameEngine {
 	public void actionRequest(String roomid, PlayUserClient playUser, String orgi , boolean accept){
 		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
 		if(gameRoom!=null){
-			DuZhuBoard board = (DuZhuBoard) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi());
+			DuZhuBoard board = (DuZhuBoard) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), orgi);
 			Player player = board.player(playUser.getId()) ;
 			board = ActionTaskUtils.doCatch(board, player , accept,gameRoom) ;
 			ActionTaskUtils.sendEvent("catchresult",new GameBoard(player.getPlayuser() , board.isDocatch() , player.isAccept(), board.getRatio()),gameRoom) ;
 			if(accept == true){
 				board.setDocatch(true);
 			}
-			if(board.getHasFixed() == false){
+			CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board , orgi) ;
+			if((board.getCatchPlayerNum() == 1 && board.isAllDoCatch() == true) || player.getCatchNum() >= 2){
+				//通知状态机 , 全部都抢过地主了 ， 把底牌发给 最后一个抢到地主的人
+				GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 1);
+			}else{
 				GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.AUTO.toString() , 1);	//通知状态机 , 继续执行
 			}
-			
-			CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board , gameRoom.getOrgi()) ;
-			// CacheHelper.getExpireCache().put(gameRoom.getRoomid(), ActionTaskUtils.createAutoTask(1, gameRoom));
 		}
 	}
 	
@@ -676,26 +679,20 @@ public class GameEngine {
 		gameRoom.setCreatetime(new Date());
 		gameRoom.setRoomid(UKTools.getUUID());
 		gameRoom.setUpdatetime(new Date());
-		
-		if(playway!=null){
-			gameRoom.setPlayway(playway.getId());
-			gameRoom.setRoomtype(playway.getRoomtype());
-			gameRoom.setPlayers(playway.getPlayers());
-		}
+		gameRoom.setPlayway(playway.getId());
+		gameRoom.setRoomtype(playway.getRoomtype());
+		gameRoom.setPlayers(playway.getPlayers());
 		gameRoom.setPlayers(playway.getPlayers());
 		gameRoom.setCardsnum(playway.getCardsnum());
-		
 		gameRoom.setCurpalyers(1);
 		gameRoom.setCardroom(cardroom);
-		
 		gameRoom.setStatus(BeiMiGameEnum.CRERATED.toString());
-		
 		gameRoom.setCardsnum(playway.getCardsnum());
-		
 		gameRoom.setCurrentnum(0);
-		
+		gameRoom.setCatchfailTimes(0);
+		gameRoom.setAutoMatch(false);
 		gameRoom.setCreater(userid);
-		
+		gameRoom.setCode(playway.getCode());
 		gameRoom.setMaster(userid);
 		gameRoom.setNumofgames(playway.getNumofgames());   //无限制
 		gameRoom.setOrgi(playway.getOrgi());
@@ -721,6 +718,7 @@ public class GameEngine {
 			gameRoom.setRoomtype(BMDataContext.ModelType.HALL.toString());
 		}
 		if(gameRoom.getExtparams() != null && "true".equals(gameRoom.getExtparams().get("automatch"))){
+			gameRoom.setAutoMatch(true);
 			CacheHelper.getQueneCache().put(gameRoom, playway.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
 		}
 		

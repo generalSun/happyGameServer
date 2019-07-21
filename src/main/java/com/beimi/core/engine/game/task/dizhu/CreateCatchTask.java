@@ -9,6 +9,9 @@ import com.beimi.core.engine.game.task.AbstractTask;
 import com.beimi.core.engine.game.BeiMiGameTask;
 import com.beimi.util.rules.model.DuZhuBoard;
 import com.beimi.web.model.PlayUserClient;
+
+import cn.hutool.core.lang.Console;
+
 import com.beimi.core.BMDataContext;
 /**
  * 抢地主任务.
@@ -48,7 +51,7 @@ public class CreateCatchTask extends AbstractTask implements BeiMiGameTask {
 			catchPlayer = board.next(index);
 		}else{
 			catchPlayer = randomCardPlayer;
-		}
+        }
         if (catchPlayer != null) {  //还没抢完庄
             //自动不抢 不管真人假人  随机抢不抢  FIXME 以后考虑看是要怎么搞
             boolean isNormal = true ;
@@ -71,12 +74,14 @@ public class CreateCatchTask extends AbstractTask implements BeiMiGameTask {
             if(accept == true){
 				board.setDocatch(true);
             }
-            if(board.getHasFixed() == false){
+            CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, gameRoom.getOrgi()); //FIXME 为何要put回去，难道是克隆了吗  答：因为这hazelcast 的集成分布式缓存机制
+            if((board.getCatchPlayerNum() == 1 && board.isAllDoCatch() == true) || catchPlayer.getCatchNum() >= 2){
+                //通知状态机 , 全部都抢过地主了 ， 把底牌发给 最后一个抢到地主的人
+				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 1);
+			}else{
                 //通知继续抢
                 super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.AUTO.toString() , 1);
             }
-            
-            CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, gameRoom.getOrgi()); //FIXME 为何要put回去，难道是克隆了吗  答：因为这hazelcast 的集成分布式缓存机制
         }
     }
 

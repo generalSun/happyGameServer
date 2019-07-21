@@ -37,7 +37,6 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 	public void execute(){
 		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), orgi) ;
 		/**
-		 * 
 		 * 顺手 把牌发了，注：此处应根据 GameRoom的类型获取 发牌方式
 		 */
 		boolean inroom = false;
@@ -54,10 +53,11 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 		/**
 		 * 通知所有玩家 新的庄
 		 */
-		ActionTaskUtils.sendEvent("banker",  new Banker(gameRoom.getLastwinner()), gameRoom);
-		
+		if(gameRoom.getCode().equals("majiang")){
+			ActionTaskUtils.sendEvent("banker",  new Banker(gameRoom.getLastwinner()), gameRoom);
+		}
 		Board board = GameUtils.playGame(playerList, gameRoom, gameRoom.getLastwinner(), gameRoom.getCardsnum()) ;
-		CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, gameRoom.getOrgi());
+		
 		for(Object temp : playerList){
 			PlayUserClient playerUser = (PlayUserClient) temp ;
 			playerUser.setGamestatus(BMDataContext.GameStatusEnum.PLAYING.toString());
@@ -74,8 +74,7 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 		}
 		
 		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
-		
-		
+		CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board , orgi) ;
 		/**
 		 * 发送一个 Begin 事件
 		 */

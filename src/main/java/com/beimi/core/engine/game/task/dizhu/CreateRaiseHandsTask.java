@@ -60,16 +60,12 @@ public class CreateRaiseHandsTask extends AbstractTask implements ValueWithExpir
 		 * 计算底牌倍率
 		 */
 		board.setRatio(board.getRatio() * board.calcRatio());
-		
+		gameRoom.setCatchfailTimes(0);
 		/**
 		 * 发送一个通知，翻底牌消息
 		 */
 		sendEvent("lasthands", new GameBoard(lastHandsPlayer.getPlayuser() , board.getLasthands(), board.getRatio()) , gameRoom) ;
 		
-		/**
-		 * 更新牌局状态
-		 */
-		CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, orgi);
 		/**
 		 * 发送一个 开始打牌的事件 ， 判断当前出牌人是 玩家还是 AI，如果是 AI，则默认 1秒时间，如果是玩家，则超时时间是25秒
 		 */
@@ -80,5 +76,10 @@ public class CreateRaiseHandsTask extends AbstractTask implements ValueWithExpir
 		}else{
 			super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.PLAYCARDS.toString() ,3);	//应该从游戏后台配置参数中获取
 		}
+		/**
+		 * 更新牌局状态
+		 */
+		CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, orgi);
+		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
 	}
 }

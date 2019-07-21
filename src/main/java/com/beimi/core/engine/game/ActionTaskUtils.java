@@ -220,6 +220,7 @@ public class ActionTaskUtils {
 	public static Object json(Object data){
 		return UKTools.json(data) ;
 	}
+
 	/**
 	 * 临时放这里，重构的时候 放到 游戏类型的 实现类里 
 	 * 抢地主的时候，首个抢地主 不翻倍
@@ -228,9 +229,6 @@ public class ActionTaskUtils {
 	 * @return
 	 */
 	public static DuZhuBoard doCatch(DuZhuBoard board, Player player , boolean result, GameRoom gameRoom){
-		cn.hutool.core.lang.Console.log(String.format("叫地主结果:%b", result));
-		cn.hutool.core.lang.Console.log(String.format("前    叫地主人数:%d", board.getCatchPlayerNum()));
-		cn.hutool.core.lang.Console.log(String.format("前    当前玩家叫地主次数:%d",player.getCatchNum()));
 		if(result == true){	//抢了地主
 			player.setCatchNum(player.getCatchNum()+1);
 			if(board.isAdded() == false){
@@ -245,16 +243,6 @@ public class ActionTaskUtils {
 		}
 		player.setAccept(result); //抢地主
 		player.setDocatch(true);//判断玩家是否操作过
-		board.setHasFixed(false);
-		cn.hutool.core.lang.Console.log(String.format("后    叫地主人数:%d", board.getCatchPlayerNum()));
-		cn.hutool.core.lang.Console.log(String.format("后    当前玩家叫地主次数:%d",player.getCatchNum()));
-		int catchPlayerNum = board.getCatchPlayerNum();//叫地主（抢地主）人数
-		if(catchPlayerNum <= 1 || player.getCatchNum() >= 2){
-			//通知状态机 , 全部都抢过地主了 ， 把底牌发给 最后一个抢到地主的人
-			GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 1);
-			CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, gameRoom.getOrgi());
-			board.setHasFixed(true);
-		}
 		return board ;
 	}
 	
@@ -291,8 +279,18 @@ public class ActionTaskUtils {
 			}
 		}else if(lastCardType.isBomb()){	//最后一手牌是炸弹 ， 当前出牌不是炸弹
 			allow = false ;
-		}else if(playCardType.getCardtype() == lastCardType.getCardtype() && playCardType.getCardtype()>0 && lastCardType.getCardtype() > 0){
-			if(playCardType.getMaxcard() > lastCardType.getMaxcard()){
+		}else if(playCardType.getCardtype() == lastCardType.getCardtype() && playCardType.getCardtype()>0 && playCardType.getTypesize() == lastCardType.getTypesize()){
+			if(playCardType.getCardtype() == BMDataContext.CardsTypeEnum.ONE.getType()){
+				int playerMaxCard = playCardType.getMaxcard();
+				int lastMaxCard = lastCardType.getMaxcard();
+				if(lastMaxCard == 13){
+					lastMaxCard = lastCardType.getMaxcardvalue();
+				}
+				if(playerMaxCard == 13){
+					playerMaxCard = playCardType.getMaxcardvalue();
+				}
+				allow = playerMaxCard > lastMaxCard;
+			}else if(playCardType.getMaxcard() > lastCardType.getMaxcard()){
 				allow = true ;
 			}
 		}
@@ -377,9 +375,11 @@ public class ActionTaskUtils {
 			}else{
 				types.put(value, types.get(value)+1) ;
 			}
-			if(types.get(value) > max){
+			if(types.get(value) >= max){
 				max = types.get(value) ;//最大个数
-				maxcard = value ;//最大个数的最大牌值
+				if(maxcard < 0 || value > maxcard){
+					maxcard = value ;//最大个数的最大牌值
+				}
 			}
 			if(types.get(value) == max){
 				if(mincard < 0 || mincard > value){

@@ -147,11 +147,11 @@ public abstract class Board implements Message,java.io.Serializable {
 	private int catchPlayerNum = 0;//抢地主的人数
 	private int ratio = 1;			//倍数
 	private boolean added ;			//已翻倍
-	private boolean hasFixed = false;//是否定庄
 	private String banker ;		//庄家|地主
 	private String currplayer ;	//当前出牌人
 	private String maxplayer ;		// 最大出牌玩家
 	private byte currcard ;		//当前出牌
+
 	public String getMaxPlayer() {
 		return maxplayer;
 	}
@@ -166,13 +166,6 @@ public abstract class Board implements Message,java.io.Serializable {
 			newturn = true;
 		}
 		return newturn;
-	}
-
-	public boolean getHasFixed() {
-		return hasFixed;
-	}
-	public void setHasFixed(boolean hasFixed) {
-		this.hasFixed = hasFixed;
 	}
 
 	public int getDzCardPlayerIndex() {

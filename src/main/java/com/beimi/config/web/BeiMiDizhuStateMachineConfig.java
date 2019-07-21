@@ -64,11 +64,11 @@ public class BeiMiDizhuStateMachineConfig<T, S>  {
                 .event(BeiMiGameEvent.AUTO.toString()).action(new AutoAction<String,String>())	//抢地主 
                 .and()
             .withExternal()
-                .source(BeiMiGameEnum.READY.toString()).target(BeiMiGameEnum.BEGIN.toString())
+                .source(BeiMiGameEnum.BEGIN.toString()).target(BeiMiGameEnum.CATCH.toString())
                 .event(BeiMiGameEvent.CATCH.toString()).action(new CatchAction<String,String>())	//抢地主 
                 .and()
             .withExternal()
-                .source(BeiMiGameEnum.BEGIN.toString()).target(BeiMiGameEnum.LASTHANDS.toString())
+                .source(BeiMiGameEnum.CATCH.toString()).target(BeiMiGameEnum.LASTHANDS.toString())
                 .event(BeiMiGameEvent.RAISEHANDS.toString()).action(new RaiseHandsAction<String,String>())
                 .and()
             .withExternal()

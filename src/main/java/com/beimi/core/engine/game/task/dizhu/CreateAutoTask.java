@@ -1,6 +1,5 @@
 package com.beimi.core.engine.game.task.dizhu;
 
-import java.io.Console;
 import java.util.List;
 
 import com.beimi.core.BMDataContext;
@@ -43,16 +42,13 @@ public class CreateAutoTask extends AbstractTask implements BeiMiGameTask{
 		}
 		int index = board.getDzCardPlayerIndex();
 		Player randomCardPlayer = board.getDzCardPlayer() , catchPlayer = null;
-
 		if(randomCardPlayer.isDocatch()){
 			catchPlayer = board.next(index);
 		}else{
 			catchPlayer = randomCardPlayer;
 		}
 		if(catchPlayer != null){
-
 			sendEvent("catch", new GameBoard(catchPlayer.getPlayuser() , board.isDocatch() , catchPlayer.isAccept() , board.getRatio()), gameRoom) ;
-			
 			boolean isNormal = true ;
 			List<PlayUserClient> users = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), orgi) ;
 			for(PlayUserClient playUser : users){
@@ -64,17 +60,25 @@ public class CreateAutoTask extends AbstractTask implements BeiMiGameTask{
 					}
 				}
 			}
-			
+			CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, orgi);
 			if(isNormal){	//真人
 				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.CATCH.toString() , 17);	//通知状态机 , 此处应由状态机处理异步执行
 			}else{			//AI或托管
 				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.CATCH.toString() , 2);	//通知状态机 , 此处应由状态机处理异步执行
 			}
-			CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, orgi);
 		}else{
-			sendEvent("catchfail",new GameBoard(null,  board.getRatio()), gameRoom) ;   //通知客户端流局了
-            CacheHelper.getBoardCacheBean().delete(gameRoom.getId(), gameRoom.getOrgi());  //删除board ，重新发牌时会重新产生一个新的
-            super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom, BeiMiGameEvent.ENOUGH.toString(), 5);    //跳回前一个状态 ，重新发牌
+			int catchfailTimes = gameRoom.getCatchfailTimes();
+			gameRoom.setCatchfailTimes(catchfailTimes+1);
+			if(catchfailTimes < 2){
+				sendEvent("catchfail",new GameBoard(null,  board.getRatio()), gameRoom) ;   //通知客户端流局了
+				CacheHelper.getBoardCacheBean().delete(gameRoom.getId(), orgi);  //删除board ，重新发牌时会重新产生一个新的
+				CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
+				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom, BeiMiGameEvent.ENOUGH.toString(), 5);    //跳回前一个状态 ，重新发牌
+			}else{
+				board.setBanker(randomCardPlayer.getPlayuser());
+				CacheHelper.getBoardCacheBean().put(gameRoom.getId(), board, orgi);
+				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 1);
+			}
 		}
 	}
 }

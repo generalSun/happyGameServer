@@ -236,7 +236,7 @@ public class BMDataContext {
 		TWO(2),		//一对	 kK
 		THREE(3),	//三张	 kkk
 		FOUR(4),	//三带一	 AAA+K
-		FORMTWO(41),	//三带对	 AAA+K
+		FORMTWO(41),	//三带对	 AAA+Kk
 		FIVE(5),	//单顺	连子		10JQKA
 		SIX(6),		//双顺	连对		JJQQKK
 		SEVEN(7),	//三顺	飞机		JJJQQQ

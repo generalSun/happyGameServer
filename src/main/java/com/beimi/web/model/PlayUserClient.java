@@ -58,7 +58,7 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 	private String status ;		//
 	private boolean datastatus ;//数据状态，是否已删除	
 	private boolean headimg ; 	//是否上传头像
-	
+	private int sex = 0;//玩家性别 默认0为女
 	private String roomid ;		//加入的房间ID
 	private boolean roomready ;	//在房间中已经准备就绪
 	private boolean opendeal ;	//明牌
@@ -116,285 +116,237 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 		return id;
 	}
 
+	public int getSex(){
+		return sex;
+	}
+
+	public void setSex(int sex){
+		this.sex = sex;
+	}
+
 	public String getUsername() {
 		return username;
 	}
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
 	public String getOrgi() {
 		return orgi;
 	}
-
 
 	public void setOrgi(String orgi) {
 		this.orgi = orgi;
 	}
 
-
 	public String getCreater() {
 		return creater;
 	}
-
 
 	public void setCreater(String creater) {
 		this.creater = creater;
 	}
 
-
 	public Date getCreatetime() {
 		return createtime;
 	}
-
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
 
-
 	public Date getUpdatetime() {
 		return updatetime;
 	}
-
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
 
-
 	public Date getPassupdatetime() {
 		return passupdatetime;
 	}
-
 
 	public void setPassupdatetime(Date passupdatetime) {
 		this.passupdatetime = passupdatetime;
 	}
 
-
 	public String getMemo() {
 		return memo;
 	}
-
 
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
 
-
 	public String getCity() {
 		return city;
 	}
-
 
 	public void setCity(String city) {
 		this.city = city;
 	}
 
-
 	public String getProvince() {
 		return province;
 	}
-
 
 	public void setProvince(String province) {
 		this.province = province;
 	}
 
-
 	public boolean isLogin() {
 		return login;
 	}
-
 
 	public void setLogin(boolean login) {
 		this.login = login;
 	}
 
-
 	public boolean isOnline() {
 		return online;
 	}
-
 
 	public void setOnline(boolean online) {
 		this.online = online;
 	}
 
-
 	public String getStatus() {
 		return status;
 	}
-
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-
 	public boolean isDatastatus() {
 		return datastatus;
 	}
-
 
 	public void setDatastatus(boolean datastatus) {
 		this.datastatus = datastatus;
 	}
 
-
 	public boolean isHeadimg() {
 		return headimg;
 	}
-
 
 	public void setHeadimg(boolean headimg) {
 		this.headimg = headimg;
 	}
 
-
 	public String getPlayerlevel() {
 		return playerlevel;
 	}
-
 
 	public void setPlayerlevel(String playerlevel) {
 		this.playerlevel = playerlevel;
 	}
 
-
 	public int getExperience() {
 		return experience;
 	}
-
 
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
 
-
 	public Date getLastlogintime() {
 		return lastlogintime;
 	}
-
 
 	public void setLastlogintime(Date lastlogintime) {
 		this.lastlogintime = lastlogintime;
 	}
 
-
 	public int getFans() {
 		return fans;
 	}
-
 
 	public void setFans(int fans) {
 		this.fans = fans;
 	}
 
-
 	public int getFollows() {
 		return follows;
 	}
-
 
 	public void setFollows(int follows) {
 		this.follows = follows;
 	}
 
-
 	public int getIntegral() {
 		return integral;
 	}
-
 
 	public void setIntegral(int integral) {
 		this.integral = integral;
 	}
 
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 
 	public String getToken() {
 		return token;
 	}
 
-
 	public void setToken(String token) {
 		this.token = token;
 	}
-
 
 	public int getCards() {
 		return cards;
 	}
 
-
 	public void setCards(int cards) {
 		this.cards = cards;
 	}
-
 
 	public int getGoldcoins() {
 		return goldcoins;
 	}
 
-
 	public void setGoldcoins(int goldcoins) {
 		this.goldcoins = goldcoins;
 	}
-
 
 	public String getSign() {
 		return sign;
 	}
 
-
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
-
 
 	public int getDiamonds() {
 		return diamonds;
 	}
 
-
 	public void setDiamonds(int diamonds) {
 		this.diamonds = diamonds;
 	}
-
 
 	public String getOpenid() {
 		return openid;
 	}
 
-
 	public void setOpenid(String openid) {
 		this.openid = openid;
 	}
-
 
 	public String getQqid() {
 		return qqid;
 	}
 
-
 	public void setQqid(String qqid) {
 		this.qqid = qqid;
 	}
 
-
 	public String getPlayertype() {
 		return playertype;
 	}
-
 
 	public void setPlayertype(String playertype) {
 		this.playertype = playertype;
@@ -405,7 +357,6 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 		return playerindex;
 	}
 
-
 	public void setPlayerindex(long playerindex) {
 		this.playerindex = playerindex;
 	}
@@ -414,6 +365,7 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 	public int getServerIndex() {
 		return serverindex;
 	}
+
 	public void setServerIndex(int serverindex) {
 		this.serverindex = serverindex;
 	}
@@ -423,16 +375,13 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 		return command;
 	}
 
-
 	public void setCommand(String command) {
 		this.command = command;
 	}
 
-
 	public String getGamestatus() {
 		return gamestatus;
 	}
-
 
 	public void setGamestatus(String gamestatus) {
 		this.gamestatus = gamestatus;
@@ -442,7 +391,6 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 		return roomid;
 	}
 
-
 	public void setRoomid(String roomid) {
 		this.roomid = roomid;
 	}
@@ -450,7 +398,6 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 	public boolean isRoomready() {
 		return roomready;
 	}
-
 
 	public void setRoomready(boolean roomready) {
 		this.roomready = roomready;
@@ -460,11 +407,9 @@ public class PlayUserClient implements UserEvent ,Message, java.io.Serializable 
 		return opendeal;
 	}
 
-
 	public void setOpendeal(boolean opendeal) {
 		this.opendeal = opendeal;
 	}
-
 
 	@Override
 	public int compareTo(PlayUserClient o) {

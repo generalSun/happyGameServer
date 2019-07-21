@@ -21,7 +21,6 @@ public class BeiMiClient{
 	private String playway ;
 	private String orgi ;
 	private String room ;
-	
 	private String command ;
 	
 	private String data ;
@@ -34,7 +33,6 @@ public class BeiMiClient{
 
 	private AioClient client;
 	
-	
 	private Map<String,  String> extparams ;
 	
 	public BeiMiClient(){
@@ -44,7 +42,6 @@ public class BeiMiClient{
 	public String getSession() {
 		return session;
 	}
-
 
 	public void setSession(String session) {
 		this.session = session;
@@ -81,9 +78,11 @@ public class BeiMiClient{
 	public void setRoom(String room) {
 		this.room = room;
 	}
+	
 	public String getUserid() {
 		return userid;
 	}
+	
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}

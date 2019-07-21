@@ -58,7 +58,6 @@ public class GameUtils {
 		games.put("dizhu", new DizhuGame()) ;
 		games.put("majiang", new MaJiangGame()) ;
 	}
-	
 	public static Game getGame(String playway ,String orgi){
 		GamePlayway gamePlayway = (GamePlayway) CacheHelper.getSystemCacheBean().getCacheObject(playway, orgi) ;
 		Game game = null ;
@@ -72,7 +71,6 @@ public class GameUtils {
 		}
 		return game;
 	}
-	
 	/**
 	 * 移除GameRoom
 	 * @param gameRoom
@@ -81,7 +79,6 @@ public class GameUtils {
 	public static void removeGameRoom(String roomid,String playway,String orgi){
 		CacheHelper.getQueneCache().delete(roomid);
 	}
-	
 	/**
 	 * 更新玩家状态
 	 * @param userid
@@ -213,7 +210,6 @@ public class GameUtils {
 		}
 		return board;
 	}
-	
 	/**
 	 * 创建一个普通玩家
 	 * @param player
@@ -224,7 +220,6 @@ public class GameUtils {
 	public static PlayUserClient create(PlayUser player , IP ipdata , HttpServletRequest request ) throws IllegalAccessException, InvocationTargetException{
 		return create(player, ipdata, request, BMDataContext.PlayerTypeEnum.NORMAL.toString()) ;
 	}
-	
 	public static byte[] reverseCards(byte[] cards) {  
 		byte[] target_cards = new byte[cards.length];  
 		for (int i = 0; i < cards.length; i++) {  
@@ -233,7 +228,6 @@ public class GameUtils {
 		}  
 		return target_cards;  
 	}  
-	
 	/**
 	 * 注册用户
 	 * @param player
@@ -306,7 +300,6 @@ public class GameUtils {
     	}
 		return playUserClient ;
 	}
-	
 	/**
 	 * 获取游戏全局配置，后台管理界面上的配置功能
 	 * @param orgi
@@ -335,7 +328,6 @@ public class GameUtils {
 		}
 		return gamePlaywayGroupsList ;
 	}
-
 	/**
 	 * 获取房卡游戏的自定义配置，后台管理界面上的配置功能
 	 * @param orgi
@@ -350,9 +342,6 @@ public class GameUtils {
 		}
 		return gamePlaywayGroupsList ;
 	}
-
-
-
 	/**
 	 * 
 	 * @param gametype
@@ -624,7 +613,6 @@ public class GameUtils {
 		}
 		return mjCard;
 	}
-	
 	private static void processOther(List<Byte> others){
 		Collections.sort(others);
 		for(int i=0 ; i<others.size() && others.size() >(i+2) ; ){
@@ -646,15 +634,13 @@ public class GameUtils {
 				i = i+1 ; 	//下一步
 			}
 		}
-	}
-	
+	}	
 	public static byte getKey(byte card){
 		byte value = (byte) ((card%36) / 4) ;			//牌面值
 		int rate = card / 36 ;							//花色
 		byte key = (byte) (value + 9 * rate) ;			//字典编码
 		return key ;
-	}
-	
+	}	
 	/**
 	 * 麻将的出牌判断，杠碰吃胡
 	 * @param cards

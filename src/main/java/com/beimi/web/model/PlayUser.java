@@ -85,7 +85,7 @@ public class PlayUser implements UserEvent , java.io.Serializable{
 	private String playerlevel ;//玩家级别 ， 等级
 	private int experience  ;	//玩家经验
 	private boolean secquestion ;//是否设置密保问题
-	
+	private int sex = 0;//玩家性别 默认0为女
 	
 	
 	private Date lastlogintime = new Date();	//最后登录时间
@@ -116,6 +116,13 @@ public class PlayUser implements UserEvent , java.io.Serializable{
 		return id;
 	}
 
+	public int getSex(){
+		return sex;
+	}
+
+	public void setSex(int sex){
+		this.sex = sex;
+	}
 
 	public String getUsername() {
 		return username;

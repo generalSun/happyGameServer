@@ -61,6 +61,16 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 		return new TakeDiZhuCards(player);
 	}
 	
+	public boolean isAllDoCatch(){
+		boolean flag = true;
+		for(Player user : this.getPlayers()){
+			if(user.isDocatch() == false){
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
 	
 	/**
 	 * 找到玩家
@@ -104,37 +114,41 @@ public class DuZhuBoard extends Board implements java.io.Serializable{
 	 */
 	public Player next(int index){
 		Player catchPlayer = null;
-		int currentIndex = index;
-		if(index == (this.getPlayers().length - 1)){	//fixed
-			index = -1 ;
+		int nextIndex = index + 1;
+		if(nextIndex >= this.getPlayers().length){	//fixed
+			nextIndex = 0;
 		}
 		boolean hasFind = false;
-		for(int i = index + 1 ; i<this.getPlayers().length ; ){
+		for(int i = nextIndex; i < this.getPlayers().length ; ){
 			Player player = this.getPlayers()[i] ;
 			if(player.isDocatch() == false){
 				catchPlayer = player ;
 				player.setAccept(false);
 				hasFind = true;
 				break ;
-			}else if(i == index){
-				break;
-			}else if(i == (this.getPlayers().length - 1)){
-				i = 0; continue ;
-			}
+			} 
 			i++ ;
+			if(i >= this.getPlayers().length){
+				i = 0;
+			}
+			if(i == index){
+				break;
+			} 
 		}
 		if(hasFind == false){
-			for(int i = currentIndex; i<this.getPlayers().length ; ){
+			for(int i = index; i < this.getPlayers().length ; ){
 				Player player = this.getPlayers()[i] ;
 				if(player.isAccept() == true && player.getCatchNum() >= 1){
 					catchPlayer = player ;
 					break ;
-				}else if(i == index){
-					break;
-				}else if(i == (this.getPlayers().length - 1)){
-					i = 0; continue ;
 				}
 				i++ ;
+				if(i >= this.getPlayers().length){
+					i = 0;
+				}
+				if(i == index){
+					break;
+				} 
 			}
 		}
 		return catchPlayer;
