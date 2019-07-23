@@ -3,7 +3,7 @@ package com.beimi.util;
 import java.util.List;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.model.AccountConfig;
 import com.beimi.web.model.AiConfig;
 import com.beimi.web.model.GameConfig;

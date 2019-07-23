@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 
 public class ApiRequestMatchingFilter implements Filter {
     private RequestMatcher[] ignoredRequests;

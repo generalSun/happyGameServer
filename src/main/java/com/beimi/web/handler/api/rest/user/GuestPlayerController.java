@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.beimi.core.BMDataContext;
 import com.beimi.util.CacheConfigTools;
-import com.beimi.util.GameUtils;
+import com.beimi.game.GameUtils;
 import com.beimi.util.IP;
 import com.beimi.util.IPTools;
 import com.beimi.util.MessageEnum;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.handler.Handler;
 import com.beimi.web.model.AccountConfig;
 import com.beimi.web.model.AiConfig;

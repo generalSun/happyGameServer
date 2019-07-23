@@ -2,7 +2,7 @@ package com.beimi.core.engine.game.pva;
 
 import com.beimi.core.BMDataContext;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.model.PlayUser;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.web.service.repository.es.PlayUserESRepository;

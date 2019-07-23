@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 
 public class BeiMiDic<K,V> extends HashMap<K,V>{
 	

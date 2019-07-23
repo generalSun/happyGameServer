@@ -23,9 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.beimi.util.Menu;
 import com.beimi.util.UKTools;
-import com.beimi.util.metadata.DatabaseMetaDataHandler;
-import com.beimi.util.metadata.UKColumnMetadata;
-import com.beimi.util.metadata.UKTableMetaData;
+import com.beimi.metadata.DatabaseMetaDataHandler;
+import com.beimi.metadata.UKColumnMetadata;
+import com.beimi.metadata.UKTableMetaData;
 import com.beimi.web.handler.Handler;
 import com.beimi.web.model.MetadataTable;
 import com.beimi.web.model.TableProperties;

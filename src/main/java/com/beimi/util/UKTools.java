@@ -51,9 +51,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tio.http.common.HttpRequest;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.util.cache.CacheHelper;
-import com.beimi.util.event.UserDataEvent;
-import com.beimi.util.event.UserEvent;
+import com.beimi.cache.CacheHelper;
+import com.beimi.event.UserDataEvent;
+import com.beimi.event.UserEvent;
 import com.beimi.web.model.AttachmentFile;
 import com.beimi.web.model.Secret;
 import com.beimi.web.model.SystemConfig;

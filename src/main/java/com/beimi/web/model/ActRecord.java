@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.beimi.core.engine.game.Message;
 import com.beimi.util.UKTools;
-import com.beimi.util.event.UserEvent;
+import com.beimi.event.UserEvent;
 
 @Document(indexName = "beimi", type = "bm_game_actrecord")
 @Entity

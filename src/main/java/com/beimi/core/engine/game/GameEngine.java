@@ -1,6 +1,5 @@
 package com.beimi.core.engine.game;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,33 +9,29 @@ import org.apache.commons.lang3.StringUtils;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
-import cn.hutool.core.lang.Console;
-
+import com.beimi.config.game.BeiMiGameEvent;
+import com.beimi.config.game.BeiMiGameEnum;
 import com.beimi.core.BMDataContext;
 import com.beimi.core.engine.game.state.GameEvent;
-import com.beimi.core.engine.game.task.majiang.CreateMJRaiseHandsTask;
-import com.beimi.util.GameUtils;
+import com.beimi.game.GameUtils;
 import com.beimi.util.RandomCharUtil;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
-import com.beimi.util.client.NettyClients;
-import com.beimi.util.rules.model.Action;
-import com.beimi.util.rules.model.ActionEvent;
-import com.beimi.util.rules.model.Board;
-import com.beimi.util.rules.model.DuZhuBoard;
-import com.beimi.util.rules.model.JoinRoom;
-import com.beimi.util.rules.model.NextPlayer;
-import com.beimi.util.rules.model.Player;
-import com.beimi.util.rules.model.Playeready;
-import com.beimi.util.rules.model.RecoveryData;
-import com.beimi.util.rules.model.SelectColor;
-import com.beimi.util.rules.model.TakeCards;
-import com.beimi.util.server.handler.BeiMiClient;
+import com.beimi.cache.CacheHelper;
+import com.beimi.client.NettyClients;
+import com.beimi.game.rules.model.Board;
+import com.beimi.game.rules.model.JoinRoom;
+import com.beimi.game.rules.model.Player;
+import com.beimi.game.rules.model.Playeready;
+import com.beimi.game.rules.model.RecoveryData;
+import com.beimi.game.rules.model.TakeCards;
+import com.beimi.server.handler.BeiMiClient;
 import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.web.service.repository.es.PlayUserClientESRepository;
 import com.beimi.web.service.repository.jpa.GameRoomRepository;
+import com.beimi.config.game.Game;
+import com.beimi.game.rules.model.RoomReady;
 @Service(value="beimiGameEngine")
 public class GameEngine {
 
@@ -57,8 +52,8 @@ public class GameEngine {
 			 * 1、有新的玩家加入
 			 * 2、给当前新加入的玩家发送房间中所有玩家信息（不包含隐私信息，根据业务需求，修改PlayUserClient的字段，剔除掉隐私信息后发送）
 			 */
-			ActionTaskUtils.sendEvent("joinroom", userClient.getId(),new JoinRoom(userClient, gameEvent.getIndex(), gameEvent.getGameRoom().getPlayers() , gameEvent.getGameRoom()));
-			ActionTaskUtils.playerJoinRoom(beiMiClient,userClient, gameEvent.getGameRoom());
+			EventTools.getInstance().sendEvent("joinroom", userClient.getId(),new JoinRoom(userClient, gameEvent.getIndex(), gameEvent.getGameRoom().getPlayers() , gameEvent.getGameRoom()));
+			EventTools.getInstance().playerJoinRoom(beiMiClient,userClient, gameEvent.getGameRoom());
 			/**
 			 * 当前是在游戏中还是 未开始
 			 */
@@ -75,7 +70,7 @@ public class GameEngine {
 					if((board.getLast()!=null && board.getLast().getUserid().equals(currentPlayer.getPlayuser())) || (board.getLast() == null && board.getBanker().equals(currentPlayer.getPlayuser()))){
 						automic = true ;
 					}
-					ActionTaskUtils.sendEvent("recovery", new RecoveryData(currentPlayer , board.getLasthands() , board.getNextplayer()!=null ? board.getNextplayer().getNextplayer() : null , 25 , automic , board,gameEvent.getGameRoom()) , gameEvent.getGameRoom());
+					EventTools.getInstance().sendEvent("recovery", new RecoveryData(currentPlayer , board.getLasthands() , board.getNextplayer()!=null ? board.getNextplayer().getNextplayer() : null , 25 , automic , board,gameEvent.getGameRoom()) , gameEvent.getGameRoom());
 				}
 			}else{
 				//通知状态
@@ -180,6 +175,43 @@ public class GameEngine {
 		}
 		return gameEvent;
 	}
+
+	/**
+	 * 通知就绪
+	 * @param gameRoom
+	 * @param game
+	 */
+	public void roomReady(GameRoom gameRoom, Game game){
+		boolean enough = false ;
+		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
+		if(gameRoom.getPlayers() == playerList.size()){
+			gameRoom.setStatus(BeiMiGameEnum.READY.toString());
+			boolean hasnotready = false ;
+			for(PlayUserClient player : playerList){
+				if(player.isRoomready() == false){
+					hasnotready = true ;  break ;
+				}
+			}
+			if(hasnotready == false){
+				enough = true ;	//所有玩家都已经点击了 开始游戏
+			}
+			
+			/**
+			 * 检查当前玩家列表中的所有玩家是否已经全部 就绪，如果已经全部就绪，则开始游戏 ， 否则，只发送 roomready事件
+			 */
+			EventTools.getInstance().sendEvent("roomready", new RoomReady(gameRoom), gameRoom);
+		}else{
+			gameRoom.setStatus(BeiMiGameEnum.WAITTING.toString());
+		}
+		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
+		/**
+		 * 所有人都已经举手
+		 */
+		if(enough == true){
+			game.change(gameRoom , BeiMiGameEvent.ENOUGH.toString());	//通知状态机 , 此处应由状态机处理异步执行
+		}
+	}
+
 	/**
 	 * 
 	 * 玩家加入房间
@@ -220,33 +252,6 @@ public class GameEngine {
 	 * @param orgi
 	 * @return
 	 */
-	public void actionRequest(String roomid, PlayUserClient playUser, String orgi , boolean accept){
-		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
-		if(gameRoom!=null){
-			DuZhuBoard board = (DuZhuBoard) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), orgi);
-			Player player = board.player(playUser.getId()) ;
-			board = ActionTaskUtils.doCatch(board, player , accept,gameRoom) ;
-			ActionTaskUtils.sendEvent("catchresult",new GameBoard(player.getPlayuser() , board.isDocatch() , player.isAccept(), board.getRatio()),gameRoom) ;
-			if(accept == true){
-				board.setDocatch(true);
-			}
-			CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board , orgi) ;
-			if((board.getCatchPlayerNum() == 1 && board.isAllDoCatch() == true) || player.getCatchNum() >= 2){
-				//通知状态机 , 全部都抢过地主了 ， 把底牌发给 最后一个抢到地主的人
-				GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 1);
-			}else{
-				GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.AUTO.toString() , 1);	//通知状态机 , 继续执行
-			}
-		}
-	}
-	
-	/**
-	 * 抢地主，斗地主
-	 * @param roomid
-
-	 * @param orgi
-	 * @return
-	 */
 	public void startGameRequest(String roomid, PlayUserClient playUser, String orgi , boolean opendeal){
 		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
 		if(gameRoom!=null){
@@ -254,53 +259,10 @@ public class GameEngine {
 			if(opendeal == true){
 				playUser.setOpendeal(opendeal);
 			}
-			
 			CacheHelper.getGamePlayerCacheBean().put(playUser.getId(), playUser, playUser.getOrgi());
-			ActionTaskUtils.roomReady(gameRoom, GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()));
-			
+			roomReady(gameRoom, GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()));
 			UKTools.published(playUser,BMDataContext.getContext().getBean(PlayUserClientESRepository.class));
-			
-			// ActionTaskUtils.sendEvent(playUser.getId(), new Playeready(playUser.getId() , "playeready"));
-			ActionTaskUtils.sendEvent("playeready", new Playeready(playUser.getId() , "playeready") , gameRoom);
-		}
-	}
-	
-	
-	/**
-	 * 抢地主，斗地主
-	 * @param roomid
-
-	 * @param orgi
-	 * @return
-	 */
-	public void cardTips(String roomid, PlayUserClient playUser, String orgi , String cardtips){
-		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
-		if(gameRoom!=null){
-			DuZhuBoard board = (DuZhuBoard) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi());
-			Player player = board.player(playUser.getId()) ;
-			
-			TakeCards takeCards = null ;
-			
-			if(!StringUtils.isBlank(cardtips)){
-				String[] cards = cardtips.split(",") ;
-				byte[] tipCards = new byte[cards.length] ;
-				for(int i= 0 ; i<cards.length ; i++){
-					tipCards[i] = Byte.parseByte(cards[i]) ;
-				}
-				takeCards = board.cardtip(player, board.getCardTips(player, tipCards)) ;
-			}
-			if(takeCards == null || takeCards.getCards() == null){
-				if(board.getLast() != null && !board.getLast().getUserid().equals(player.getPlayuser())){	//当前无出牌信息，刚开始出牌，或者出牌无玩家 压
-					takeCards = board.cardtip(player, board.getLast()) ;
-				}else{
-					takeCards = board.cardtip(player, null) ;
-				}
-			}
-			
-			if(takeCards.getCards() == null){
-				takeCards.setAllow(false);	//没有 管的起的牌
-			}
-			ActionTaskUtils.sendEvent("cardtips", takeCards ,gameRoom) ;
+			EventTools.getInstance().sendEvent("playeready", new Playeready(playUser.getId() , "playeready") , gameRoom);
 		}
 	}
 	
@@ -370,226 +332,6 @@ public class GameEngine {
 	}
 	
 	/**
-	 * 出牌，并校验出牌是否合规
-	 * @param roomid
-	 *
-	 * @param userid
-	 * @param orgi
-	 * @return
-	 */
-	public SelectColor selectColorRequest(String roomid, String userid, String orgi , String color){
-		SelectColor selectColor = null ;
-		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
-		if(gameRoom!=null){
-			Board board = (Board) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi());
-			if(board!=null){
-				//超时了 ， 执行自动出牌
-//				Player[] players = board.getPlayers() ;
-				/**
-				 * 检查是否所有玩家都已经选择完毕 ， 如果所有人都选择完毕，即可开始
-				 */
-				selectColor = new SelectColor(board.getBanker());
-				if(!StringUtils.isBlank(color)){
-					if(!StringUtils.isBlank(color) && color.matches("[0-2]{1}")){
-						selectColor.setColor(Integer.parseInt(color));
-					}else{
-						selectColor.setColor(0);
-					}
-					selectColor.setTime(System.currentTimeMillis());
-					selectColor.setCommand("selectresult");
-					
-					selectColor.setUserid(userid);
-				}
-				boolean allselected = true ;
-				for(Player ply : board.getPlayers()){
-					if(ply.getPlayuser().equals(userid)){
-						if(!StringUtils.isBlank(color) && color.matches("[0-2]{1}")){
-							ply.setColor(Integer.parseInt(color));
-						}else{
-							ply.setColor(0);
-						}
-						ply.setSelected(true);
-					}
-					if(!ply.isSelected()){
-						allselected = false ;
-					}
-				}
-				CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
-				ActionTaskUtils.sendEvent("selectresult", selectColor , gameRoom);	
-				/**
-				 * 检查是否全部都已经 定缺， 如果已全部定缺， 则发送 开打 
-				 */
-				if(allselected){
-					/**
-					 * 重置计时器，立即执行
-					 */
-					CacheHelper.getExpireCache().put(gameRoom.getId(), new CreateMJRaiseHandsTask(1 , gameRoom , gameRoom.getOrgi()) );
-					GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.RAISEHANDS.toString() , 0);	
-				}
-			}
-		}
-		return selectColor ;
-	}
-	
-	/**
-	 * 麻将 ， 杠碰吃胡过
-	 * @param roomid
-	 * 
-	 * @param userid
-	 * @param orgi
-	 * @return
-	 */
-	public ActionEvent actionEventRequest(String roomid, String userid, String orgi , String action){
-		ActionEvent actionEvent = null ;
-		GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(roomid, orgi) ;
-		if(gameRoom!=null){
-			Board board = (Board) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi());
-			if(board!=null){
-				Player player = board.player(userid) ;
-				byte card = board.getLast().getCard() ;
-				actionEvent = new ActionEvent(board.getBanker() , userid , card , action);
-				if(!StringUtils.isBlank(action) && action.equals(BMDataContext.PlayerAction.GUO.toString())){
-					/**
-					 * 用户动作，选择 了 过， 下一个玩家直接开始抓牌 
-					 * bug，待修复：如果有多个玩家可以碰，则一个碰了，其他玩家就无法操作了
-					 */
-					board.dealRequest(gameRoom, board, orgi , false , null);
-				}else if(!StringUtils.isBlank(action) && action.equals(BMDataContext.PlayerAction.PENG.toString()) && allowAction(card, player.getActions() , BMDataContext.PlayerAction.PENG.toString())){
-					Action playerAction = new Action(userid , action , card);
-					
-					int color = card / 36 ;
-					int value = card % 36 / 4 ;
-					List<Byte> otherCardList = new ArrayList<Byte>(); 
-					for(int i=0 ; i<player.getCards().length ; i++){
-						if(player.getCards()[i]/36 == color && (player.getCards()[i]%36) / 4 == value){
-							continue ;
-						}
-						otherCardList.add(player.getCards()[i]) ;
-					}
-					byte[] otherCards = new byte[otherCardList.size()] ;
-					for(int i=0 ; i<otherCardList.size() ; i++){
-						otherCards[i] = otherCardList.get(i) ;
-					}
-					player.setCards(otherCards);
-					player.getActions().add(playerAction) ;
-					
-					board.setNextplayer(new NextPlayer(userid , false));
-					
-					actionEvent.setTarget(board.getLast().getUserid());
-					ActionTaskUtils.sendEvent("selectaction", actionEvent , gameRoom);
-					
-					CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
-					
-					board.playcards(board, gameRoom, player, orgi);
-					
-				}else if(!StringUtils.isBlank(action) && action.equals(BMDataContext.PlayerAction.GANG.toString()) && allowAction(card, player.getActions() , BMDataContext.PlayerAction.GANG.toString())){
-					if(board.getNextplayer().getNextplayer().equals(userid)){
-						card = GameUtils.getGangCard(player.getCards()) ;
-						actionEvent = new ActionEvent(board.getBanker() , userid , card , action);
-						actionEvent.setActype(BMDataContext.PlayerGangAction.AN.toString());
-					}else{
-						actionEvent.setActype(BMDataContext.PlayerGangAction.MING.toString());	//还需要进一步区分一下是否 弯杠
-					}
-					/**
-					 * 检查是否有弯杠
-					 */
-					Action playerAction = new Action(userid , action , card);
-					for(Action ac : player.getActions()){
-						if(ac.getCard() == card && ac.getAction().equals(BMDataContext.PlayerAction.PENG.toString())){
-							ac.setGang(true);
-							ac.setType(BMDataContext.PlayerGangAction.WAN.toString());
-							playerAction = ac ;
-							break ;
-						}
-					}
-					int color = card / 36 ;
-					int value = card % 36 / 4 ;
-					List<Byte> otherCardList = new ArrayList<Byte>(); 
-					for(int i=0 ; i<player.getCards().length ; i++){
-						if(player.getCards()[i]/36 == color && (player.getCards()[i]%36) / 4 == value){
-							continue ;
-						}
-						otherCardList.add(player.getCards()[i]) ;
-					}
-					byte[] otherCards = new byte[otherCardList.size()] ;
-					for(int i=0 ; i<otherCardList.size() ; i++){
-						otherCards[i] = otherCardList.get(i) ;
-					}
-					player.setCards(otherCards);
-					player.getActions().add(playerAction) ;
-					
-					actionEvent.setTarget("all");	//只有明杠 是 其他人打出的 ， target 是单一对象
-					
-					ActionTaskUtils.sendEvent("selectaction", actionEvent , gameRoom);
-					
-					/**
-					 * 杠了以后， 从 当前 牌的 最后一张开始抓牌
-					 */
-					board.dealRequest(gameRoom, board, orgi , true , userid);
-				}else if(!StringUtils.isBlank(action) && action.equals(BMDataContext.PlayerAction.HU.toString())){	//判断下是不是 真的胡了 ，避免外挂乱发的数据
-					Action playerAction = new Action(userid , action , card);
-					player.getActions().add(playerAction) ;
-					GamePlayway gamePlayway = (GamePlayway) CacheHelper.getSystemCacheBean().getCacheObject(gameRoom.getPlayway(), gameRoom.getOrgi()) ;
-					/**
-					 * 不同的胡牌方式，处理流程不同，推倒胡，直接进入结束牌局 ， 血战：当前玩家结束牌局，血流：继续进行，下一个玩家
-					 */
-					if(gamePlayway.getWintype().equals(BMDataContext.MaJiangWinType.TUI.toString())){		//推倒胡
-						GameUtils.getGame(gameRoom.getPlayway() , orgi).change(gameRoom , BeiMiGameEvent.ALLCARDS.toString() , 0);	//打完牌了,通知结算
-					}else{ //血战到底
-						 if(gamePlayway.getWintype().equals(BMDataContext.MaJiangWinType.END.toString())){		//标记当前玩家的状态 是 已结束
-							 player.setEnd(true);
-						 }
-						 player.setHu(true); 	//标记已经胡了
-						 /**
-						  * 当前 Player打上标记，已经胡牌了，杠碰吃就不会再有了
-						  */
-						 /**
-						  * 下一个玩家出牌
-						  */
-						player = board.nextPlayer(board.index(player.getPlayuser())) ;
-						/**
-						 * 记录胡牌的相关信息，推倒胡 | 血战 | 血流
-						 */
-						board.setNextplayer(new NextPlayer(player.getPlayuser() , false));
-						
-						actionEvent.setTarget(board.getLast().getUserid());
-						/**
-						 * 用于客户端播放 胡牌的 动画 ， 点胡 和 自摸 ，播放不同的动画效果
-						 */
-						ActionTaskUtils.sendEvent("selectaction", actionEvent , gameRoom);
-						CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
-						
-						/**
-						 * 杠了以后， 从 当前 牌的 最后一张开始抓牌
-						 */
-						board.dealRequest(gameRoom, board, orgi , true , player.getPlayuser());
-					}
-				}
-			}
-		}
-		return actionEvent ;
-	}
-	/**
-	 * 为防止同步数据错误，校验是否允许刚碰牌
-	 * @param card
-	 * @param actions
-	 * @return
-	 */
-	public boolean allowAction(byte card , List<Action> actions , String actiontype){
-		int take_color = card / 36 ;
-		int take_value = card%36 / 4 ;
-		boolean allow = true ;
-		for(Action action : actions){
-			int color = action.getCard() / 36 ;
-			int value = action.getCard() % 36 / 4 ;
-			if(take_color == color && take_value == value && action.getAction().equals(actiontype)){
-				allow = false ; break ;
-			}
-		}
-		return allow ;
-	}
-	
-	/**
 	 * 出牌，不出牌
 	 * @param roomid
 
@@ -627,9 +369,11 @@ public class GameEngine {
 		if(gameRoom!=null){
 			List<PlayUserClient> players = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), orgi) ;
 			if(gameRoom.isCardroom()){
-				CacheHelper.getGameRoomCacheBean().delete(gameRoom.getId(), gameRoom.getOrgi()) ;
-				CacheHelper.getGamePlayerCacheBean().clean(gameRoom.getId() , orgi) ;
-				UKTools.published(gameRoom , null , BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.DELETE.toString());
+				if(gameRoom.getMaster().equals(playUser.getId())){
+					CacheHelper.getGameRoomCacheBean().delete(gameRoom.getId(), gameRoom.getOrgi()) ;
+					CacheHelper.getGamePlayerCacheBean().clean(gameRoom.getId() , orgi) ;
+					UKTools.published(gameRoom , null , BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.DELETE.toString());
+				}
 			}else{
 				if(players.size() <= 1){
 					//解散房间 , 保留 ROOM资源 ， 避免 从队列中取出ROOM
@@ -641,6 +385,7 @@ public class GameEngine {
 		}
 		return gameRoom;
 	}
+
 	/**
 	 * 当前用户所在的房间
 	 * @param userid
@@ -668,6 +413,7 @@ public class GameEngine {
 			CacheHelper.getBoardCacheBean().delete(roomid, orgi) ;
 		}
 	}
+
 	/**
 	 * 创建新房间 ，需要传入房间的玩法 ， 玩法定义在 系统运营后台，玩法创建后，放入系统缓存 ， 客户端进入房间的时候，传入 玩法ID参数
 	 * @param playway
@@ -679,51 +425,41 @@ public class GameEngine {
 		gameRoom.setCreatetime(new Date());
 		gameRoom.setRoomid(UKTools.getUUID());
 		gameRoom.setUpdatetime(new Date());
-		gameRoom.setPlayway(playway.getId());
-		gameRoom.setRoomtype(playway.getRoomtype());
-		gameRoom.setPlayers(playway.getPlayers());
-		gameRoom.setPlayers(playway.getPlayers());
-		gameRoom.setCardsnum(playway.getCardsnum());
 		gameRoom.setCurpalyers(1);
 		gameRoom.setCardroom(cardroom);
 		gameRoom.setStatus(BeiMiGameEnum.CRERATED.toString());
-		gameRoom.setCardsnum(playway.getCardsnum());
 		gameRoom.setCurrentnum(0);
 		gameRoom.setCatchfailTimes(0);
 		gameRoom.setAutoMatch(false);
 		gameRoom.setCreater(userid);
-		gameRoom.setCode(playway.getCode());
 		gameRoom.setMaster(userid);
-		gameRoom.setNumofgames(playway.getNumofgames());   //无限制
-		gameRoom.setOrgi(playway.getOrgi());
+		
+		if(playway != null){
+			gameRoom.setPlayway(playway.getId());
+			gameRoom.setRoomtype(playway.getRoomtype());
+			gameRoom.setPlayers(playway.getPlayers());
+			gameRoom.setCardsnum(playway.getCardsnum());
+			gameRoom.setCode(playway.getCode());
+			gameRoom.setNumofgames(playway.getNumofgames());   //无限制
+			gameRoom.setOrgi(playway.getOrgi());
+		}
 
-		/**
-		 * 房卡模式启动游戏
-		 */
-		if(beiMiClient.getExtparams()!=null && BMDataContext.BEIMI_SYSTEM_ROOM.equals(beiMiClient.getExtparams().get("gamemodel"))){
+		if(beiMiClient.getExtparams() != null && BMDataContext.BEIMI_SYSTEM_ROOM.equals(beiMiClient.getExtparams().get("gamemodel"))){
 			gameRoom.setRoomtype(BMDataContext.ModelType.ROOM.toString());
 			gameRoom.setCardroom(true);
 			gameRoom.setExtparams(beiMiClient.getExtparams());
-			/**
-			 * 产生 房间 ID ， 麻烦的是需要处理冲突 ，准备采用的算法是 先生成一个号码池子，然后重分布是缓存的 Queue里获取
-			 */
 			gameRoom.setRoomid(RandomCharUtil.getRandomNumberChar(6));
-
-			/**
-			 * 分配房间号码 ， 并且，启用 规则引擎，对房间信息进行赋值
-			 */
 			kieSession.insert(gameRoom) ;
 			kieSession.fireAllRules() ;
 		}else{
 			gameRoom.setRoomtype(BMDataContext.ModelType.HALL.toString());
 		}
+
 		if(gameRoom.getExtparams() != null && "true".equals(gameRoom.getExtparams().get("automatch"))){
 			gameRoom.setAutoMatch(true);
-			CacheHelper.getQueneCache().put(gameRoom, playway.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
+			CacheHelper.getQueneCache().put(gameRoom, gameRoom.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
 		}
-		
 		UKTools.published(gameRoom, null, BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.SAVE.toString());
-		
 		return gameRoom ;
 	}
 	

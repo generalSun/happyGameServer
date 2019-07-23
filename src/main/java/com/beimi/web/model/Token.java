@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.beimi.util.UKTools;
-import com.beimi.util.event.UserEvent;
+import com.beimi.event.UserEvent;
 
 
 /**

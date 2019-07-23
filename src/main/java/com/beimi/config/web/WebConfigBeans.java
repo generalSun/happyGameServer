@@ -1,7 +1,7 @@
 package com.beimi.config.web;
 
 import javax.annotation.PostConstruct;
-
+import com.beimi.util.StringToDateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;

@@ -26,13 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.beimi.core.BMDataContext;
 import com.beimi.util.Menu;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.handler.Handler;
 import com.beimi.web.model.Secret;
 import com.beimi.web.model.SystemConfig;
 import com.beimi.web.service.repository.jpa.SecretRepository;
 import com.beimi.web.service.repository.jpa.SystemConfigRepository;
-import com.beimi.web.service.repository.jpa.TemplateRepository;
 
 @Controller
 @RequestMapping("/admin/config")

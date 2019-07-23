@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.beimi.util.UKTools;
-import com.beimi.util.event.UserEvent;
+import com.beimi.event.UserEvent;
 
 @Entity
 @Table(name = "bm_game_room")

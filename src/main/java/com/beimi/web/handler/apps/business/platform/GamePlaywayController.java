@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.util.GameUtils;
+import com.beimi.game.GameUtils;
 import com.beimi.util.Menu;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.handler.Handler;
 import com.beimi.web.model.BeiMiDic;
 import com.beimi.web.model.GamePlayway;

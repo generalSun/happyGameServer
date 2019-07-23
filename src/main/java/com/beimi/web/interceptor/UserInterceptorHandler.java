@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.beimi.core.BMDataContext;
 import com.beimi.util.Menu;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.model.SystemConfig;
 import com.beimi.web.model.BeiMiDic;
 import com.beimi.web.model.User;

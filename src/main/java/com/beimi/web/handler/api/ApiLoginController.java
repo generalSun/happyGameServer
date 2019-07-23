@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.beimi.core.BMDataContext;
 import com.beimi.util.UKTools;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.handler.Handler;
 import com.beimi.web.handler.api.rest.user.ApiRegisterController;
 import com.beimi.web.model.PlayUser;

@@ -3,8 +3,8 @@ package com.beimi.core.engine.game.impl;
 import java.io.Serializable;
 
 import com.beimi.core.engine.game.Message;
-import com.beimi.util.rules.model.Board;
-import com.beimi.util.rules.model.Player;
+import com.beimi.game.rules.model.Board;
+import com.beimi.game.rules.model.Player;
 
 public class UserBoard implements Message,Serializable{
 	/**

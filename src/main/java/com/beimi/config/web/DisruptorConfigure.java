@@ -6,9 +6,9 @@ import java.util.concurrent.Executors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.beimi.util.disruptor.UserDataEventFactory;
-import com.beimi.util.disruptor.UserEventHandler;
-import com.beimi.util.event.UserDataEvent;
+import com.beimi.disruptor.UserDataEventFactory;
+import com.beimi.disruptor.UserEventHandler;
+import com.beimi.event.UserDataEvent;
 import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;

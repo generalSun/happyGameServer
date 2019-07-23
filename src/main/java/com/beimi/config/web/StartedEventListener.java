@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.beimi.core.BMDataContext;
 import com.beimi.core.engine.game.GameEngine;
-import com.beimi.util.cache.CacheHelper;
+import com.beimi.cache.CacheHelper;
 import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.Generation;
