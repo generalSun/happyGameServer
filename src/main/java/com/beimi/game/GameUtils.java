@@ -80,43 +80,7 @@ public class GameUtils {
 	public static void removeGameRoom(String roomid,String playway,String orgi){
 		CacheHelper.getQueneCache().delete(roomid);
 	}
-	/**
-	 * 更新玩家状态
-	 * @param userid
-	 * @param orgi
-	 */
-	public static void updatePlayerClientStatus(String userid , String orgi , String status){
-		PlayUserClient playUser = (PlayUserClient) CacheHelper.getApiUserCacheBean().getCacheObject(userid, orgi) ;
-		if(playUser!=null){
-			playUser.setPlayertype(status);
-			CacheHelper.getApiUserCacheBean().put(userid,playUser , orgi);
-			if(!BMDataContext.GameStatusEnum.PLAYING.toString().equals(playUser.getGamestatus())){
-				playUser = (PlayUserClient) CacheHelper.getGamePlayerCacheBean().getPlayer(userid, orgi) ;
-				/**
-				 * 检查，如果房间没 真人玩家了或者当前玩家是房主 ，就可以解散房间了
-				 */
-				if(playUser!= null && !StringUtils.isBlank(playUser.getRoomid())){
-					GameRoom gameRoom = (GameRoom) CacheHelper.getGameRoomCacheBean().getCacheObject(playUser.getRoomid(), orgi) ;
-					if(gameRoom.getMaster().equals(playUser.getId())){
-						/**
-						 * 解散房间，应该需要一个专门的 方法来处理，别直接删缓存了，这样不好！！！
-						 */
-						BMDataContext.getGameEngine().dismissRoom(gameRoom, userid, orgi);
-					}else{
-						List<PlayUserClient> players = CacheHelper.getGamePlayerCacheBean().getCacheObject(userid, orgi);
-						if (players.size() <= 1) {
-							//解散房间 , 保留 ROOM资源 ， 避免 从队列中取出ROOM
-							BMDataContext.getGameEngine().dismissRoom(gameRoom, userid, orgi);
-						} else {
-							//通知其他玩家
-						}
-					}
-				}
-				CacheHelper.getGamePlayerCacheBean().delete(userid, orgi) ;
-				CacheHelper.getRoomMappingCacheBean().delete(userid, orgi) ;
-			}
-		}
-	}
+	
 	public static Message subsidyPlayerClient(BeiMiClient client , PlayUserClient playUser , String orgi) {
 		Message message = null ;
 		if(playUser!=null){

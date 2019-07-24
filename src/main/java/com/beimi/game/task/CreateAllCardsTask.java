@@ -13,6 +13,9 @@ import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.core.engine.game.AbstractTask;
+import com.beimi.util.UKTools;
+import com.beimi.web.service.repository.jpa.GameRoomRepository;
+import com.beimi.core.engine.game.RoomTools;
 
 public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryTime  , BeiMiGameTask{
 	private long timer  ;
@@ -41,7 +44,7 @@ public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryT
 			 */
 			Summary summary = board.summary(board, gameRoom, gamePlayWay) ;
 			sendEvent("allcards",  summary , gameRoom) ;	//通知所有客户端结束牌局，进入结算
-			if(summary.isGameRoomOver()){
+			if(summary.isGameRoomOver() || board.isGameOver()){
 				gameOver = true ;
 			}
 		}
@@ -60,10 +63,7 @@ public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryT
 						playUserClient.setRoomready(false);
 						CacheHelper.getGamePlayerCacheBean().put(playUserClient.getId(),playUserClient, gameRoom.getOrgi()) ;
 					}else if(playUserClient.getPlayertype().equals(BMDataContext.PlayerTypeEnum.LEAVE.toString()) || playUserClient.getPlayertype().equals(BMDataContext.PlayerTypeEnum.OFFLINE.toString())){
-						/**
-						 * 离线和托管玩家，离开房间以后，牌局结束时从当前房间清理出去
-						 */
-						EventTools.updatePlayerClientStatus(playUserClient, playUserClient.getPlayertype());
+						RoomTools.getInstance().leaveRoom(playUserClient,playUserClient.getOrgi());
 					}
 				}
 			}
@@ -75,14 +75,8 @@ public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryT
 				CacheHelper.getGameRoomCacheBean().delete(player.getPlayuser(), gameRoom.getOrgi()) ;
 				CacheHelper.getRoomMappingCacheBean().delete(player.getPlayuser(), this.orgi) ;
 			}
-			if(gameRoom.isCardroom() == false && gameRoom.getExtparams() != null && "true".equals(gameRoom.getExtparams().get("automatch"))){ //房卡模式，清理掉房卡资源
-				/**
-				 * 重新加入房间资源到 队列
-				 */
-				CacheHelper.getQueneCache().put(gameRoom, gameRoom.getOrgi());
-			}
+			UKTools.published(gameRoom , null , BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.DELETE.toString());
 		}
-		
-		BMDataContext.getGameEngine().finished(gameRoom.getId(), orgi);
+		RoomTools.getInstance().finishRoom(gameRoom.getId(), orgi);
 	}
 }

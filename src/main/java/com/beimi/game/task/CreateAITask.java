@@ -6,6 +6,7 @@ import org.cache2k.expiry.ValueWithExpiryTime;
 
 import com.beimi.core.BMDataContext;
 import com.beimi.core.engine.game.EventTools;
+import com.beimi.core.engine.game.RoomTools;
 import com.beimi.core.engine.game.BeiMiGameTask;
 import com.beimi.game.GameUtils;
 import com.beimi.cache.CacheHelper;
@@ -61,10 +62,7 @@ public class CreateAITask extends AbstractTask implements ValueWithExpiryTime  ,
 			
 			EventTools.getInstance().sendPlayers(gameRoom, playerList);
 			
-			/**
-			 * 发送一个 Enough 事件
-			 */
-			BMDataContext.getGameEngine().roomReady(gameRoom, super.getGame(gameRoom.getPlayway(), orgi));
+			RoomTools.getInstance().roomReady(gameRoom, super.getGame(gameRoom.getPlayway(), orgi));
 		}
 	}
 }

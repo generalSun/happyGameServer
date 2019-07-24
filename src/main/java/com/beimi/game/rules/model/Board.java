@@ -124,7 +124,7 @@ public abstract class Board implements Message,java.io.Serializable {
 	private TakeCards last;//上一个出牌
 	
 	private boolean finished ;
-	
+	private boolean gameOver;
 	private List<Byte> history = new ArrayList<Byte>();
 	
 	private String winner ;		//赢的玩家
@@ -295,6 +295,14 @@ public abstract class Board implements Message,java.io.Serializable {
 
 	public void setNextplayer(NextPlayer nextplayer) {
 		this.nextplayer = nextplayer;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
 	}
 
 	public boolean isFinished() {

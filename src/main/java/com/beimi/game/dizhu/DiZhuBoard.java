@@ -354,11 +354,14 @@ public class DiZhuBoard extends Board implements java.io.Serializable{
 	@Override
 	public Summary summary(Board board, GameRoom gameRoom , GamePlayway playway) {
 		Summary summary = new Summary(gameRoom.getId() , board.getId() , board.getRatio() , board.getRatio() * playway.getScore());
-		int dizhuScore = 0 ;
-		boolean dizhuWin = board.getWinner().equals(board.getBanker()) ;
 		
 		List<PlayUserClient> players = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
-		
+		if(players.size() < gameRoom.getPlayers()){
+			summary.setGameRoomOver(true);	//玩家少人，强制关闭房间
+			return summary;
+		}
+		int dizhuScore = 0 ;
+		boolean dizhuWin = board.getWinner().equals(board.getBanker()) ;
 		PlayUserClient dizhuPlayerUser = getPlayerClient(players, board.getBanker());
 		int temp = summary.getScore() * (board.getPlayers().length - 1) ;
 		SummaryPlayer dizhuSummaryPlayer = null ;

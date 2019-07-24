@@ -7,9 +7,6 @@ import com.beimi.core.engine.game.Message;
 
 public class Player implements Message,java.io.Serializable , Cloneable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 
@@ -25,12 +22,12 @@ public class Player implements Message,java.io.Serializable , Cloneable{
 	private boolean randomcard ;	//起到地主牌的人
 	private boolean docatch ;	//抢过庄（地主）//判断玩家是否操作过
 	private int deskcards ;	//剩下多少张牌
-	
+	private boolean online;
 	private boolean hu ;	//已经胡过牌了
 	private boolean end ;	//血战的时候，标记 结束
-	
+	private boolean dissolve;
 	private String command ;
-	
+	private int result;
 	private boolean selected ;	//已经选择 花色
 	private int color ;		//定缺 花色   0  : wan , 1:tong , 2 :tiao
 	
@@ -49,7 +46,30 @@ public class Player implements Message,java.io.Serializable , Cloneable{
 	public void setEvent(String event) {
 		this.event = event;
 	}
-	
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
+
+	public boolean getDissolve() {
+		return dissolve;
+	}
+
+	public void setDissolve(boolean dissolve) {
+		this.dissolve = dissolve;
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(Boolean online) {
+		this.online = online;
+	}
 
 	public byte[] getCards() {
 		return cards;

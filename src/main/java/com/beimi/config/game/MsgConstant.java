@@ -27,6 +27,8 @@ public class MsgConstant{
 	public enum s2c_msg{
 		JOINROOM,
 		GAMESTATUS,
+		ROOMREADY,
+		PLAYEREADY,
 		DOCATCH,
 		GIVEUP,
 		CARDTIPS,

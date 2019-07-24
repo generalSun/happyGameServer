@@ -77,13 +77,13 @@ public class EventTools {
 	 * @param userClient
 	 * @param gameRoom
 	 */
-	public void playerJoinRoom(BeiMiClient beiMiClient,PlayUserClient userClient,GameRoom gameRoom){
+	public void playerJoinRoom(PlayUserClient userClient,GameRoom gameRoom){
 		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
 		List<PlayUserClient> otherList = new ArrayList<PlayUserClient>();
 		for(PlayUserClient user : playerList){
 			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
 			if(client!=null && online(client.getUserid() , client.getOrgi())){
-				if(!client.getUserid().equals(beiMiClient.getUserid())){
+				if(!client.getUserid().equals(userClient.getId())){
 					otherList.add(user);
 				}
 			}
@@ -92,9 +92,9 @@ public class EventTools {
 		for(PlayUserClient user : playerList){
 			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
 			if(client!=null && online(client.getUserid() , client.getOrgi())){
-				if(client.getUserid().equals(beiMiClient.getUserid())){
+				if(client.getUserid().equals(userClient.getId())){
 					if(otherList.size() > 0){
-						beiMiClient.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers(),otherList,BMDataContext.BEIMI_PLAYERS_EVENT));
+						sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, userClient.getId(),new GamePlayers(gameRoom.getPlayers(),otherList,BMDataContext.BEIMI_PLAYERS_EVENT));
 					}
 				}else{
 					List<PlayUserClient> list = new ArrayList<PlayUserClient>();
@@ -153,15 +153,6 @@ public class EventTools {
 			}
 		}
 		return playUserClient;
-	}
-	
-	/**
-	 * 更新玩家状态
-	 * @param userid
-	 * @param orgi
-	 */
-	public void updatePlayerClientStatus(PlayUserClient playUser, String status){
-		GameUtils.updatePlayerClientStatus(playUser.getId(), playUser.getOrgi(), status);
 	}
 	
 	public Object json(Object data){

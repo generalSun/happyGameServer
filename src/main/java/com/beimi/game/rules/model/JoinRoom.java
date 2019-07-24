@@ -15,7 +15,7 @@ public class JoinRoom implements Message{
 	private int maxplayers ;
 	private String event ;
 	private GameRoom gameRoom ;
-	
+	private String result ;	//
 	public String getEvent() {
 		return event;
 	}
@@ -25,11 +25,23 @@ public class JoinRoom implements Message{
 	}
 	
 	
-	public JoinRoom(PlayUserClient player , int index , int maxplayer , GameRoom gameRoom){
+	public JoinRoom(PlayUserClient player , int index , int maxplayer , GameRoom gameRoom,String result){
 		this.player = player;
 		this.index = index;
 		this.maxplayers = maxplayer ;
 		this.gameRoom = gameRoom;
+		this.result = result;
+	}
+
+	public JoinRoom(String result){
+		this.result = result;
+	}
+
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	public GameRoom getGameRoom() {
