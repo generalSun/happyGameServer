@@ -14,6 +14,7 @@ import com.beimi.game.rules.model.Player;
 import com.beimi.game.rules.model.SelectColor;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
+import com.beimi.config.game.MsgConstant;
 
 /**
  * 定缺
@@ -42,7 +43,7 @@ public class CreateSelectTask extends AbstractTask implements BeiMiGameTask{
 		/**
 		 * 通知状态机 ， 大家开始定缺， 流程引导 ， 可以通过配置选择是否需要此节点流程
 		 */
-		EventTools.getInstance().sendEvent("selectcolor" , new SelectColor(board.getBanker()) , gameRoom);
+		EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTCOLOR.toString(), new SelectColor(board.getBanker()) , gameRoom);
 		
 		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
 		for(PlayUserClient player : playerList){
@@ -54,7 +55,7 @@ public class CreateSelectTask extends AbstractTask implements BeiMiGameTask{
 					if(ply.getPlayuser().equals(player.getId())){
 						SelectColor color = new SelectColor( board.getBanker(), player.getId()) ;	
 						color.setColor(GameUtils.selectColor(ply.getCards()));
-						EventTools.getInstance().sendEvent("selectresult" , color , gameRoom);
+						EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTRESULT.toString(), color , gameRoom);
 						
 						ply.setColor(color.getColor()); 
 						ply.setSelected(true);

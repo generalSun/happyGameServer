@@ -15,6 +15,7 @@ import com.beimi.core.engine.game.AbstractTask;
 import com.beimi.util.UKTools;
 import com.beimi.web.service.repository.jpa.GameRoomRepository;
 import com.beimi.core.engine.game.RoomTools;
+import com.beimi.config.game.MsgConstant;
 
 public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryTime  , BeiMiGameTask{
 	private long timer  ;
@@ -45,7 +46,7 @@ public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryT
 			 * 结算信息 ， 更新 玩家信息
 			 */
 			Summary summary = board.summary(board, gameRoom, gamePlayWay) ;
-			sendEvent("allcards",  summary , gameRoom) ;	//通知所有客户端结束牌局，进入结算
+			sendEvent(MsgConstant.s2c_msg.ALLCARDS.toString(),  summary , gameRoom) ;	//通知所有客户端结束牌局，进入结算
 			if(summary.isGameRoomOver() || board.isGameOver()){
 				gameOver = true ;
 			}

@@ -15,6 +15,7 @@ import com.beimi.game.rules.model.NextPlayer;
 import com.beimi.game.rules.model.Player;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
+import com.beimi.config.game.MsgConstant;
 
 public class CreateRaiseHandsTask extends AbstractTask implements ValueWithExpiryTime  , BeiMiGameTask{
 
@@ -61,7 +62,7 @@ public class CreateRaiseHandsTask extends AbstractTask implements ValueWithExpir
 		/**
 		 * 发送一个通知，翻底牌消息
 		 */
-		sendEvent("lasthands", new GameBoard(lastHandsPlayer.getPlayuser() , board.getLasthands(), board.getRatio()) , gameRoom) ;
+		sendEvent(MsgConstant.s2c_msg.LASTHANDS.toString(), new GameBoard(lastHandsPlayer.getPlayuser() , board.getLasthands(), board.getRatio()) , gameRoom) ;
 		
 		/**
 		 * 发送一个 开始打牌的事件 ， 判断当前出牌人是 玩家还是 AI，如果是 AI，则默认 1秒时间，如果是玩家，则超时时间是25秒

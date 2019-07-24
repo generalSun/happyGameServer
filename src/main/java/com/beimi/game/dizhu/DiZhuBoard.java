@@ -20,6 +20,7 @@ import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.game.rules.model.*;
 import com.beimi.game.dizhu.DizhuUtils;
+import com.beimi.config.game.MsgConstant;
 /**
  * 牌局，用于描述当前牌局的内容 ， 
  * 1、随机排序生成的 当前 待起牌（麻将、德州有/斗地主无）
@@ -267,7 +268,7 @@ public class DiZhuBoard extends Board implements java.io.Serializable{
 			if(takeCards.getCardType()!=null && (takeCards.getCardType().getCardtype() == BMDataContext.CardsTypeEnum.TEN.getType() || takeCards.getCardType().getCardtype() == BMDataContext.CardsTypeEnum.ELEVEN.getType())){
 				takeCards.setBomb(true);
 				DizhuUtils.getInstance().doBomb(board, true);
-				EventTools.getInstance().sendEvent("ratio", new BoardRatio(takeCards.isBomb(), false , board.getRatio()), gameRoom);	
+				EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.RATIO.toString(), new BoardRatio(takeCards.isBomb(), false , board.getRatio()), gameRoom);	
 			}
 			
 			Player next = board.nextPlayer(board.index(player.getPlayuser())) ;
@@ -313,7 +314,7 @@ public class DiZhuBoard extends Board implements java.io.Serializable{
 				takeCards.setCard(takeCards.getCards()[0]);
 			}
 			
-			EventTools.getInstance().sendEvent("takecards", takeCards , gameRoom);	
+			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.TAKECARDS.toString(), takeCards , gameRoom);	
 			
 			/**
 			 * 牌出完了就算赢了
@@ -334,7 +335,7 @@ public class DiZhuBoard extends Board implements java.io.Serializable{
 		}else{
 			takeCards = new TakeDiZhuCards();
 			takeCards.setAllow(false);
-			EventTools.getInstance().sendEvent("takecards", takeCards , gameRoom);	
+			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.TAKECARDS.toString(), takeCards , gameRoom);	
 		}
 		return takeCards;
 	}
@@ -361,7 +362,7 @@ public class DiZhuBoard extends Board implements java.io.Serializable{
 			return summary;
 		}
 		int dizhuScore = 0 ;
-		boolean dizhuWin = board.getWinner().equals(board.getBanker()) ;
+		boolean dizhuWin = (board.getWinner() == null)?false:board.getWinner().equals(board.getBanker());
 		PlayUserClient dizhuPlayerUser = getPlayerClient(players, board.getBanker());
 		int temp = summary.getScore() * (board.getPlayers().length - 1) ;
 		SummaryPlayer dizhuSummaryPlayer = null ;

@@ -18,6 +18,7 @@ import com.beimi.core.engine.game.CardType;
 import com.beimi.core.BMDataContext;
 import com.beimi.game.rules.model.Board;
 import cn.hutool.core.lang.Console;
+import com.beimi.config.game.MsgConstant;
 
 public class DizhuUtils {
 	private static DizhuUtils instance;
@@ -42,7 +43,7 @@ public class DizhuUtils {
 			DiZhuBoard board = (DiZhuBoard) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), orgi);
 			Player player = board.player(playUser.getId()) ;
 			board = doCatch(board, player , accept,gameRoom) ;
-			EventTools.getInstance().sendEvent("catchresult",new GameBoard(player.getPlayuser() , board.isDocatch() , player.isAccept(), board.getRatio()),gameRoom) ;
+			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.CATCHRESULT.toString(),new GameBoard(player.getPlayuser() , board.isDocatch() , player.isAccept(), board.getRatio()),gameRoom) ;
 			if(accept == true){
 				board.setDocatch(true);
 			}
@@ -90,7 +91,7 @@ public class DizhuUtils {
 			if(takeCards.getCards() == null){
 				takeCards.setAllow(false);	//没有 管的起的牌
 			}
-			EventTools.getInstance().sendEvent("cardtips", takeCards ,gameRoom) ;
+			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.CARDTIPS.toString(), takeCards ,gameRoom) ;
 		}
 	}
 

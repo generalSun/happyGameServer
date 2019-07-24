@@ -17,6 +17,7 @@ import com.beimi.game.rules.model.Board;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.core.engine.game.AbstractTask;
+import com.beimi.config.game.MsgConstant;
 
 public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime  , BeiMiGameTask{
 
@@ -55,7 +56,7 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 		 * 通知所有玩家 新的庄
 		 */
 		if(gameRoom.getCode().equals("majiang")){
-			EventTools.getInstance().sendEvent("banker",  new Banker(gameRoom.getLastwinner()), gameRoom);
+			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.BANK.toString(),  new Banker(gameRoom.getLastwinner()), gameRoom);
 		}
 		Board board = GameUtils.playGame(playerList, gameRoom, gameRoom.getLastwinner(), gameRoom.getCardsnum()) ;
 		
@@ -71,7 +72,7 @@ public class CreateBeginTask extends AbstractTask implements ValueWithExpiryTime
 			/**
 			 * 每个人收到的 牌面不同，所以不用 ROOM发送广播消息，而是用 遍历房间里所有成员发送消息的方式
 			 */
-			EventTools.getInstance().sendEvent(playerUser, new UserBoard(board ,gameRoom.getCardsnum(), playerUser.getId() , "play"));
+			EventTools.getInstance().sendEvent(playerUser, new UserBoard(board ,gameRoom.getCardsnum(), playerUser.getId() , MsgConstant.s2c_msg.PLAY.toString()));
 		}
 		
 		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());

@@ -12,6 +12,7 @@ import com.beimi.game.dizhu.DiZhuBoard;
 import com.beimi.game.rules.model.Player;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
+import com.beimi.config.game.MsgConstant;
 
 /**
  * 抢地主
@@ -48,7 +49,7 @@ public class CreateAutoTask extends AbstractTask implements BeiMiGameTask{
 			catchPlayer = randomCardPlayer;
 		}
 		if(catchPlayer != null){
-			sendEvent("catch", new GameBoard(catchPlayer.getPlayuser() , board.isDocatch() , catchPlayer.isAccept() , board.getRatio()), gameRoom) ;
+			sendEvent(MsgConstant.s2c_msg.CATCH.toString(), new GameBoard(catchPlayer.getPlayuser() , board.isDocatch() , catchPlayer.isAccept() , board.getRatio()), gameRoom) ;
 			boolean isNormal = true ;
 			List<PlayUserClient> users = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), orgi) ;
 			for(PlayUserClient playUser : users){
@@ -70,7 +71,7 @@ public class CreateAutoTask extends AbstractTask implements BeiMiGameTask{
 			int catchfailTimes = gameRoom.getCatchfailTimes();
 			gameRoom.setCatchfailTimes(catchfailTimes+1);
 			if(catchfailTimes < 2){
-				sendEvent("catchfail",new GameBoard(null,  board.getRatio()), gameRoom) ;   //通知客户端流局了
+				sendEvent(MsgConstant.s2c_msg.CATCHFAIL.toString(),new GameBoard(null,  board.getRatio()), gameRoom) ;   //通知客户端流局了
 				CacheHelper.getBoardCacheBean().delete(gameRoom.getId(), orgi);  //删除board ，重新发牌时会重新产生一个新的
 				CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
 				super.getGame(gameRoom.getPlayway(), orgi).change(gameRoom, BeiMiGameEvent.ENOUGH.toString(), 5);    //跳回前一个状态 ，重新发牌

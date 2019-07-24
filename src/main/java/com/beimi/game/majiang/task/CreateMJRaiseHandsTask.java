@@ -16,6 +16,7 @@ import com.beimi.game.rules.model.Player;
 import com.beimi.game.rules.model.SelectColor;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
+import com.beimi.config.game.MsgConstant;
 
 public class CreateMJRaiseHandsTask extends AbstractTask implements ValueWithExpiryTime  , BeiMiGameTask{
 
@@ -47,7 +48,7 @@ public class CreateMJRaiseHandsTask extends AbstractTask implements ValueWithExp
 			if(!player.isSelected()){
 				SelectColor color = new SelectColor( board.getBanker(), player.getPlayuser()) ;
 				color.setColor(GameUtils.selectColor(player.getCards()));
-				EventTools.getInstance().sendEvent("selectresult" , color , gameRoom);
+				EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTRESULT.toString() , color , gameRoom);
 				player.setColor(color.getColor()); 
 				player.setSelected(true);break ;
 			}
@@ -58,7 +59,7 @@ public class CreateMJRaiseHandsTask extends AbstractTask implements ValueWithExp
 			/**
 			 * 发送一个通知，告诉大家 ， 开始出牌了
 			 */
-			sendEvent("lasthands", new GameBoard(banker.getPlayuser(), board.getBanker() , board.getRatio()) , gameRoom) ;
+			sendEvent(MsgConstant.s2c_msg.LASTHANDS.toString(), new GameBoard(banker.getPlayuser(), board.getBanker() , board.getRatio()) , gameRoom) ;
 			
 			/**
 			 * 更新牌局状态

@@ -12,6 +12,7 @@ import com.beimi.web.model.PlayUserClient;
 import com.beimi.core.BMDataContext;
 import com.beimi.config.game.BeiMiGameEvent;
 import com.beimi.game.dizhu.DizhuUtils;
+import com.beimi.config.game.MsgConstant;
 /**
  * 抢地主任务.
  * 说明：
@@ -69,7 +70,7 @@ public class CreateCatchTask extends AbstractTask implements BeiMiGameTask {
                 accept = GameUtils.randomInst.nextBoolean();
             }
             board = DizhuUtils.getInstance().doCatch(board, catchPlayer , accept,gameRoom) ;
-            sendEvent("catchresult", new GameBoard(catchPlayer.getPlayuser() ,  board.isDocatch() , catchPlayer.isAccept(),board.getRatio()) , gameRoom) ;
+            sendEvent(MsgConstant.s2c_msg.CATCHRESULT.toString(), new GameBoard(catchPlayer.getPlayuser() ,  board.isDocatch() , catchPlayer.isAccept(),board.getRatio()) , gameRoom) ;
             if(accept == true){
 				board.setDocatch(true);
             }

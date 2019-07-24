@@ -18,6 +18,7 @@ import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.game.rules.model.*;
 import com.beimi.game.majiang.TakeMaJiangCards;
+import com.beimi.config.game.MsgConstant;
 
 /**
  * 牌局，用于描述当前牌局的内容 ， 
@@ -194,7 +195,7 @@ public class MaJiangBoard extends Board implements java.io.Serializable{
 				if(takeCards.getCards().length == 1){
 					takeCards.setCard(takeCards.getCards()[0]);
 				}
-				EventTools.getInstance().sendEvent("takecards", takeCards , gameRoom);	
+				EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.TAKECARDS.toString(), takeCards , gameRoom);	
 				
 				player.setHistory(ArrayUtils.add(player.getHistory(), takeCards.getCard())) ;
 				
@@ -287,9 +288,9 @@ public class MaJiangBoard extends Board implements java.io.Serializable{
 			 */
 			for(Player temp : board.getPlayers()){
 				if(temp.getPlayuser().equals(next.getPlayuser())){
-					EventTools.getInstance().sendEvent("dealcard", temp.getPlayuser() , new DealCard(next.getPlayuser() , board.getDeskcards().size() , temp.getColor() , newCard , hasAction));
+					EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.DEALCARD.toString(), temp.getPlayuser() , new DealCard(next.getPlayuser() , board.getDeskcards().size() , temp.getColor() , newCard , hasAction));
 				}else{
-					EventTools.getInstance().sendEvent("dealcard", temp.getPlayuser() , new DealCard(next.getPlayuser() , board.getDeskcards().size()));
+					EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.DEALCARD.toString(), temp.getPlayuser() , new DealCard(next.getPlayuser() , board.getDeskcards().size()));
 				}
 			}
 		}

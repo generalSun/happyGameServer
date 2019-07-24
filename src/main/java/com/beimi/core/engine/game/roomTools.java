@@ -273,7 +273,7 @@ public class RoomTools {
     		searchRoomResult = new SearchRoomResult(BMDataContext.SearchRoomResultType.NOTEXIST.toString());
     	}
 		
-    	EventTools.getInstance().sendEvent(BMDataContext.BEIMI_SEARCHROOM_EVENT,playUser.getId(),searchRoomResult);
+    	EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SEARCHROOM.toString(),playUser.getId(),searchRoomResult);
 	}
 
 	/**

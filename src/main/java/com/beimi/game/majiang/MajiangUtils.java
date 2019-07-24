@@ -23,6 +23,7 @@ import com.beimi.game.rules.model.NextPlayer;
 import com.beimi.web.model.GamePlayway;
 import cn.hutool.core.lang.Console;
 import com.beimi.core.engine.game.CardType;
+import com.beimi.config.game.MsgConstant;
 
 public class MajiangUtils {
 	private static MajiangUtils instance;
@@ -80,7 +81,7 @@ public class MajiangUtils {
 					}
 				}
 				CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
-				EventTools.getInstance().sendEvent("selectresult", selectColor , gameRoom);	
+				EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTRESULT.toString(), selectColor , gameRoom);	
 				/**
 				 * 检查是否全部都已经 定缺， 如果已全部定缺， 则发送 开打 
 				 */
@@ -140,7 +141,7 @@ public class MajiangUtils {
 					board.setNextplayer(new NextPlayer(userid , false));
 					
 					actionEvent.setTarget(board.getLast().getUserid());
-					EventTools.getInstance().sendEvent("selectaction", actionEvent , gameRoom);
+					EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTACTION.toString(), actionEvent , gameRoom);
 					
 					CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
 					
@@ -184,7 +185,7 @@ public class MajiangUtils {
 					
 					actionEvent.setTarget("all");	//只有明杠 是 其他人打出的 ， target 是单一对象
 					
-					EventTools.getInstance().sendEvent("selectaction", actionEvent , gameRoom);
+					EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTACTION.toString(), actionEvent , gameRoom);
 					
 					/**
 					 * 杠了以后， 从 当前 牌的 最后一张开始抓牌
@@ -220,7 +221,7 @@ public class MajiangUtils {
 						/**
 						 * 用于客户端播放 胡牌的 动画 ， 点胡 和 自摸 ，播放不同的动画效果
 						 */
-						EventTools.getInstance().sendEvent("selectaction", actionEvent , gameRoom);
+						EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.SELECTACTION.toString(), actionEvent , gameRoom);
 						CacheHelper.getBoardCacheBean().put(gameRoom.getId() , board, gameRoom.getOrgi());	//更新缓存数据
 						
 						/**

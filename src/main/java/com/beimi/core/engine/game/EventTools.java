@@ -30,7 +30,7 @@ public class EventTools {
 		for(PlayUserClient user : players){
 			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
 			if(client!=null && online(user.getId(), user.getOrgi())){
-				client.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, message);
+				client.sendEvent(MsgConstant.s2c_msg.COMMAND.toString(), message);
 			}
 		}
 	}
@@ -41,7 +41,7 @@ public class EventTools {
 			BeiMiClient client = NettyClients.getInstance().getClient(userid) ;
 			if(client!=null){
 				if(online(userid , client.getOrgi())){
-					client.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, message);
+					client.sendEvent(MsgConstant.s2c_msg.COMMAND.toString(), message);
 				}
 			}
 		}
@@ -55,7 +55,7 @@ public class EventTools {
 	 */
 	public void sendPlayers(BeiMiClient beiMiClient , GameRoom gameRoom){
 		if(online(beiMiClient.getUserid() , beiMiClient.getOrgi())){
-			beiMiClient.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers() , CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), beiMiClient.getOrgi()), BMDataContext.BEIMI_PLAYERS_EVENT));
+			beiMiClient.sendEvent(MsgConstant.s2c_msg.COMMAND.toString(), new GamePlayers(gameRoom.getPlayers() , CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), beiMiClient.getOrgi()), MsgConstant.s2c_msg.PLAYERS.toString()));
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class EventTools {
 		for(PlayUserClient user : players){
 			BeiMiClient client = NettyClients.getInstance().getClient(user.getId()) ;
 			if(client!=null && online(client.getUserid() , client.getOrgi())){
-				client.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers() , CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), client.getOrgi()), BMDataContext.BEIMI_PLAYERS_EVENT));
+				client.sendEvent(MsgConstant.s2c_msg.COMMAND.toString(), new GamePlayers(gameRoom.getPlayers() , CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), client.getOrgi()), MsgConstant.s2c_msg.PLAYERS.toString()));
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class EventTools {
 	 */
 	public void sendEvent(PlayUserClient playerUser  , Message message){
 		if(online(playerUser.getId() , playerUser.getOrgi())){
-			NettyClients.getInstance().sendGameEventMessage(playerUser.getId(), BMDataContext.BEIMI_MESSAGE_EVENT , message);
+			NettyClients.getInstance().sendGameEventMessage(playerUser.getId(),MsgConstant.s2c_msg.COMMAND.toString(), message);
 		}
 	}
 	
@@ -140,7 +140,7 @@ public class EventTools {
 	public void sendEvent(String userid  , Message message){
 		BeiMiClient client = NettyClients.getInstance().getClient(userid) ;
 		if(client!=null && online(userid , client.getOrgi())){
-			NettyClients.getInstance().sendGameEventMessage(userid, BMDataContext.BEIMI_MESSAGE_EVENT , message);
+			NettyClients.getInstance().sendGameEventMessage(userid,MsgConstant.s2c_msg.COMMAND.toString(), message);
 		}
 	}
 	
