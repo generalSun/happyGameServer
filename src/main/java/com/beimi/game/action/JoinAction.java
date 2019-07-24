@@ -3,13 +3,12 @@ package com.beimi.game.action;
 import org.apache.commons.lang3.StringUtils;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.core.engine.game.EventTools;
 import com.beimi.core.statemachine.action.Action;
 import com.beimi.core.statemachine.impl.BeiMiExtentionTransitionConfigurer;
 import com.beimi.core.statemachine.message.Message;
-import com.beimi.game.GameUtils;
 import com.beimi.cache.CacheHelper;
 import com.beimi.web.model.GameRoom;
+import com.beimi.core.engine.game.RoomTools;
 
 /**
  * 创建房间的人，房卡模式下的 房主， 大厅模式下的首个进入房间的人
@@ -34,7 +33,7 @@ public class JoinAction<T,S> implements Action<T, S>{
 				/**
 				 * 发送一个 Enough 事件
 				 */
-				BMDataContext.getGameEngine().roomReady(gameRoom, GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()));
+				RoomTools.getInstance().roomReady(gameRoom);
 			}
 		}
 	}

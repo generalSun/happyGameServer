@@ -1,25 +1,16 @@
 package com.beimi.core.engine.game;
 
-import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
-import org.kie.api.runtime.KieSession;
-
 import com.beimi.config.game.BeiMiGameEvent;
 import com.beimi.config.game.BeiMiGameEnum;
 import com.beimi.core.BMDataContext;
-import com.beimi.util.RandomCharUtil;
-import com.beimi.util.UKTools;
 import com.beimi.cache.CacheHelper;
 import com.beimi.client.NettyClients;
-import com.beimi.server.handler.BeiMiClient;
 import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
-import com.beimi.web.service.repository.jpa.GameRoomRepository;
 import com.beimi.config.game.Game;
 import com.beimi.game.rules.model.RoomReady;
 import com.beimi.game.rules.model.SearchRoomResult;
@@ -43,17 +34,25 @@ public class RoomTools {
 		}
 		return instance;
 	}
-	@Resource
-	private KieSession kieSession;
-
+	
 	/**
 	 * 通知就绪
 	 * @param gameRoom
 	 * @param game
 	 */
-	public void playerReady(PlayUserClient playUser, GameRoom gameRoom){
+	public void playerReady(PlayUserClient playUser, GameRoom gameRoom, Game game){
+		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
+		boolean hasnotready = false ;
+		for(PlayUserClient player : playerList){
+			if(player.isRoomready() == false){
+				hasnotready = true ;  break ;
+			}
+		}
 		Playeready ready = new Playeready(playUser.getId(),MsgConstant.s2c_msg.PLAYEREADY.toString());
 		EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.PLAYEREADY.toString(),ready, gameRoom);
+		if(hasnotready == false){
+			game.change(gameRoom , BeiMiGameEvent.ENOUGH.toString(),1);	//通知状态机 , 此处应由状态机处理异步执行
+		}
 	}
 
 	/**
@@ -61,28 +60,18 @@ public class RoomTools {
 	 * @param gameRoom
 	 * @param game
 	 */
-	public void roomReady(GameRoom gameRoom, Game game){
-		boolean enough = false ;
+	public void roomReady(GameRoom gameRoom){
 		List<PlayUserClient> playerList = CacheHelper.getGamePlayerCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi()) ;
 		if(gameRoom.getPlayers() == playerList.size()){
 			gameRoom.setStatus(BeiMiGameEnum.READY.toString());
-			boolean hasnotready = false ;
-			for(PlayUserClient player : playerList){
-				if(player.isRoomready() == false){
-					hasnotready = true ;  break ;
-				}
-			}
-			if(hasnotready == false){
-				enough = true ;	//所有玩家都已经点击了 开始游戏
-			}
 			EventTools.getInstance().sendEvent(MsgConstant.s2c_msg.ROOMREADY.toString(), new RoomReady(gameRoom), gameRoom);
 		}else{
 			gameRoom.setStatus(BeiMiGameEnum.WAITTING.toString());
+			if("true".equals(gameRoom.getExtparams().get("automatch"))){
+				CacheHelper.getQueneCache().put(gameRoom, gameRoom.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
+			}
 		}
 		CacheHelper.getGameRoomCacheBean().put(gameRoom.getId(), gameRoom, gameRoom.getOrgi());
-		if(enough == true){
-			game.change(gameRoom , BeiMiGameEvent.ENOUGH.toString());	//通知状态机 , 此处应由状态机处理异步执行
-		}
 	}
 
 	/**
@@ -315,55 +304,6 @@ public class RoomTools {
 		}
 	}
 
-	/**
-	 * 创建新房间 ，需要传入房间的玩法 ， 玩法定义在 系统运营后台，玩法创建后，放入系统缓存 ， 客户端进入房间的时候，传入 玩法ID参数
-	 * @param playway
-	 * @param userid
-	 * @return
-	 */
-	public GameRoom creatGameRoom(GamePlayway playway , String userid , boolean cardroom , BeiMiClient beiMiClient){
-		GameRoom gameRoom = new GameRoom() ;
-		gameRoom.setCreatetime(new Date());
-		gameRoom.setRoomid(UKTools.getUUID());
-		gameRoom.setUpdatetime(new Date());
-		gameRoom.setCurpalyers(1);
-		gameRoom.setCardroom(cardroom);
-		gameRoom.setStatus(BeiMiGameEnum.CRERATED.toString());
-		gameRoom.setCurrentnum(0);
-		gameRoom.setCatchfailTimes(0);
-		gameRoom.setAutoMatch(false);
-		gameRoom.setCreater(userid);
-		gameRoom.setMaster(userid);
-		
-		if(playway != null){
-			gameRoom.setPlayway(playway.getId());
-			gameRoom.setRoomtype(playway.getRoomtype());
-			gameRoom.setPlayers(playway.getPlayers());
-			gameRoom.setCardsnum(playway.getCardsnum());
-			gameRoom.setCode(playway.getCode());
-			gameRoom.setNumofgames(playway.getNumofgames());   //无限制
-			gameRoom.setOrgi(playway.getOrgi());
-		}
-
-		if(beiMiClient.getExtparams() != null && BMDataContext.BEIMI_SYSTEM_ROOM.equals(beiMiClient.getExtparams().get("gamemodel"))){
-			gameRoom.setRoomtype(BMDataContext.ModelType.ROOM.toString());
-			gameRoom.setCardroom(true);
-			gameRoom.setExtparams(beiMiClient.getExtparams());
-			gameRoom.setRoomid(RandomCharUtil.getRandomNumberChar(6));
-			kieSession.insert(gameRoom) ;
-			kieSession.fireAllRules() ;
-		}else{
-			gameRoom.setRoomtype(BMDataContext.ModelType.HALL.toString());
-		}
-
-		if(gameRoom.getExtparams() != null && "true".equals(gameRoom.getExtparams().get("automatch"))){
-			gameRoom.setAutoMatch(true);
-			CacheHelper.getQueneCache().put(gameRoom, gameRoom.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
-		}
-		UKTools.published(gameRoom, null, BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.SAVE.toString());
-		return gameRoom ;
-	}
-	
 	/**
 	 * 解散房间 , 解散的时候，需要验证下，当前对象是否是房间的创建人
 	 */

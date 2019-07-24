@@ -29,6 +29,9 @@ public class MsgConstant{
 		GAMESTATUS,
 		ROOMREADY,
 		PLAYEREADY,
+		TAKECARDS,
+		PLAYERS,
+
 		DOCATCH,
 		GIVEUP,
 		CARDTIPS,

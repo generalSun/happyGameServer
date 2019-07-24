@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.beimi.core.engine.game.EventTools;
 import com.beimi.core.engine.game.CardType;
 import com.beimi.core.engine.game.Message;
 import com.beimi.game.rules.model.*;

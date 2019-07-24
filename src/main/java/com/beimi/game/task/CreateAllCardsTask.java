@@ -3,7 +3,6 @@ package com.beimi.game.task;
 import org.cache2k.expiry.ValueWithExpiryTime;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.core.engine.game.EventTools;
 import com.beimi.core.engine.game.BeiMiGameTask;
 import com.beimi.core.engine.game.model.Summary;
 import com.beimi.cache.CacheHelper;
@@ -35,6 +34,9 @@ public class CreateAllCardsTask extends AbstractTask implements ValueWithExpiryT
 	
 	public void execute(){
 		Board board = (Board) CacheHelper.getBoardCacheBean().getCacheObject(gameRoom.getId(), gameRoom.getOrgi());
+		if(board == null){
+			return;
+		}
 		board.setFinished(true);
 		GamePlayway gamePlayWay = (GamePlayway) CacheHelper.getSystemCacheBean().getCacheObject(gameRoom.getPlayway(), gameRoom.getOrgi()) ;
 		boolean gameOver = false ;

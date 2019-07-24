@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.beimi.core.BMDataContext;
-import com.beimi.game.GameUtils;
 import com.beimi.util.UKTools;
 import com.beimi.cache.CacheHelper;
 import com.beimi.client.NettyClients;
@@ -12,6 +11,7 @@ import com.beimi.game.rules.model.GamePlayers;
 import com.beimi.server.handler.BeiMiClient;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
+import com.beimi.config.game.MsgConstant;
 
 public class EventTools {
 	private static EventTools instance;
@@ -94,12 +94,12 @@ public class EventTools {
 			if(client!=null && online(client.getUserid() , client.getOrgi())){
 				if(client.getUserid().equals(userClient.getId())){
 					if(otherList.size() > 0){
-						sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, userClient.getId(),new GamePlayers(gameRoom.getPlayers(),otherList,BMDataContext.BEIMI_PLAYERS_EVENT));
+						sendEvent(MsgConstant.s2c_msg.PLAYERS.toString(), userClient.getId(),new GamePlayers(gameRoom.getPlayers(),otherList,MsgConstant.s2c_msg.PLAYERS.toString()));
 					}
 				}else{
 					List<PlayUserClient> list = new ArrayList<PlayUserClient>();
 					list.add(userClient);
-					client.sendEvent(BMDataContext.BEIMI_MESSAGE_EVENT, new GamePlayers(gameRoom.getPlayers(),list,BMDataContext.BEIMI_PLAYERS_EVENT));
+					sendEvent(MsgConstant.s2c_msg.PLAYERS.toString(),client.getUserid() ,new GamePlayers(gameRoom.getPlayers(),list,MsgConstant.s2c_msg.PLAYERS.toString()));
 				}
 			}
 		}

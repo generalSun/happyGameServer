@@ -62,7 +62,7 @@ public class CreateAITask extends AbstractTask implements ValueWithExpiryTime  ,
 			
 			EventTools.getInstance().sendPlayers(gameRoom, playerList);
 			
-			RoomTools.getInstance().roomReady(gameRoom, super.getGame(gameRoom.getPlayway(), orgi));
+			RoomTools.getInstance().roomReady(gameRoom);
 		}
 	}
 }

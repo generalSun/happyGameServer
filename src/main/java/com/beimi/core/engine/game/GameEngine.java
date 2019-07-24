@@ -1,42 +1,29 @@
 package com.beimi.core.engine.game;
 
-import java.util.Date;
 import java.util.List;
-
+import java.util.Date;
 import javax.annotation.Resource;
-
-import org.apache.commons.lang3.StringUtils;
 import org.kie.api.runtime.KieSession;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-
-import com.beimi.config.game.BeiMiGameEvent;
-import com.beimi.config.game.BeiMiGameEnum;
-import com.beimi.core.BMDataContext;
-import com.beimi.core.engine.game.state.GameEvent;
-import com.beimi.game.GameUtils;
 import com.beimi.util.RandomCharUtil;
 import com.beimi.util.UKTools;
-import com.beimi.cache.CacheHelper;
-import com.beimi.client.NettyClients;
-import com.beimi.game.rules.model.Board;
-import com.beimi.game.rules.model.JoinRoom;
-import com.beimi.game.rules.model.Player;
-import com.beimi.game.rules.model.Playeready;
-import com.beimi.game.rules.model.RecoveryData;
-import com.beimi.game.rules.model.TakeCards;
+import com.beimi.core.BMDataContext;
+import com.beimi.game.GameUtils;
 import com.beimi.server.handler.BeiMiClient;
+import com.beimi.cache.CacheHelper;
+import com.beimi.game.rules.model.Board;
+import com.beimi.game.rules.model.Player;
+import com.beimi.game.rules.model.TakeCards;
+import com.beimi.web.service.repository.jpa.GameRoomRepository;
 import com.beimi.web.model.GamePlayway;
 import com.beimi.web.model.GameRoom;
 import com.beimi.web.model.PlayUserClient;
 import com.beimi.web.service.repository.es.PlayUserClientESRepository;
-import com.beimi.web.service.repository.jpa.GameRoomRepository;
-import com.beimi.config.game.Game;
-import com.beimi.game.rules.model.RoomReady;
 import com.beimi.game.rules.model.SearchRoom;
-import com.beimi.game.rules.model.GameStatus;
 import com.beimi.web.model.Token;
 import com.beimi.core.engine.game.RoomTools;
-
+import com.beimi.config.game.BeiMiGameEnum;
 
 @Service(value="beimiGameEngine")
 public class GameEngine {
@@ -73,7 +60,7 @@ public class GameEngine {
 		GameRoom gameRoom = RoomTools.getInstance().whichRoom(userid, orgi) ;
 		if(gameRoom == null){
 			if(beiMiClient.getExtparams() == null){	
-				gameRoom = RoomTools.getInstance().creatGameRoom(gamePlayway, userid , true , beiMiClient) ;
+				gameRoom = creatGameRoom(gamePlayway, userid , true , beiMiClient) ;
 			}else{
 				if("true".equals(beiMiClient.getExtparams().get("automatch"))){
 					gameRoom = (GameRoom) CacheHelper.getQueneCache().poll(playway , orgi) ;
@@ -83,7 +70,7 @@ public class GameEngine {
 				}
 				
 				if(gameRoom == null){
-					gameRoom = RoomTools.getInstance().creatGameRoom(gamePlayway, userid , false , beiMiClient) ;
+					gameRoom = creatGameRoom(gamePlayway, userid , false , beiMiClient) ;
 				}
 			}
 		}
@@ -98,6 +85,7 @@ public class GameEngine {
 			}
 		}else{
 			CacheHelper.getApiUserCacheBean().put(userid,userClient , orgi);
+			RoomTools.getInstance().roomReady(gameRoom);
 		}
 	}
 
@@ -148,8 +136,7 @@ public class GameEngine {
 				playUser.setOpendeal(opendeal);
 			}
 			CacheHelper.getGamePlayerCacheBean().put(playUser.getId(), playUser, playUser.getOrgi());
-			RoomTools.getInstance().playerReady(playUser,gameRoom);
-			RoomTools.getInstance().roomReady(gameRoom, GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()));
+			RoomTools.getInstance().playerReady(playUser,gameRoom,GameUtils.getGame(gameRoom.getPlayway() , gameRoom.getOrgi()));
 			UKTools.published(playUser,BMDataContext.getContext().getBean(PlayUserClientESRepository.class));
 		}
 	}
@@ -218,6 +205,55 @@ public class GameEngine {
 	 */
 	public void noCardsRequest(String roomid, PlayUserClient playUser, String orgi){
 		
+	}
+
+	/**
+	 * 创建新房间 ，需要传入房间的玩法 ， 玩法定义在 系统运营后台，玩法创建后，放入系统缓存 ， 客户端进入房间的时候，传入 玩法ID参数
+	 * @param playway
+	 * @param userid
+	 * @return
+	 */
+	private GameRoom creatGameRoom(GamePlayway playway , String userid , boolean cardroom , BeiMiClient beiMiClient){
+		GameRoom gameRoom = new GameRoom() ;
+		gameRoom.setCreatetime(new Date());
+		gameRoom.setRoomid(UKTools.getUUID());
+		gameRoom.setUpdatetime(new Date());
+		gameRoom.setCurpalyers(1);
+		gameRoom.setCardroom(cardroom);
+		gameRoom.setStatus(BeiMiGameEnum.CRERATED.toString());
+		gameRoom.setCurrentnum(0);
+		gameRoom.setCatchfailTimes(0);
+		gameRoom.setAutoMatch(false);
+		gameRoom.setCreater(userid);
+		gameRoom.setMaster(userid);
+		
+		if(playway != null){
+			gameRoom.setPlayway(playway.getId());
+			gameRoom.setRoomtype(playway.getRoomtype());
+			gameRoom.setPlayers(playway.getPlayers());
+			gameRoom.setCardsnum(playway.getCardsnum());
+			gameRoom.setCode(playway.getCode());
+			gameRoom.setNumofgames(playway.getNumofgames());   //无限制
+			gameRoom.setOrgi(playway.getOrgi());
+		}
+
+		if(beiMiClient.getExtparams() != null && BMDataContext.BEIMI_SYSTEM_ROOM.equals(beiMiClient.getExtparams().get("gamemodel"))){
+			gameRoom.setRoomtype(BMDataContext.ModelType.ROOM.toString());
+			gameRoom.setCardroom(true);
+			gameRoom.setExtparams(beiMiClient.getExtparams());
+			gameRoom.setRoomid(RandomCharUtil.getRandomNumberChar(6));
+			kieSession.insert(gameRoom) ;
+			kieSession.fireAllRules() ;
+		}else{
+			gameRoom.setRoomtype(BMDataContext.ModelType.HALL.toString());
+		}
+
+		if(gameRoom.getExtparams() != null && "true".equals(gameRoom.getExtparams().get("automatch"))){
+			gameRoom.setAutoMatch(true);
+			CacheHelper.getQueneCache().put(gameRoom, gameRoom.getOrgi());	//未达到最大玩家数量，加入到游戏撮合 队列，继续撮合
+		}
+		UKTools.published(gameRoom, null, BMDataContext.getContext().getBean(GameRoomRepository.class) , BMDataContext.UserDataEventType.SAVE.toString());
+		return gameRoom ;
 	}
 	
 }
